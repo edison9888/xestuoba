@@ -928,45 +928,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AboutSex/SectionViewController.m"
-         timestampString = "368858470.080886"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "86"
-         endingLineNumber = "86"
-         landmarkName = "-initWithTitle:AndSectionName:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SectionViewController.m"
-         timestampString = "368858943.168619"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "191"
-         endingLineNumber = "191"
-         landmarkName = "@implementation SectionViewController"
-         landmarkType = "3">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SectionViewController.m"
-         timestampString = "368858943.168619"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
-         landmarkName = "@implementation SectionViewController"
-         landmarkType = "3">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "AboutSex/FavoriteViewController.m"
          timestampString = "364450510.758016"
          startingColumnNumber = "9223372036854775807"
@@ -1000,19 +961,6 @@
          startingLineNumber = "110"
          endingLineNumber = "110"
          landmarkName = "-markItemOfSeletedRowAsReaded"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SectionViewController.m"
-         timestampString = "368858470.080886"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "120"
-         endingLineNumber = "120"
-         landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1156,19 +1104,6 @@
          startingLineNumber = "396"
          endingLineNumber = "396"
          landmarkName = "-appUpdate:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SectionViewController.m"
-         timestampString = "368858470.080886"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "88"
-         endingLineNumber = "88"
-         landmarkName = "-initWithTitle:AndSectionName:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1825,19 +1760,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AboutSex/SectionViewController.m"
-         timestampString = "368858470.080886"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
-         landmarkName = "-configTableView"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
          timestampString = "370358651.379085"
          startingColumnNumber = "9223372036854775807"
@@ -1995,11 +1917,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "370254850.09557"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "213"
-         endingLineNumber = "213"
+         startingLineNumber = "216"
+         endingLineNumber = "216"
          landmarkName = "-setSomeVariables"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2112,11 +2034,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "472"
-         endingLineNumber = "472"
+         startingLineNumber = "500"
+         endingLineNumber = "500"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2164,11 +2086,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "185"
-         endingLineNumber = "185"
+         startingLineNumber = "213"
+         endingLineNumber = "213"
          landmarkName = "-loadData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2190,11 +2112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "611"
-         endingLineNumber = "611"
+         startingLineNumber = "639"
+         endingLineNumber = "639"
          landmarkName = "-succeed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2216,11 +2138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103533.208786"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "136"
-         endingLineNumber = "136"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2229,11 +2151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103533.208786"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "133"
-         endingLineNumber = "133"
+         startingLineNumber = "161"
+         endingLineNumber = "161"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2242,11 +2164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103533.208786"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "132"
-         endingLineNumber = "132"
+         startingLineNumber = "160"
+         endingLineNumber = "160"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2255,11 +2177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "655"
-         endingLineNumber = "655"
+         startingLineNumber = "683"
+         endingLineNumber = "683"
          landmarkName = "-newStreamFound:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2268,11 +2190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "370254850.09557"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "217"
-         endingLineNumber = "217"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
          landmarkName = "-setSomeVariables"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2281,11 +2203,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "370254850.09557"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "239"
-         endingLineNumber = "239"
+         startingLineNumber = "242"
+         endingLineNumber = "242"
          landmarkName = "-needUserGuideOnSectionIndex"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2294,11 +2216,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "332"
-         endingLineNumber = "332"
+         startingLineNumber = "360"
+         endingLineNumber = "360"
          landmarkName = "-refreshViaButton"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2307,11 +2229,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "375"
-         endingLineNumber = "375"
+         startingLineNumber = "403"
+         endingLineNumber = "403"
          landmarkName = "-setLoadingState"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2320,11 +2242,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "386"
-         endingLineNumber = "386"
+         startingLineNumber = "414"
+         endingLineNumber = "414"
          landmarkName = "-unsetLoadingState"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2333,11 +2255,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "387"
-         endingLineNumber = "387"
+         startingLineNumber = "415"
+         endingLineNumber = "415"
          landmarkName = "-unsetLoadingState"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2346,11 +2268,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "505"
-         endingLineNumber = "505"
+         startingLineNumber = "533"
+         endingLineNumber = "533"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2359,16 +2281,16 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "515"
-         endingLineNumber = "515"
+         startingLineNumber = "543"
+         endingLineNumber = "543"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamItem.m"
@@ -2411,11 +2333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "592"
-         endingLineNumber = "592"
+         startingLineNumber = "620"
+         endingLineNumber = "620"
          landmarkName = "-succeed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2424,11 +2346,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "578"
-         endingLineNumber = "578"
+         startingLineNumber = "606"
+         endingLineNumber = "606"
          landmarkName = "-succeed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2437,24 +2359,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370103324.275407"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "409"
-         endingLineNumber = "409"
+         startingLineNumber = "437"
+         endingLineNumber = "437"
          landmarkName = "-cleanStreamItemsInDatabaseIfNecessary"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "370258230.086214"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "304"
-         endingLineNumber = "304"
+         startingLineNumber = "307"
+         endingLineNumber = "307"
          landmarkName = "-succeed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2463,11 +2385,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "370257400.525788"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "182"
-         endingLineNumber = "182"
+         startingLineNumber = "185"
+         endingLineNumber = "185"
          landmarkName = "-setBaiduZhidaoURL"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2476,11 +2398,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "370257482.097231"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "284"
-         endingLineNumber = "284"
+         startingLineNumber = "287"
+         endingLineNumber = "287"
          landmarkName = "-succeed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2502,11 +2424,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370344488.41626"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "584"
-         endingLineNumber = "584"
+         startingLineNumber = "612"
+         endingLineNumber = "612"
          landmarkName = "-succeed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2515,11 +2437,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
-         timestampString = "370347608.90281"
+         timestampString = "375736911.574278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "308"
-         endingLineNumber = "308"
+         startingLineNumber = "336"
+         endingLineNumber = "336"
          landmarkName = "-refresh"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2528,12 +2450,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "371316132.988001"
+         timestampString = "375711630.13542"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "292"
-         endingLineNumber = "292"
+         startingLineNumber = "295"
+         endingLineNumber = "295"
          landmarkName = "-succeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SVSegmentedControl.m"
+         timestampString = "375731674.387775"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "152"
+         endingLineNumber = "152"
+         landmarkName = "-drawRect:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

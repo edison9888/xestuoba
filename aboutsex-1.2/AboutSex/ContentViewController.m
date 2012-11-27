@@ -7,16 +7,23 @@
 //
 
 #import "ContentViewController.h"
+#import "SVSegmentedControl.h"
+#import "CMPopTipView.h"
 
 #define TAG_FOR_TITLE_BAR 100
 #define TAG_FOR_RIGHT_COLLECTIN_BARBUTTON 101
 
 @interface ContentViewController ()
+{
+    UIButton* mCollectionButton;
+}
+
+@property (nonatomic, retain) UIButton* mCollectionButton;
 
 - (void) configureNaviBar: (NSString*) aTitle WithCollectionSupport:(BOOL)canCollect;
 - (void) constructSubviewsWithTitle:(NSString*)aTitle AndContentLoc:(NSURL*)aContentURL;
 - (void) leftButtonPressed:(id)aButton;
-- (void) rightButtonPressed:(id)aButton;
+- (void) collectionButtonPressed;
 - (BOOL) toggleCollectedStatus;
 
 
@@ -29,6 +36,7 @@
 @synthesize mWebView;
 @synthesize mPageLoadingIndicator;
 
+@synthesize mCollectionButton;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -80,6 +88,7 @@
     self.mWebView = nil;
     self.mPageLoadingIndicator = nil;
     
+    self.mCollectionButton = nil;
     [super dealloc];
 }
 
@@ -91,10 +100,22 @@
     UIFont* sFont = [UIFont fontWithName:@"Arial" size:15];
     sTitleButton.titleLabel.font = sFont;
     sTitleButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;        
-    [sTitleButton setFrame:CGRectMake(0, 0, 200, self.navigationController.navigationBar.frame.size.height)];
+    [sTitleButton setFrame:CGRectMake(0, 0, 150, self.navigationController.navigationBar.frame.size.height)];
     [sTitleButton setTitle:aTitle forState:UIControlStateNormal];
     [self.navigationItem setTitleView:sTitleButton];
     
+    NSMutableArray* sRightBarButtonItems = [[NSMutableArray alloc] initWithCapacity:2];
+    
+    //Text size change button
+    UIButton* sFontSizeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    sFontSizeButton.frame = CGRectMake(0, 0, 24, 24);
+    [sFontSizeButton setImage: [UIImage imageNamed:@"fontsize20.png"] forState:UIControlStateNormal];
+    [sFontSizeButton addTarget:self action:@selector(fontSizeButtonPressed) forControlEvents:UIControlEventTouchDown];
+    
+    UIBarButtonItem* sFontSizeBarButton =  [[UIBarButtonItem alloc]initWithCustomView:sFontSizeButton];
+    [sRightBarButtonItems addObject:sFontSizeBarButton];
+    [sFontSizeBarButton release];
+
     
     //config the collection status for navi bar.
     if (canCollect)
@@ -103,23 +124,26 @@
 
         if ([self.mItemListViewController getCollectionStatuForSelectedRow])
         {
-            [sCollectionButton setImage:[UIImage imageNamed:@"favorite24.png"] forState:UIControlStateNormal];
+            [sCollectionButton setImage:[UIImage imageNamed:@"favorite20.png"] forState:UIControlStateNormal];
         }
         else 
         {
-            [sCollectionButton setImage:[UIImage imageNamed:@"favorite_inactive24.png"] forState:UIControlStateNormal];
+            [sCollectionButton setImage:[UIImage imageNamed:@"favorite_inactive20.png"] forState:UIControlStateNormal];
         }
-        sCollectionButton.frame = CGRectMake(0, 0, 24, 24);
-        sCollectionButton.showsTouchWhenHighlighted = YES;
-        [sCollectionButton addTarget:self action:@selector(rightButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        sCollectionButton.frame = CGRectMake(0, 0, 20, 20);
+        [sCollectionButton addTarget:self action:@selector(collectionButtonPressed) forControlEvents:UIControlEventTouchDown];
 
         UIBarButtonItem* sCollectionStatusBarButton =  [[UIBarButtonItem alloc]initWithCustomView:sCollectionButton];
-        sCollectionStatusBarButton.tag = TAG_FOR_RIGHT_COLLECTIN_BARBUTTON;
+        self.mCollectionButton = sCollectionButton;
         
-        [self.navigationItem setRightBarButtonItem:sCollectionStatusBarButton];
+        [sRightBarButtonItems addObject:sCollectionStatusBarButton];
         [sCollectionStatusBarButton release]; 
     }
-        
+    
+    
+    self.navigationItem.rightBarButtonItems = sRightBarButtonItems;
+    [sRightBarButtonItems release];
+
     return;
 }
 
@@ -189,23 +213,77 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void) rightButtonPressed:(id)aButton
+
+
+- (void) collectionButtonPressed
 {
     [self toggleCollectedStatus];
     return;
+}
+
+- (void) fontSizeButtonPressed
+{
+
+    
+    
+    SVSegmentedControl *sSegmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:NSLocalizedString(@"small", nil), NSLocalizedString(@"medium", nil), NSLocalizedString(@"large", nil), nil]];
+    //    [sSegmentedControl addTarget:self action:@selector(sexSegmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
+	sSegmentedControl.font = [UIFont boldSystemFontOfSize:19];
+	sSegmentedControl.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 25);
+//    sSegmentedControl.center = CGPointMake(sX+sWidth/2, sY+sHeightInfoLine/2);
+	sSegmentedControl.thumb.tintColor = MAIN_BGCOLOR_TRANSPARENT;
+    sSegmentedControl.backgroundColor = [UIColor lightGrayColor];
+    
+    sSegmentedControl.selectedIndex = 1;
+    
+
+
+    CMPopTipView* sPopTipView = [[CMPopTipView alloc] initWithCustomView:sSegmentedControl];
+    [sSegmentedControl release];
+
+    sPopTipView.center = CGPointMake(sPopTipView.center.x+30, sPopTipView.center.y-30);
+    sPopTipView.textColor = [UIColor grayColor];
+    sPopTipView.backgroundColor = [UIColor lightGrayColor];
+    sPopTipView.topMargin = 0;
+    sPopTipView.sidePadding = 2;
+    sPopTipView.cornerRadius = 2;
+    sPopTipView.disableTapToDismiss = YES;
+    sPopTipView.animation = CMPopTipAnimationPop;
+    UIBarButtonItem* sRightBarButtonItem = (UIBarButtonItem*)[self.navigationItem.rightBarButtonItems objectAtIndex:0];
+
+    [sPopTipView presentPointingAtView:sRightBarButtonItem.customView inView:self.view animated:YES];
+
+    [sPopTipView release];
+    
+    return;
+}
+
+- (void) smallFontSelected
+{
+    
+}
+
+- (void) mediumFontSelected
+{
+    
+}
+
+- (void) largeFontSelected
+{
+    
 }
 
 - (BOOL) toggleCollectedStatus
 {
     
     //refresh title bar's collected status    
-    UIButton* sCollectionButton = (UIButton*)self.navigationItem.rightBarButtonItem.customView;
+//    UIButton* sCollectionButton = (UIButton*)self.navigationItem.rightBarButtonItem.customView;
     if ([self.mItemListViewController getCollectionStatuForSelectedRow])
     {
-        [sCollectionButton setImage:[UIImage imageNamed:@"favorite_inactive24.png"] forState:UIControlStateNormal];
+        [self.mCollectionButton setImage:[UIImage imageNamed:@"favorite_inactive20.png"] forState:UIControlStateNormal];
     }
     else {
-        [sCollectionButton setImage:[UIImage imageNamed:@"favorite24.png"] forState:UIControlStateNormal];
+        [self.mCollectionButton setImage:[UIImage imageNamed:@"favorite20.png"] forState:UIControlStateNormal];
     }
 
 

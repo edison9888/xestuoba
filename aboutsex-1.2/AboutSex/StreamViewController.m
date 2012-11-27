@@ -107,6 +107,34 @@
     return self;
 }
 
+- (id) initWithTitle:(NSString*)aTitle
+{
+    self = [super initWithTitle:aTitle];
+    if (self)
+    {
+        
+        UIButton* sNightModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        sNightModeButton.frame = CGRectMake(0, 0, 24, 24);
+        
+        [sNightModeButton setImage:[UIImage imageNamed:@"nightmode_inactive24.png" ] forState:UIControlStateNormal];
+        
+        [sNightModeButton addTarget:self action:@selector(nightModeButtonPressed:) forControlEvents:UIControlEventTouchDown];
+
+        
+        UIBarButtonItem* sLeftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sNightModeButton];
+        self.navigationItem.leftBarButtonItem = sLeftButtonItem;
+        [sLeftButtonItem release];
+
+    }
+    return self;
+}
+
+- (void) nightModeButtonPressed:(id)aButton
+{
+    UIButton* sNightModeButton = (UIButton*)aButton;
+    [sNightModeButton setImage:[UIImage imageNamed:@"nightmode_active24.png" ] forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addPullToRefreshHeader];

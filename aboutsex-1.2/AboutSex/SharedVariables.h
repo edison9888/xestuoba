@@ -28,6 +28,9 @@
 //wood
 #define MAIN_BGCOLOR        [UIColor colorWithRed:RGB_DIV_255(102) green:RGB_DIV_255(57) blue:RGB_DIV_255(26) alpha:1.0f]
 
+#define MAIN_BGCOLOR_TRANSPARENT        [UIColor colorWithRed:RGB_DIV_255(102) green:RGB_DIV_255(57) blue:RGB_DIV_255(26) alpha:0.3f]
+
+
 //orange
 //#define MAIN_BGCOLOR        [UIColor colorWithRed:RGB_DIV_255(255) green:RGB_DIV_255(81) blue:RGB_DIV_255(61) alpha:1.0f]
 

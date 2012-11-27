@@ -22,12 +22,12 @@
 
 @interface SectionViewController ()
 {
-    UIButton* mProgressButton;
+    UILabel* mProgressLabel;
     CGFloat mDeltaPerRow;
 
 }
 
-@property (nonatomic, retain) UIButton* mProgressButton;
+@property (nonatomic, retain) UILabel* mProgressLabel;
 @property (nonatomic, assign) CGFloat mDeltaPerRow;
 
 
@@ -38,7 +38,7 @@
 
 @implementation SectionViewController
 
-@synthesize mProgressButton;
+@synthesize mProgressLabel;
 @synthesize mDeltaPerRow;
 @synthesize mSection;
 @synthesize mSectionName;
@@ -67,17 +67,35 @@
 
         //init progress button and add action to it.
 //        self.mProgressButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.mProgressButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        mProgressButton.titleLabel.font = [UIFont systemFontOfSize: 12];
+        UIFont* sFontForProgressText = [UIFont systemFontOfSize: 12];
         NSString* sSampleText = @"1000/1000";
-        CGSize sSize = [sSampleText sizeWithFont:mProgressButton.titleLabel.font];
-        mProgressButton.frame = CGRectMake(0, 0, sSize.width, sSize.height);
-        mProgressButton.titleLabel.backgroundColor = [UIColor clearColor];
-        mProgressButton.titleLabel.textAlignment = UITextAlignmentRight;
-        mProgressButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        mProgressButton.backgroundColor = [UIColor clearColor];
-        [mProgressButton addTarget:self action:@selector(presentIndex) forControlEvents:UIControlEventTouchDown];
-        UIBarButtonItem* sBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:mProgressButton];
+        CGSize sSize = [sSampleText sizeWithFont:sFontForProgressText];
+        CGFloat sTopPadding = 5;
+        
+        UIControl* sRightControl = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, sSize.width, sSize.height+8+sTopPadding)];
+        sRightControl.backgroundColor = [UIColor clearColor];
+//        self.mProgressButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        mProgressButton.titleLabel.font = [UIFont systemFontOfSize: 12];
+//        NSString* sSampleText = @"1000/1000";
+//        CGSize sSize = [sSampleText sizeWithFont:mProgressButton.titleLabel.font];
+        
+        UILabel* sProgressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sTopPadding, sSize.width, sSize.height)];
+        sProgressLabel.backgroundColor = [UIColor clearColor];
+        sProgressLabel.textColor = [UIColor whiteColor];
+        sProgressLabel.font = sFontForProgressText;
+        sProgressLabel.textAlignment = UITextAlignmentRight;
+        [sRightControl addSubview:sProgressLabel];
+        self.mProgressLabel = sProgressLabel;
+        [sProgressLabel release];
+        
+        UIImageView* sBelowImageView = [[UIImageView alloc] initWithFrame:CGRectMake((sSize.width-12)-10, sSize.height+sTopPadding, 8, 8)];
+        [sBelowImageView setImage:[UIImage imageNamed:@"below8.png"]];
+        [sRightControl addSubview:sBelowImageView];
+        [sBelowImageView release];
+        
+        [sRightControl addTarget:self action:@selector(presentIndex) forControlEvents:UIControlEventTouchDown];
+        UIBarButtonItem* sBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:sRightControl];
+        [sRightControl release];
         
         self.navigationItem.rightBarButtonItem = sBarButtonItem;
         [sBarButtonItem release];
@@ -108,7 +126,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    self.mProgressButton = nil;
+    self.mProgressLabel = nil;
     // Release any retained subviews of the main view.
 }
 
@@ -116,7 +134,7 @@
 {
     self.mSection = nil;
     self.mSectionName = nil;
-    self.mProgressButton = nil;
+    self.mProgressLabel = nil;
     [super dealloc];
 }
 
@@ -273,7 +291,8 @@
     if (-1 != sCurPosAdjusted)
     {
         NSString* sStr = [NSString stringWithFormat:@"%d/%d", sCurPosAdjusted, sTotal];
-        [mProgressButton setTitle:sStr forState:UIControlStateNormal];
+//        [mProgressButton setTitle:sStr forState:UIControlStateNormal];
+        self.mProgressLabel.text = sStr;
     }
 }
 

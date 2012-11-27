@@ -126,14 +126,17 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
 
         
         NSArray* sControllers;
-        if ([self needShowLibrary])
-        {
-                    sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController, sNaviContainerOfLibraryViewController,sNaviContainerOfFavoriteViewController, nil];
-        }
-        else 
-        {
-            sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController,sNaviContainerOfFavoriteViewController, nil];
-        }
+        
+        sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController, sNaviContainerOfLibraryViewController,sNaviContainerOfFavoriteViewController, nil];
+
+//        if ([self needShowLibrary])
+//        {
+//                    sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController, sNaviContainerOfLibraryViewController,sNaviContainerOfFavoriteViewController, nil];
+//        }
+//        else 
+//        {
+//            sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController,sNaviContainerOfFavoriteViewController, nil];
+//        }
         
         MTabBarController.viewControllers = sControllers;
         MTabBarController.selectedIndex = 0;

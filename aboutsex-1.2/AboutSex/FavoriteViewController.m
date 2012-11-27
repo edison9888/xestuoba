@@ -82,7 +82,7 @@
 
 - (void) loadData
 {
-    self.mFavorites = [[NSMutableArray alloc]init];
+    self.mFavorites = [[[NSMutableArray alloc]init] autorelease];
     
     NSMutableArray* sArray = [StoreManager getAllFavoriteItems];
     
