@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 #import "CommonTableViewController.h"
 
-@interface ContentViewController : UIViewController<UIWebViewDelegate>
+@interface ContentViewController : CommonViewController<UIWebViewDelegate>
 {
     CommonTableViewController* mItemListViewController;
     UIWebView* mWebView;

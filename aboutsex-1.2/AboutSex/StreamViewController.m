@@ -83,13 +83,13 @@
 @synthesize mTimeOfLastSuccessfulUpdate;
 @synthesize mIsAutoRefresh;
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    if (self != nil) {
-        [self setup];
-    }
-    return self;
-}
+//- (id)initWithStyle:(UITableViewStyle)style {
+//    self = [super initWithStyle:style];
+//    if (self != nil) {
+//        [self setup];
+//    }
+//    return self;
+//}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -113,17 +113,17 @@
     if (self)
     {
         
-        UIButton* sNightModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        sNightModeButton.frame = CGRectMake(0, 0, 24, 24);
-        
-        [sNightModeButton setImage:[UIImage imageNamed:@"nightmode_inactive24.png" ] forState:UIControlStateNormal];
-        
-        [sNightModeButton addTarget:self action:@selector(nightModeButtonPressed:) forControlEvents:UIControlEventTouchDown];
-
-        
-        UIBarButtonItem* sLeftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sNightModeButton];
-        self.navigationItem.leftBarButtonItem = sLeftButtonItem;
-        [sLeftButtonItem release];
+//        UIButton* sNightModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        sNightModeButton.frame = CGRectMake(0, 0, 24, 24);
+//        
+//        [sNightModeButton setImage:[UIImage imageNamed:@"nightmode_inactive24.png" ] forState:UIControlStateNormal];
+//        
+//        [sNightModeButton addTarget:self action:@selector(nightModeButtonPressed:) forControlEvents:UIControlEventTouchDown];
+//
+//        
+//        UIBarButtonItem* sLeftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sNightModeButton];
+//        self.navigationItem.leftBarButtonItem = sLeftButtonItem;
+//        [sLeftButtonItem release];
 
     }
     return self;
@@ -190,7 +190,7 @@
     sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
     self.navigationItem.rightBarButtonItem = sRefershBarButtonItem;
     [sRefershBarButtonItem release];
-    self.tableView.backgroundColor = TAB_PAGE_BGCOLOR;
+    self.mTableView.backgroundColor = TAB_PAGE_BGCOLOR;
 
     return;
 }
@@ -200,7 +200,7 @@
     [super configTableView];
     
 //    self.tableView.rowHeight = 60;
-    self.tableView.rowHeight = 85;
+    self.mTableView.rowHeight = 85;
     return;
 }
 
@@ -247,7 +247,7 @@
     [refreshHeaderView addSubview:refreshArrow];
     [refreshHeaderView addSubview:refreshSpinner];
     //for now, we dont need self-refresh functionality.
-    [self.tableView addSubview:refreshHeaderView];
+    [self.mTableView addSubview:refreshHeaderView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -259,9 +259,9 @@
     if (isLoading) {
         // Update the content inset, good for section headers
         if (scrollView.contentOffset.y > 0)
-            self.tableView.contentInset = UIEdgeInsetsZero;
+            self.mTableView.contentInset = UIEdgeInsetsZero;
         else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
-            self.tableView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+            self.mTableView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
     } else if (isDragging && scrollView.contentOffset.y < 0) {
         // Update the arrow direction and label
         [UIView animateWithDuration:0.25 animations:^{
@@ -292,7 +292,7 @@
     
     // Show the header
     [UIView animateWithDuration:0.3 animations:^{
-        self.tableView.contentInset = UIEdgeInsetsMake(REFRESH_HEADER_HEIGHT, 0, 0, 0);
+        self.mTableView.contentInset = UIEdgeInsetsMake(REFRESH_HEADER_HEIGHT, 0, 0, 0);
         refreshLabel.text = self.textLoading;
         refreshArrow.hidden = YES;
         [refreshSpinner startAnimating];
@@ -307,7 +307,7 @@
     
     // Hide the header
     [UIView animateWithDuration:0.3 animations:^{
-        self.tableView.contentInset = UIEdgeInsetsZero;
+        self.mTableView.contentInset = UIEdgeInsetsZero;
         [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
     } 
                      completion:^(BOOL finished) {
@@ -362,7 +362,7 @@
         return;
     }
 
-    self.tableView.contentOffset = CGPointMake(0, -REFRESH_HEADER_HEIGHT);
+    self.mTableView.contentOffset = CGPointMake(0, -REFRESH_HEADER_HEIGHT);
     
     [self startLoading];
 }
@@ -469,14 +469,14 @@
         
         //title label
         sTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 260, 30)];
-        sTitleLabel.backgroundColor = TAB_PAGE_BGCOLOR;
+        sTitleLabel.backgroundColor = [UIColor clearColor];
         sTitleLabel.tag = TAG_FOR_CELL_TITLE_LABEL;
         [sCell.contentView addSubview:sTitleLabel];
         [sTitleLabel release];
                 
         //date label
         sDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 29, 50, 15)];
-        sDateLabel.backgroundColor = TAB_PAGE_BGCOLOR;
+        sDateLabel.backgroundColor = [UIColor clearColor];
         sDateLabel.font = [UIFont systemFontOfSize:10];
         sDateLabel.textColor = [UIColor grayColor];
         sDateLabel.textAlignment = UITextAlignmentLeft;
@@ -486,7 +486,7 @@
         
         //visits label
         sVisitsCountLabel = [[UILabel alloc]initWithFrame:CGRectMake(60+10, 29, 100, 15)];
-        sVisitsCountLabel.backgroundColor = TAB_PAGE_BGCOLOR;
+        sVisitsCountLabel.backgroundColor = [UIColor clearColor];
         sVisitsCountLabel.font = [UIFont systemFontOfSize:10];
         sVisitsCountLabel.textColor = [UIColor grayColor];
         sVisitsCountLabel.textAlignment = UITextAlignmentLeft;
@@ -497,7 +497,7 @@
         
         //summary label
         sSummaryLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 42, 300, 35)];
-        sSummaryLabel.backgroundColor = TAB_PAGE_BGCOLOR;
+        sSummaryLabel.backgroundColor = [UIColor clearColor];
         sSummaryLabel.font = [UIFont systemFontOfSize:13];
         sSummaryLabel.numberOfLines = 0;
         sSummaryLabel.textColor = [UIColor grayColor];

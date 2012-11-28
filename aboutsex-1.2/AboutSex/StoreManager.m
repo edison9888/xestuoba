@@ -738,7 +738,7 @@ FMDatabase* ssFMDatabase;
     if (aIsMarked)
     {
         NSDictionary* sDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSString stringWithFormat:@"d", aItemID], @"itemID", nil];
+                               [NSString stringWithFormat:@"%d", aItemID], @"itemID", nil];
         [MobClick event:@"UEID_COLLECT" attributes: sDict];
     }
     else 

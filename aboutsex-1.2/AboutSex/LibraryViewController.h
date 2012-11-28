@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
-@interface LibraryViewController : UIViewController
+@interface LibraryViewController : CommonViewController
 {
 
 }

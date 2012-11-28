@@ -39,4 +39,8 @@
 - (BOOL) needUserGuideOnSectionIndex;
 - (void) closeUserGuideOnSectionIndex;
 
+- (UIView*) getABGColorView;
+- (void) dimBGColorViews;
+- (void) restoreBGColorViews;
+
 @end

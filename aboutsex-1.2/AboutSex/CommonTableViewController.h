@@ -11,12 +11,14 @@
 #import "Item.h"
 #import "SharedVariables.h"
 #import "StoreManager.h"
+#import "CommonViewController.h"
 
-@interface CommonTableViewController : UITableViewController
+@interface CommonTableViewController : CommonViewController<UITableViewDataSource, UITableViewDelegate>
 {
     BOOL mHasAppearedBefore;
 }
 
+@property (nonatomic, retain) UITableView* mTableView;
 @property (nonatomic, assign) BOOL mHasAppearedBefore;
 
 - (id) initWithTitle:(NSString*)aTitle;

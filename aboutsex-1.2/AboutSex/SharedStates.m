@@ -10,10 +10,11 @@
 #import "StreamViewController.h"
 #import "FavoriteViewController.h"
 #import "LibraryViewController.h"
+#import "SettingViewController.h"
 
 #import "SharedVariables.h"
 #import "MobClick.h"
-
+#import "UserConfiger.h"
 
 #import "MyURLConnection.h"
 //
@@ -26,6 +27,7 @@
 
 static SharedStates* singleton = nil;
 static UITabBarController* MTabBarController = nil; //static variable will be released when the application exits.
+static NSMutableArray*  SBackgroundColorviews = nil;
 
 @interface SharedStates ()
 
@@ -101,7 +103,7 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
 
         sTabBarItem = [[UITabBarItem alloc]initWithTitle:sTitle image:nil tag:0];
 //        sTabBarItem.badgeValue = @"N";
-        sTabBarItem.image = [UIImage imageNamed:@"new24.png"];
+        sTabBarItem.image = [UIImage imageNamed:@"news32.png"];
         sNaviContainerOfMessageViewController.tabBarItem = sTabBarItem;
         [sTabBarItem release];
       
@@ -125,9 +127,20 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
         [sTabBarItem release];
 
         
+//setting vc
+        UINavigationController* sNaviContainerOfSettingViewController =  [[UINavigationController alloc]initWithRootViewController:[[[SettingViewController alloc] initWithTitle:NSLocalizedString(@"Setting", nil)] autorelease]];
+        sNaviContainerOfSettingViewController.navigationBar.barStyle = UIBarStyleBlack;
+        sTitle = NSLocalizedString(@"Setting", "user's setting");
+        sTabBarItem = [[UITabBarItem alloc]initWithTitle:sTitle image:nil tag:0];
+        sTabBarItem.image = [UIImage imageNamed:@"setting32.png"];
+        
+        sNaviContainerOfSettingViewController.tabBarItem = sTabBarItem;
+        [sTabBarItem release];
+
+        
         NSArray* sControllers;
         
-        sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController, sNaviContainerOfLibraryViewController,sNaviContainerOfFavoriteViewController, nil];
+        sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController, sNaviContainerOfLibraryViewController,sNaviContainerOfFavoriteViewController, sNaviContainerOfSettingViewController, nil];
 
 //        if ([self needShowLibrary])
 //        {
@@ -146,7 +159,8 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
         
         [sNaviContainerOfMessageViewController release];
         [sNaviContainerOfLibraryViewController release];
-        [sNaviContainerOfFavoriteViewController release];      
+        [sNaviContainerOfFavoriteViewController release];
+        [sNaviContainerOfSettingViewController release];
     }
     return MTabBarController;
 }
@@ -268,6 +282,49 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
     [sDefaults setBool:NO forKey:DEFAULTS_KEY_NEED_USER_GUIDE_ON_SECTION_INDEX];
     return;
 }
+
+- (UIView*) getABGColorView
+{
+    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
+    UIView* sBackgroundColorview = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, applicationFrame.size.width, applicationFrame.size.height)] autorelease];
+    sBackgroundColorview.backgroundColor = [UIColor whiteColor];
+
+    if ([UserConfiger isNightModeOn])
+    {
+        sBackgroundColorview.alpha = 0.8;
+    }
+    
+    if (!SBackgroundColorviews)
+    {
+        SBackgroundColorviews = [[NSMutableArray alloc] initWithCapacity:10];
+    }
+    [SBackgroundColorviews addObject:sBackgroundColorview];
+    
+    return sBackgroundColorview;
+}
+
+- (void) dimBGColorViews
+{
+    if (SBackgroundColorviews)
+    {
+        for (UIView* sBGColorView in SBackgroundColorviews)
+        {
+            sBGColorView.alpha = 0.8;
+        }
+    }
+}
+
+- (void) restoreBGColorViews
+{
+    if (SBackgroundColorviews)
+    {
+        for (UIView* sBGColorView in SBackgroundColorviews)
+        {
+            sBGColorView.alpha = 1.0;
+        }
+    }
+}
+
 
 #pragma mark -
 #pragma mark delegate methods for MyURLConnectionDelegate

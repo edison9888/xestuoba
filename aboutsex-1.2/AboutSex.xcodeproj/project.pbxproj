@@ -14,8 +14,6 @@
 		141317DA16650CBC003A615B /* favorite_inactive20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317D616650CBC003A615B /* favorite_inactive20@2x.png */; };
 		141317DB16650CBC003A615B /* favorite20.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317D716650CBC003A615B /* favorite20.png */; };
 		141317DC16650CBC003A615B /* favorite20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317D816650CBC003A615B /* favorite20@2x.png */; };
-		141317DF16650EA5003A615B /* fontsize20.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317DD16650EA4003A615B /* fontsize20.png */; };
-		141317E016650EA5003A615B /* fontsize20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317DE16650EA4003A615B /* fontsize20@2x.png */; };
 		141317EB16652F17003A615B /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 141317E616652F17003A615B /* CMPopTipView.m */; };
 		141317EC16652F17003A615B /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 141317E716652F17003A615B /* SVSegmentedControl.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		141317ED16652F17003A615B /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 141317E816652F17003A615B /* SVSegmentedThumb.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -102,6 +100,24 @@
 		14D23DFF15B1C07F003366B3 /* StreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D23DFE15B1C07F003366B3 /* StreamViewController.m */; };
 		14D23E0515B1DF0D003366B3 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 14D23E0415B1DF0D003366B3 /* arrow.png */; };
 		14E9C14D1608D0BE00E3CB41 /* NSString+MyString.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E9C14C1608D0BC00E3CB41 /* NSString+MyString.m */; };
+		14ECB1DF166606D700796187 /* libTapkuLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FCE5771665FAAF00CD668A /* libTapkuLibrary.a */; };
+		14ECB1E216660B7700796187 /* search24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1E016660B7700796187 /* search24.png */; };
+		14ECB1E316660B7700796187 /* search24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1E116660B7700796187 /* search24@2x.png */; };
+		14ECB1E616660D9F00796187 /* app24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1E416660D9F00796187 /* app24.png */; };
+		14ECB1E716660D9F00796187 /* app24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1E516660D9F00796187 /* app24@2x.png */; };
+		14ECB1EA16660EE100796187 /* chat24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1E816660EE100796187 /* chat24.png */; };
+		14ECB1EB16660EE100796187 /* chat24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1E916660EE100796187 /* chat24@2x.png */; };
+		14ECB1EE1666110800796187 /* font24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1EC1666110800796187 /* font24.png */; };
+		14ECB1EF1666110800796187 /* font24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1ED1666110800796187 /* font24@2x.png */; };
+		14ECB1F21666199B00796187 /* UserConfiger.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1F11666199A00796187 /* UserConfiger.m */; };
+		14ECB1F51666216100796187 /* FontSizeSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1F41666216100796187 /* FontSizeSettingController.m */; };
+		14ECB1F81666237200796187 /* CustomCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1F71666237200796187 /* CustomCellBackgroundView.m */; };
+		14ECB1FB16665F5700796187 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1FA16665F5700796187 /* CommonViewController.m */; };
+		14ECB1FE16669C0900796187 /* news32.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1FC16669C0900796187 /* news32.png */; };
+		14ECB1FF16669C0900796187 /* news32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1FD16669C0900796187 /* news32@2x.png */; };
+		14FCE4761665EB9900CD668A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FCE4751665EB9900CD668A /* SettingViewController.m */; };
+		14FCE4791665F06D00CD668A /* setting32.png in Resources */ = {isa = PBXBuildFile; fileRef = 14FCE4771665F06D00CD668A /* setting32.png */; };
+		14FCE47A1665F06D00CD668A /* setting32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14FCE4781665F06D00CD668A /* setting32@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +156,27 @@
 			remoteGlobalIDString = 143A8CF515A71F49006F48A8;
 			remoteInfo = GMGridView;
 		};
+		14FCE5761665FAAF00CD668A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = TapkuLibrary;
+		};
+		14FCE5781665FAAF00CD668A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B45DDF1134C736600D24C1A;
+			remoteInfo = LogicTests;
+		};
+		14FCE57A1665FAE700CD668A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = TapkuLibrary;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -150,8 +187,6 @@
 		141317D616650CBC003A615B /* favorite_inactive20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favorite_inactive20@2x.png"; path = "resources/favorite_inactive20@2x.png"; sourceTree = "<group>"; };
 		141317D716650CBC003A615B /* favorite20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favorite20.png; path = resources/favorite20.png; sourceTree = "<group>"; };
 		141317D816650CBC003A615B /* favorite20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favorite20@2x.png"; path = "resources/favorite20@2x.png"; sourceTree = "<group>"; };
-		141317DD16650EA4003A615B /* fontsize20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fontsize20.png; path = resources/fontsize20.png; sourceTree = "<group>"; };
-		141317DE16650EA4003A615B /* fontsize20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fontsize20@2x.png"; path = "resources/fontsize20@2x.png"; sourceTree = "<group>"; };
 		141317E516652F17003A615B /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		141317E616652F17003A615B /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		141317E716652F17003A615B /* SVSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedControl.m; sourceTree = "<group>"; };
@@ -283,6 +318,29 @@
 		14D23E0415B1DF0D003366B3 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		14E9C14B1608D0BB00E3CB41 /* NSString+MyString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MyString.h"; sourceTree = "<group>"; };
 		14E9C14C1608D0BC00E3CB41 /* NSString+MyString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MyString.m"; sourceTree = "<group>"; };
+		14ECB1E016660B7700796187 /* search24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = search24.png; path = resources/search24.png; sourceTree = "<group>"; };
+		14ECB1E116660B7700796187 /* search24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search24@2x.png"; path = "resources/search24@2x.png"; sourceTree = "<group>"; };
+		14ECB1E416660D9F00796187 /* app24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app24.png; path = resources/app24.png; sourceTree = "<group>"; };
+		14ECB1E516660D9F00796187 /* app24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app24@2x.png"; path = "resources/app24@2x.png"; sourceTree = "<group>"; };
+		14ECB1E816660EE100796187 /* chat24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat24.png; path = resources/chat24.png; sourceTree = "<group>"; };
+		14ECB1E916660EE100796187 /* chat24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat24@2x.png"; path = "resources/chat24@2x.png"; sourceTree = "<group>"; };
+		14ECB1EC1666110800796187 /* font24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font24.png; path = resources/font24.png; sourceTree = "<group>"; };
+		14ECB1ED1666110800796187 /* font24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "font24@2x.png"; path = "resources/font24@2x.png"; sourceTree = "<group>"; };
+		14ECB1F01666199A00796187 /* UserConfiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserConfiger.h; sourceTree = "<group>"; };
+		14ECB1F11666199A00796187 /* UserConfiger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserConfiger.m; sourceTree = "<group>"; };
+		14ECB1F31666216100796187 /* FontSizeSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontSizeSettingController.h; sourceTree = "<group>"; };
+		14ECB1F41666216100796187 /* FontSizeSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontSizeSettingController.m; sourceTree = "<group>"; };
+		14ECB1F61666237200796187 /* CustomCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackgroundView.h; sourceTree = "<group>"; };
+		14ECB1F71666237200796187 /* CustomCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackgroundView.m; sourceTree = "<group>"; };
+		14ECB1F916665F5700796187 /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
+		14ECB1FA16665F5700796187 /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
+		14ECB1FC16669C0900796187 /* news32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = news32.png; path = resources/news32.png; sourceTree = "<group>"; };
+		14ECB1FD16669C0900796187 /* news32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "news32@2x.png"; path = "resources/news32@2x.png"; sourceTree = "<group>"; };
+		14FCE4741665EB9900CD668A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		14FCE4751665EB9900CD668A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		14FCE4771665F06D00CD668A /* setting32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = setting32.png; path = resources/setting32.png; sourceTree = "<group>"; };
+		14FCE4781665F06D00CD668A /* setting32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "setting32@2x.png"; path = "resources/setting32@2x.png"; sourceTree = "<group>"; };
+		14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TapkuLibrary.xcodeproj; path = TapKu/TapkuLibrary.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +348,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14ECB1DF166606D700796187 /* libTapkuLibrary.a in Frameworks */,
 				145B408315F5B29F00B9EBF3 /* libfppopover.a in Frameworks */,
 				145B408415F5B29F00B9EBF3 /* libGMGridView.a in Frameworks */,
 				14C1153B15B8FFDC00CD0FB4 /* libz.dylib in Frameworks */,
@@ -327,6 +386,7 @@
 		1414B7BF1599FE94007E3BA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */,
 				145B407215F5B25F00B9EBF3 /* FPPopoverDemo.xcodeproj */,
 				145B406915F5B24B00B9EBF3 /* GMGridView.xcodeproj */,
 				14C1153715B8FF5700CD0FB4 /* libMobClickLibrary.a */,
@@ -350,10 +410,13 @@
 				14A1E5C115AD847700444FD3 /* SharedVariables.h */,
 				14724C6C159ADD76007CF7E0 /* SharedStates.h */,
 				14724C6D159ADD76007CF7E0 /* SharedStates.m */,
+				14ECB1F01666199A00796187 /* UserConfiger.h */,
+				14ECB1F11666199A00796187 /* UserConfiger.m */,
 				14D23E0315B1D64C003366B3 /* Common */,
 				14C70D8F15A474AD0089A1A9 /* Stream */,
 				14C70D9115A474C80089A1A9 /* Library */,
 				14B49F0115A839C8003DDA3C /* Favorite */,
+				14FCE4731665EAC000CD668A /* Setting */,
 				14C1154215B9108200CD0FB4 /* About */,
 				14724C3C159AB561007CF7E0 /* Supporting Files */,
 				14BFE28115A98194003BF9CC /* Resource */,
@@ -446,6 +509,8 @@
 				141317E816652F17003A615B /* SVSegmentedThumb.m */,
 				141317E916652F17003A615B /* SVSegmentedControl.h */,
 				141317EA16652F17003A615B /* SVSegmentedThumb.h */,
+				14ECB1F61666237200796187 /* CustomCellBackgroundView.h */,
+				14ECB1F71666237200796187 /* CustomCellBackgroundView.m */,
 				14555E1415F9244B00F1D0CB /* MMKInfoPanel */,
 				14B97D7615BE7E3D008E6F76 /* SVProgressHUD */,
 				14C1154115B9102D00CD0FB4 /* UMeng */,
@@ -505,10 +570,14 @@
 				141317D616650CBC003A615B /* favorite_inactive20@2x.png */,
 				141317D716650CBC003A615B /* favorite20.png */,
 				141317D816650CBC003A615B /* favorite20@2x.png */,
-				141317DD16650EA4003A615B /* fontsize20.png */,
-				141317DE16650EA4003A615B /* fontsize20@2x.png */,
+				14ECB1FC16669C0900796187 /* news32.png */,
+				14ECB1FD16669C0900796187 /* news32@2x.png */,
+				14A0B35515B5637B001912C0 /* new24.png */,
+				14A0B35F15B572A1001912C0 /* library32.png */,
 				1456F64E15FCEA4B00447FCC /* favorite32.png */,
 				1456F64F15FCEA4B00447FCC /* favorite32@2x.png */,
+				14FCE4771665F06D00CD668A /* setting32.png */,
+				14FCE4781665F06D00CD668A /* setting32@2x.png */,
 				14BFA69815C1202D00DE4071 /* back48.png */,
 				14BFA69915C1202D00DE4071 /* back48@2x.png */,
 				1481156A15B9B604007AC3AE /* stop48.png */,
@@ -519,8 +588,6 @@
 				14B85DCB15C03911003DF5A7 /* Icon72@2x.png */,
 				14228CF215DE9953009BDC57 /* Icon-72_Rounded.png */,
 				14228CF615DE99A1009BDC57 /* Icon-72_Rounded@2x.png */,
-				14A0B35515B5637B001912C0 /* new24.png */,
-				14A0B35F15B572A1001912C0 /* library32.png */,
 				14B97D7C15BE8194008E6F76 /* success.png */,
 				14B97D7E15BE8222008E6F76 /* error.png */,
 				1428D1CF15FB230A003BA1DD /* singlerefresh24.png */,
@@ -530,6 +597,14 @@
 				14D23E0415B1DF0D003366B3 /* arrow.png */,
 				141317D116650BEB003A615B /* below8.png */,
 				141317D216650BEB003A615B /* below8@2x.png */,
+				14ECB1EC1666110800796187 /* font24.png */,
+				14ECB1ED1666110800796187 /* font24@2x.png */,
+				14ECB1E016660B7700796187 /* search24.png */,
+				14ECB1E116660B7700796187 /* search24@2x.png */,
+				14ECB1E416660D9F00796187 /* app24.png */,
+				14ECB1E516660D9F00796187 /* app24@2x.png */,
+				14ECB1E816660EE100796187 /* chat24.png */,
+				14ECB1E916660EE100796187 /* chat24@2x.png */,
 				141317FF16654978003A615B /* nightmode_active24.png */,
 				14131806166549DF003A615B /* nightmode_active24@2x.png */,
 				1413180116654979003A615B /* nightmode_inactive24.png */,
@@ -593,6 +668,8 @@
 			children = (
 				14B9941015BEEF160001CC6B /* UIButtonLarge.h */,
 				14B9941115BEEF160001CC6B /* UIButtonLarge.m */,
+				14ECB1F916665F5700796187 /* CommonViewController.h */,
+				14ECB1FA16665F5700796187 /* CommonViewController.m */,
 				144BC04F15B8031E00CF9E1B /* CommonTableViewController.h */,
 				144BC05015B8031E00CF9E1B /* CommonTableViewController.m */,
 				14B9941315BEF3EC0001CC6B /* TaggedButton.h */,
@@ -613,6 +690,26 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		14FCE4731665EAC000CD668A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				14FCE4741665EB9900CD668A /* SettingViewController.h */,
+				14FCE4751665EB9900CD668A /* SettingViewController.m */,
+				14ECB1F31666216100796187 /* FontSizeSettingController.h */,
+				14ECB1F41666216100796187 /* FontSizeSettingController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		14FCE56F1665FAAE00CD668A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14FCE5771665FAAF00CD668A /* libTapkuLibrary.a */,
+				14FCE5791665FAAF00CD668A /* LogicTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -627,6 +724,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				14FCE57B1665FAE700CD668A /* PBXTargetDependency */,
 				145B408015F5B27900B9EBF3 /* PBXTargetDependency */,
 				145B408215F5B27900B9EBF3 /* PBXTargetDependency */,
 			);
@@ -664,6 +762,10 @@
 					ProductGroup = 145B406A15F5B24B00B9EBF3 /* Products */;
 					ProjectRef = 145B406915F5B24B00B9EBF3 /* GMGridView.xcodeproj */;
 				},
+				{
+					ProductGroup = 14FCE56F1665FAAE00CD668A /* Products */;
+					ProjectRef = 14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -692,6 +794,20 @@
 			fileType = wrapper.application;
 			path = FPPopoverDemo.app;
 			remoteRef = 145B407D15F5B25F00B9EBF3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		14FCE5771665FAAF00CD668A /* libTapkuLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTapkuLibrary.a;
+			remoteRef = 14FCE5761665FAAF00CD668A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		14FCE5791665FAAF00CD668A /* LogicTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LogicTests.octest;
+			remoteRef = 14FCE5781665FAAF00CD668A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -743,12 +859,22 @@
 				141317DA16650CBC003A615B /* favorite_inactive20@2x.png in Resources */,
 				141317DB16650CBC003A615B /* favorite20.png in Resources */,
 				141317DC16650CBC003A615B /* favorite20@2x.png in Resources */,
-				141317DF16650EA5003A615B /* fontsize20.png in Resources */,
-				141317E016650EA5003A615B /* fontsize20@2x.png in Resources */,
 				1413180316654979003A615B /* nightmode_active24.png in Resources */,
 				1413180516654979003A615B /* nightmode_inactive24.png in Resources */,
 				14131808166549DF003A615B /* nightmode_active24@2x.png in Resources */,
 				14131809166549DF003A615B /* nightmode_inactive24@2x.png in Resources */,
+				14FCE4791665F06D00CD668A /* setting32.png in Resources */,
+				14FCE47A1665F06D00CD668A /* setting32@2x.png in Resources */,
+				14ECB1E216660B7700796187 /* search24.png in Resources */,
+				14ECB1E316660B7700796187 /* search24@2x.png in Resources */,
+				14ECB1E616660D9F00796187 /* app24.png in Resources */,
+				14ECB1E716660D9F00796187 /* app24@2x.png in Resources */,
+				14ECB1EA16660EE100796187 /* chat24.png in Resources */,
+				14ECB1EB16660EE100796187 /* chat24@2x.png in Resources */,
+				14ECB1EE1666110800796187 /* font24.png in Resources */,
+				14ECB1EF1666110800796187 /* font24@2x.png in Resources */,
+				14ECB1FE16669C0900796187 /* news32.png in Resources */,
+				14ECB1FF16669C0900796187 /* news32@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,6 +922,11 @@
 				141317EB16652F17003A615B /* CMPopTipView.m in Sources */,
 				141317EC16652F17003A615B /* SVSegmentedControl.m in Sources */,
 				141317ED16652F17003A615B /* SVSegmentedThumb.m in Sources */,
+				14FCE4761665EB9900CD668A /* SettingViewController.m in Sources */,
+				14ECB1F21666199B00796187 /* UserConfiger.m in Sources */,
+				14ECB1F51666216100796187 /* FontSizeSettingController.m in Sources */,
+				14ECB1F81666237200796187 /* CustomCellBackgroundView.m in Sources */,
+				14ECB1FB16665F5700796187 /* CommonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,6 +942,11 @@
 			isa = PBXTargetDependency;
 			name = GMGridView;
 			targetProxy = 145B408115F5B27900B9EBF3 /* PBXContainerItemProxy */;
+		};
+		14FCE57B1665FAE700CD668A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TapkuLibrary;
+			targetProxy = 14FCE57A1665FAE700CD668A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -900,6 +1036,7 @@
 					"\"$(SRCROOT)/AboutSex/fmdb\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/GMGridView\"",
+					"\"$(SRCROOT)/TapKu\"/**",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -974,6 +1111,7 @@
 					"\"$(SRCROOT)/AboutSex/fmdb\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/GMGridView\"",
+					"\"$(SRCROOT)/TapKu\"/**",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -996,6 +1134,7 @@
 					"\"$(SRCROOT)/AboutSex/fmdb\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/GMGridView\"",
+					"\"$(SRCROOT)/TapKu\"/**",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;

@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "SharedVariables.h"
+#import "SharedStates.h"
 #import "LibraryViewController.h"
 #import "GMGridView/GMGridView.h"
 #import "GMGridView/UIView+GMGridViewAdditions.h"
@@ -88,7 +89,7 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+        
     self.mIconDataArray = [self loadIconData];
     [self.mGridView reloadData];
 }
@@ -170,11 +171,13 @@
 
 - (void) loadView 
 {
+    [super loadView];
+    
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
 
-    mGridView = [[GMGridView alloc] initWithFrame:applicationFrame];
+    mGridView = [[GMGridView alloc] initWithFrame:CGRectMake(0, 0, applicationFrame.size.width, applicationFrame.size.height)];
     mGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    mGridView.backgroundColor = TAB_PAGE_BGCOLOR;
+    mGridView.backgroundColor = [UIColor clearColor];
 
     mGridView.style = GMGridViewStyleSwap;
     mGridView.itemSpacing = SPACING;
@@ -185,7 +188,9 @@
     mGridView.transformDelegate = self;
     mGridView.dataSource = self;
 
-    self.view = mGridView;
+    [self.mMainView addSubview:mGridView];
+//    self.view = mGridView;
+    //mGridView memory leak here?
 }
 
 

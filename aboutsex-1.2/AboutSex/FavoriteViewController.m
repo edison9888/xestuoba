@@ -57,13 +57,13 @@
     {   
         self.mEmptyView = nil;
         
-        //about
-        UIButton* sButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-        [sButton setFrame:CGRectMake(0, 0, 40, 22)];
-        [sButton addTarget:self action:@selector(presentAbout) forControlEvents:UIControlEventTouchDown];
-        UIBarButtonItem* sAboutBarButton = [[UIBarButtonItem alloc]initWithCustomView:sButton];
-        self.navigationItem.rightBarButtonItem = sAboutBarButton;
-        [sAboutBarButton release];
+//        //about
+//        UIButton* sButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+//        [sButton setFrame:CGRectMake(0, 0, 40, 22)];
+//        [sButton addTarget:self action:@selector(presentAbout) forControlEvents:UIControlEventTouchDown];
+//        UIBarButtonItem* sAboutBarButton = [[UIBarButtonItem alloc]initWithCustomView:sButton];
+//        self.navigationItem.rightBarButtonItem = sAboutBarButton;
+//        [sAboutBarButton release];
         
         //edit
         [self toggleEditButton];
@@ -151,7 +151,7 @@
             [self.mEmptyView removeFromSuperview];
             self.mEmptyView = nil;
         }
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.mTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 //        [self.tableView reloadData];
     }
     else 
@@ -160,7 +160,7 @@
         {
             self.mEmptyView = [self constructEmptyView];
         }
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view insertSubview:self.mEmptyView atIndex:0];
     }
     [self toggleEditButton];
@@ -190,9 +190,9 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    if (self.tableView.editing)
+    if (self.mTableView.editing)
     {
-        [self.tableView setEditing:NO];
+        [self.mTableView setEditing:NO];
         mEditBarButtonItem.title = NSLocalizedString(@"Edit", nil);
 
     }
@@ -212,7 +212,7 @@
         {
             mEditBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Edit", nil) style:UIBarButtonItemStylePlain target:self action:@selector(toggleEdittingMode:)];
         }
-        if (self.tableView.editing)
+        if (self.mTableView.editing)
         {
             mEditBarButtonItem.title = NSLocalizedString(@"Done", nil);
         }
@@ -220,15 +220,15 @@
         {
             mEditBarButtonItem.title = NSLocalizedString(@"Edit", nil);
         }
-        self.navigationItem.leftBarButtonItem = mEditBarButtonItem;
+        self.navigationItem.rightBarButtonItem = mEditBarButtonItem;
     }
     else 
     {
-        if (self.tableView.editing)
+        if (self.mTableView.editing)
         {
-            [self.tableView setEditing:NO];
+            [self.mTableView setEditing:NO];
         }
-        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil;
     }
 
 }
@@ -239,69 +239,69 @@
     NSString* sCurTitle =  sBarButtonItem.title;
     if ([sCurTitle compare:NSLocalizedString(@"Edit", nil)] == 0)
     {
-        [self.tableView setEditing:YES animated:YES];
+        [self.mTableView setEditing:YES animated:YES];
         sBarButtonItem.title = NSLocalizedString(@"Done", nil);
 //        sBarButtonItem.tintColor = [UIColor whiteColor];
     }
     else {
-        [self.tableView setEditing:NO animated:YES];
+        [self.mTableView setEditing:NO animated:YES];
         sBarButtonItem.title = NSLocalizedString(@"Edit", nil);
     }
     return;
 }
 
-- (void) presentAbout
-{
-    AboutViewController* sAboutViewController = [[AboutViewController alloc] init];
+//- (void) presentAbout
+//{
+//    AboutViewController* sAboutViewController = [[AboutViewController alloc] init];
+//
+//    sAboutViewController.navigationItem.title = NSLocalizedString(@"About", nil);
+//    UIBarButtonItem *sReturnButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(returnToFavorite)];
+//    sAboutViewController.navigationItem.rightBarButtonItem = sReturnButton;
+//    [sReturnButton release];
+//
+//    UINavigationController* sNavigationControllerOfAboutVC = [[UINavigationController alloc]initWithRootViewController:sAboutViewController];
+//    sNavigationControllerOfAboutVC.navigationBar.barStyle = UIBarStyleBlack;
+//    sNavigationControllerOfAboutVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//
+//
+//    if ([sNavigationControllerOfAboutVC.navigationBar respondsToSelector:@selector(setTintColor:)])
+//    {
+//        sNavigationControllerOfAboutVC.navigationBar.tintColor = MAIN_BGCOLOR;
+//    }
+//    else 
+//    {
+//       //ios 4. 
+//    }
+//    
+//    
+//    if ([self respondsToSelector:@selector(presentViewController:animated:completion:)])
+//    {
+//        [self presentViewController:sNavigationControllerOfAboutVC animated:YES completion:nil];
+//    }
+//    else
+//    {
+//        [self presentModalViewController:sNavigationControllerOfAboutVC animated:YES];
+//    }
+//        
+////    [self.navigationController pushViewController:sAboutViewController animated:YES];
+//    
+//    [sAboutViewController release];
+//    [sNavigationControllerOfAboutVC release];
+//    return;
+//}
 
-    sAboutViewController.navigationItem.title = NSLocalizedString(@"About", nil);
-    UIBarButtonItem *sReturnButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(returnToFavorite)];
-    sAboutViewController.navigationItem.rightBarButtonItem = sReturnButton;
-    [sReturnButton release];
-
-    UINavigationController* sNavigationControllerOfAboutVC = [[UINavigationController alloc]initWithRootViewController:sAboutViewController];
-    sNavigationControllerOfAboutVC.navigationBar.barStyle = UIBarStyleBlack;
-    sNavigationControllerOfAboutVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-
-
-    if ([sNavigationControllerOfAboutVC.navigationBar respondsToSelector:@selector(setTintColor:)])
-    {
-        sNavigationControllerOfAboutVC.navigationBar.tintColor = MAIN_BGCOLOR;
-    }
-    else 
-    {
-       //ios 4. 
-    }
-    
-    
-    if ([self respondsToSelector:@selector(presentViewController:animated:completion:)])
-    {
-        [self presentViewController:sNavigationControllerOfAboutVC animated:YES completion:nil];
-    }
-    else
-    {
-        [self presentModalViewController:sNavigationControllerOfAboutVC animated:YES];
-    }
-        
-//    [self.navigationController pushViewController:sAboutViewController animated:YES];
-    
-    [sAboutViewController release];
-    [sNavigationControllerOfAboutVC release];
-    return;
-}
-
-- (void) returnToFavorite
-{
-    if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else 
-    {
-        [self dismissModalViewControllerAnimated:YES];
-    }
-    return;
-}
+//- (void) returnToFavorite
+//{
+//    if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+//    {
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }
+//    else 
+//    {
+//        [self dismissModalViewControllerAnimated:YES];
+//    }
+//    return;
+//}
 
 #pragma mark -
 #pragma mark tableview's datasource methods
@@ -392,7 +392,7 @@
             [sItemsOfGroup removeObject:sItem];
             if (sItemsOfGroup.count > 0)
             {
-                [self.tableView deleteRowsAtIndexPaths:sIndexPathes withRowAnimation:UITableViewRowAnimationNone];
+                [self.mTableView deleteRowsAtIndexPaths:sIndexPathes withRowAnimation:UITableViewRowAnimationNone];
             }
             else 
             {
@@ -400,11 +400,11 @@
                 
                 if (self.mFavorites.count > 0)
                 {
-                    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[indexPath section]] withRowAnimation:UITableViewRowAnimationNone];
+                    [self.mTableView deleteSections:[NSIndexSet indexSetWithIndex:[indexPath section]] withRowAnimation:UITableViewRowAnimationNone];
                 }
                 else 
                 {
-                    [self.tableView reloadData];
+                    [self.mTableView reloadData];
                     [self toggleMainView];
                 }
             }

@@ -101,7 +101,7 @@
         [sBarButtonItem release];
         
         //set bottom inset for tableview
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 5, 0);
+        self.mTableView.contentInset = UIEdgeInsetsMake(0, 0, 5, 0);
         
         self.mDeltaPerRow = INVALID_DELTA;
     }
@@ -112,7 +112,7 @@
 {   
     [super configTableView];
     
-    self.tableView.rowHeight = 44;
+    self.mTableView.rowHeight = 44;
     
     return;
 }
@@ -142,7 +142,7 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tableView.contentOffset = CGPointMake(0, self.mSection.mOffset); 
+    self.mTableView.contentOffset = CGPointMake(0, self.mSection.mOffset); 
     [self refreshProgressIndicator];
     
 }
@@ -167,7 +167,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.mSection.mOffset = self.tableView.contentOffset.y;
+    self.mSection.mOffset = self.mTableView.contentOffset.y;
     
     [StoreManager updateSectionOffset:self.mSection.mOffset ForSection:self.mSection.mSectionID];
     
@@ -268,7 +268,7 @@
     }
     else 
     {
-        NSArray* sIndexPathsForVisibleRows = self.tableView.indexPathsForVisibleRows;
+        NSArray* sIndexPathsForVisibleRows = self.mTableView.indexPathsForVisibleRows;
         if (sIndexPathsForVisibleRows
             && sIndexPathsForVisibleRows.count>0)
         {
@@ -331,7 +331,7 @@
         
         //title label
         sTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 8, 255, 30)];
-        sTitleLabel.backgroundColor = TAB_PAGE_BGCOLOR;
+        sTitleLabel.backgroundColor = [UIColor clearColor];
         sTitleLabel.tag = TAG_FOR_CELL_TITLE_LABEL;
         [sCell.contentView addSubview:sTitleLabel];
         [sTitleLabel release];
@@ -340,7 +340,7 @@
         sFavButton = [TaggedButton buttonWithType:UIButtonTypeCustom];
         [sFavButton setFrame:CGRectMake(285, 8, 24, 24)];
         
-        sFavButton.mMarginInsets = UIEdgeInsetsMake(24, 20, self.tableView.rowHeight-32, 11);
+        sFavButton.mMarginInsets = UIEdgeInsetsMake(24, 20, self.mTableView.rowHeight-32, 11);
         sFavButton.mIndexPath = indexPath;
         sFavButton.tag = TAG_FOR_CELL_FAVORITE_IMGVIEW;
         sFavButton.showsTouchWhenHighlighted = YES;
@@ -451,7 +451,7 @@
     NSInteger mTargetPos = ((NSNumber*)[self.mSection.mIndexOfTheFirstItemForEachCategory objectAtIndex:aSeriNumberOfTheClickedIndex]).integerValue;
 
     NSIndexPath* sIndexPath = [NSIndexPath indexPathForRow:mTargetPos inSection:0];
-    [self.tableView scrollToRowAtIndexPath:sIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self.mTableView scrollToRowAtIndexPath:sIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
     [self refreshProgressIndicator];
     return;

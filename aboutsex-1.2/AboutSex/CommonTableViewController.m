@@ -10,20 +10,17 @@
 #import "ContentViewController.h"
 #import "TaggedButton.h"
 @interface CommonTableViewController ()
+{
+    UITableView* mTableView;
+    
+}
 @end
 
 @implementation CommonTableViewController
 
+@synthesize mTableView;
 @synthesize mHasAppearedBefore;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id) initWithTitle:(NSString*)aTitle
 {
@@ -36,21 +33,43 @@
             self.mHasAppearedBefore = NO;
         } 
         
-        [self configTableView];
+//        [self configTableView];
     }
     return self;
 }
 
+- (void) dealloc
+{
+    self.mTableView = nil;
+    [super dealloc];
+}
+
+- (void) loadView
+{
+    [super loadView];
+    
+    UITableView* sTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.mMainView.bounds.size.height)];
+    
+    [self.mMainView addSubview:sTableView];
+    
+    self.mTableView = sTableView;
+    [sTableView release];
+    
+    [self configTableView];
+
+    
+}
+
 - (void) configTableView
-{    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [self.tableView setSeparatorColor:[UIColor colorWithRed:RGB_DIV_255(235) green:RGB_DIV_255(235) blue:RGB_DIV_255(235) alpha:1.0f]];
-    self.tableView.scrollEnabled = YES;
-    self.tableView.allowsSelection = YES;
+{
+    self.mTableView.dataSource = self;
+    self.mTableView.delegate = self;
+    [self.mTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.mTableView setSeparatorColor:[UIColor colorWithRed:RGB_DIV_255(235) green:RGB_DIV_255(235) blue:RGB_DIV_255(235) alpha:1.0f]];
+    self.mTableView.scrollEnabled = YES;
+    self.mTableView.allowsSelection = YES;
 //    self.tableView.allowsMultipleSelection = NO;
-    self.tableView.backgroundColor = TAB_PAGE_BGCOLOR;
+    self.mTableView.backgroundColor = [UIColor clearColor];
 
 
     return;
@@ -74,7 +93,7 @@
 - (void) refreshTableView
 {
     [self loadData];
-    [self.tableView reloadData];
+    [self.mTableView reloadData];
 }
 
 - (BOOL) appearFirstTime
@@ -107,7 +126,7 @@
 
 - (void) markItemOfSeletedRowAsReaded
 {
-    NSIndexPath* sSelectedIndexPath =  [self.tableView indexPathForSelectedRow];
+    NSIndexPath* sSelectedIndexPath =  [self.mTableView indexPathForSelectedRow];
     Item* sItem = [self getItemByIndexPath:sSelectedIndexPath];
     
     if (!sItem.mIsRead)
@@ -136,7 +155,7 @@
 
 - (BOOL) getCollectionStatuForSelectedRow
 {
-    NSIndexPath* sSelectedIndexPath = [self.tableView indexPathForSelectedRow];    
+    NSIndexPath* sSelectedIndexPath = [self.mTableView indexPathForSelectedRow];    
     Item* sItem = [self getItemByIndexPath:sSelectedIndexPath];
     return sItem.mIsMarked;
 }
@@ -166,7 +185,7 @@
 
 - (BOOL) toggleColletedStatusOfSelectedRow
 {
-    NSIndexPath* sSelectedIndexPath =  [self.tableView indexPathForSelectedRow];
+    NSIndexPath* sSelectedIndexPath =  [self.mTableView indexPathForSelectedRow];
     
     BOOL sRet = [self reverseColletedStatus:sSelectedIndexPath];
     //the following line does not work, strangely, so use UITableView selectRowAtIndexPath:

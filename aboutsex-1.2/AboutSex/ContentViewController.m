@@ -7,18 +7,24 @@
 //
 
 #import "ContentViewController.h"
-#import "SVSegmentedControl.h"
-#import "CMPopTipView.h"
+//#import "SVSegmentedControl.h"
+//#import "CMPopTipView.h"
+
+#import "UserConfiger.h"
 
 #define TAG_FOR_TITLE_BAR 100
 #define TAG_FOR_RIGHT_COLLECTIN_BARBUTTON 101
 
+#define TIME_FOR_JS_EXECUTATION     0.1
+
 @interface ContentViewController ()
 {
     UIButton* mCollectionButton;
+    NSTimer* mJSExecutationTimer;
 }
 
 @property (nonatomic, retain) UIButton* mCollectionButton;
+@property (nonatomic, retain) NSTimer* mJSExecutationTimer;
 
 - (void) configureNaviBar: (NSString*) aTitle WithCollectionSupport:(BOOL)canCollect;
 - (void) constructSubviewsWithTitle:(NSString*)aTitle AndContentLoc:(NSURL*)aContentURL;
@@ -38,6 +44,8 @@
 
 @synthesize mCollectionButton;
 
+@synthesize mJSExecutationTimer;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,26 +57,17 @@
 }
 
 
-//- (id) initWithTitle:(NSString*)aTitle AndContentLoc: (NSString*)aLoc;
-//{
-//    self = [super init];
-//    if (self)
-//    {
-//
-//        [self configureNaviBar:aTitle];
-//
-//        
-//        [self constructSubviewsWithTitle: aTitle AndContentLoc: aLoc];
-//    }
-//    return self;
-//}
-
 - (void) setTitle:(NSString*)aTitle AndContentLoc: (NSURL*)aLoc AndWithCollectionSupport: (BOOL) canCollect;
 {
     [self configureNaviBar:aTitle WithCollectionSupport:canCollect];    
     [self constructSubviewsWithTitle: aTitle AndContentLoc: aLoc];
 
     return;
+}
+
+- (void) loadView
+{
+    [super loadView];
 }
 
 - (void)viewDidLoad
@@ -89,6 +88,7 @@
     self.mPageLoadingIndicator = nil;
     
     self.mCollectionButton = nil;
+    self.mJSExecutationTimer = nil;
     [super dealloc];
 }
 
@@ -106,15 +106,15 @@
     
     NSMutableArray* sRightBarButtonItems = [[NSMutableArray alloc] initWithCapacity:2];
     
-    //Text size change button
-    UIButton* sFontSizeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    sFontSizeButton.frame = CGRectMake(0, 0, 24, 24);
-    [sFontSizeButton setImage: [UIImage imageNamed:@"fontsize20.png"] forState:UIControlStateNormal];
-    [sFontSizeButton addTarget:self action:@selector(fontSizeButtonPressed) forControlEvents:UIControlEventTouchDown];
-    
-    UIBarButtonItem* sFontSizeBarButton =  [[UIBarButtonItem alloc]initWithCustomView:sFontSizeButton];
-    [sRightBarButtonItems addObject:sFontSizeBarButton];
-    [sFontSizeBarButton release];
+//    //Text size change button
+//    UIButton* sFontSizeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    sFontSizeButton.frame = CGRectMake(0, 0, 24, 24);
+//    [sFontSizeButton setImage: [UIImage imageNamed:@"fontsize20.png"] forState:UIControlStateNormal];
+//    [sFontSizeButton addTarget:self action:@selector(fontSizeButtonPressed) forControlEvents:UIControlEventTouchDown];
+//    
+//    UIBarButtonItem* sFontSizeBarButton =  [[UIBarButtonItem alloc]initWithCustomView:sFontSizeButton];
+//    [sRightBarButtonItems addObject:sFontSizeBarButton];
+//    [sFontSizeBarButton release];
 
     
     //config the collection status for navi bar.
@@ -149,12 +149,10 @@
 
 - (void) constructSubviewsWithTitle:(NSString*)aTitle AndContentLoc:(NSURL*)aContentURL;
 {    
-    
-    [self.view setBackgroundColor:TAB_PAGE_BGCOLOR];
-    
     //UIWebView
     UIWebView* sWebView = [[UIWebView alloc]init];
-    
+    self.mWebView = sWebView;
+
     CGFloat sX;
     CGFloat sY;
     CGFloat sWidth;
@@ -174,6 +172,8 @@
             NSString* sErrPageHtml = @"<!DOCTYPE HTML><html><meta charset=\"utf-8\">      <head><title>出错页面</title><style type=\"text/css\">body{text-align:center;}</style> </head><body><p>无法为你成功加载页面，很抱歉！<br/>也许还需要点时间，请稍后尝试！</p></body></html>";
             sHtmlString = sErrPageHtml;
         }
+        
+        
         [sWebView loadHTMLString:sHtmlString baseURL:aContentURL];
         [sHtmlString release];
     }
@@ -187,19 +187,47 @@
     [sWebView setOpaque:NO];
     [sWebView setBackgroundColor:[UIColor clearColor]];
     
-    [self.view addSubview:sWebView];
-    self.mWebView = sWebView;
+    [self.mMainView addSubview:sWebView];
+    
+    if ([UserConfiger getFontSizeType] != ENUM_FONT_SIZE_NORMAL)
+    {
+        NSTimer* sTimer = [[NSTimer alloc]initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:TIME_FOR_JS_EXECUTATION]  interval:TIME_FOR_JS_EXECUTATION target:self selector:@selector(setFontSizeForWebViewIfNecessary) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:sTimer forMode:NSDefaultRunLoopMode];
+        
+        self.mJSExecutationTimer = sTimer;
+        
+        [sTimer release];
+
+    }
+    
+
     [sWebView release];
 
     UIActivityIndicatorView* sPageLoadingIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-    [sPageLoadingIndicator setCenter:self.view.center];
+    [sPageLoadingIndicator setCenter:self.mMainView.center];
     sPageLoadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     
-    [self.view addSubview: sPageLoadingIndicator];
+    [self.mMainView addSubview: sPageLoadingIndicator];
     self.mPageLoadingIndicator = sPageLoadingIndicator;
     [sPageLoadingIndicator release];
     
     return;
+}
+
+- (void) setFontSizeForWebViewIfNecessary
+{
+    ENUM_FONT_SIZE_TYPE sFontSizeType = [UserConfiger getFontSizeType];
+    if (sFontSizeType != ENUM_FONT_SIZE_NORMAL)
+    {
+        NSInteger sFontSizeScale = [UserConfiger getFontSizeScalePercentByFontSizeType:sFontSizeType];
+        
+        NSString* sJSTempStr = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'";
+        
+        NSString* sJSStr = [NSString stringWithFormat:sJSTempStr, sFontSizeScale];
+        
+        [self.mWebView stringByEvaluatingJavaScriptFromString:sJSStr];
+
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -219,58 +247,6 @@
 {
     [self toggleCollectedStatus];
     return;
-}
-
-- (void) fontSizeButtonPressed
-{
-
-    
-    
-    SVSegmentedControl *sSegmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:NSLocalizedString(@"small", nil), NSLocalizedString(@"medium", nil), NSLocalizedString(@"large", nil), nil]];
-    //    [sSegmentedControl addTarget:self action:@selector(sexSegmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
-	sSegmentedControl.font = [UIFont boldSystemFontOfSize:19];
-	sSegmentedControl.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 25);
-//    sSegmentedControl.center = CGPointMake(sX+sWidth/2, sY+sHeightInfoLine/2);
-	sSegmentedControl.thumb.tintColor = MAIN_BGCOLOR_TRANSPARENT;
-    sSegmentedControl.backgroundColor = [UIColor lightGrayColor];
-    
-    sSegmentedControl.selectedIndex = 1;
-    
-
-
-    CMPopTipView* sPopTipView = [[CMPopTipView alloc] initWithCustomView:sSegmentedControl];
-    [sSegmentedControl release];
-
-    sPopTipView.center = CGPointMake(sPopTipView.center.x+30, sPopTipView.center.y-30);
-    sPopTipView.textColor = [UIColor grayColor];
-    sPopTipView.backgroundColor = [UIColor lightGrayColor];
-    sPopTipView.topMargin = 0;
-    sPopTipView.sidePadding = 2;
-    sPopTipView.cornerRadius = 2;
-    sPopTipView.disableTapToDismiss = YES;
-    sPopTipView.animation = CMPopTipAnimationPop;
-    UIBarButtonItem* sRightBarButtonItem = (UIBarButtonItem*)[self.navigationItem.rightBarButtonItems objectAtIndex:0];
-
-    [sPopTipView presentPointingAtView:sRightBarButtonItem.customView inView:self.view animated:YES];
-
-    [sPopTipView release];
-    
-    return;
-}
-
-- (void) smallFontSelected
-{
-    
-}
-
-- (void) mediumFontSelected
-{
-    
-}
-
-- (void) largeFontSelected
-{
-    
 }
 
 - (BOOL) toggleCollectedStatus
@@ -295,16 +271,30 @@
 
 #pragma mark UIWebView delegate methods
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{    
+    return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [self.mPageLoadingIndicator startAnimating];
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+//    [self setFontSizeForWebViewIfNecessary];
+    
+    if (self.mJSExecutationTimer)
+    {
+        [self.mJSExecutationTimer invalidate];
+    }
+    
     [self.mPageLoadingIndicator stopAnimating];
+    
+    [self setFontSizeForWebViewIfNecessary];
 //    [self.mWebView stringByEvaluatingJavaScriptFromString:@"document.body.style.backgroundColor = '#000099';"];
-
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -313,11 +303,8 @@
     UIAlertView *alterview = [[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"fail to load page, please retry later", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alterview show];
     [alterview release];
+    
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    return YES;
-}
 
 @end
