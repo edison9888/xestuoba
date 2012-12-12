@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1405C03C16782DA900A1C1B5 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1405C03716782D0C00A1C1B5 /* libsbjson-ios.a */; };
+		1405C03F1678307500A1C1B5 /* JSONWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1405C03E1678307500A1C1B5 /* JSONWrapper.m */; };
+		1405C04216788B3100A1C1B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1405C04116788B3100A1C1B5 /* Default-568h@2x.png */; };
 		1412088115DA9F5A002CE3C8 /* aboutsex.db in Resources */ = {isa = PBXBuildFile; fileRef = 1412087D15DA9EBB002CE3C8 /* aboutsex.db */; };
 		141317D316650BEB003A615B /* below8.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317D116650BEB003A615B /* below8.png */; };
 		141317D416650BEB003A615B /* below8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 141317D216650BEB003A615B /* below8@2x.png */; };
@@ -61,6 +64,9 @@
 		147C97C415BD9AC1000551ED /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C97C315BD9AC1000551ED /* Icon@2x.png */; };
 		1481156715B9B450007AC3AE /* refresh48.png in Resources */ = {isa = PBXBuildFile; fileRef = 1481156615B9B450007AC3AE /* refresh48.png */; };
 		1481156B15B9B604007AC3AE /* stop48.png in Resources */ = {isa = PBXBuildFile; fileRef = 1481156A15B9B604007AC3AE /* stop48.png */; };
+		1483179D16771AE30019949A /* fatcamp24.png in Resources */ = {isa = PBXBuildFile; fileRef = 1483179B16771AE30019949A /* fatcamp24.png */; };
+		1483179E16771AE30019949A /* fatcamp24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1483179C16771AE30019949A /* fatcamp24@2x.png */; };
+		148317C4167771970019949A /* SampleStreamData in Resources */ = {isa = PBXBuildFile; fileRef = 148317C3167771970019949A /* SampleStreamData */; };
 		14A07B3515F7045C00B616D1 /* MyURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A07B3415F7045C00B616D1 /* MyURLConnection.m */; };
 		14A07B3815F7900400B616D1 /* StreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A07B3715F7900400B616D1 /* StreamItem.m */; };
 		14A0B35615B5637B001912C0 /* new24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A0B35515B5637B001912C0 /* new24.png */; };
@@ -121,6 +127,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1405C03216782D0C00A1C1B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC12323D1391D5CC00131607;
+			remoteInfo = SBJson;
+		};
+		1405C03416782D0C00A1C1B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC1232521391D5CC00131607;
+			remoteInfo = SBJsonTests;
+		};
+		1405C03616782D0C00A1C1B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCC2626913920FC7003D9994;
+			remoteInfo = "sbjson-ios";
+		};
+		1405C03816782D0C00A1C1B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCC2627313920FC7003D9994;
+			remoteInfo = "sbjson-iosTests";
+		};
+		1405C03A16782D9700A1C1B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCC2626813920FC7003D9994;
+			remoteInfo = "sbjson-ios";
+		};
 		145B407015F5B24C00B9EBF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 145B406915F5B24B00B9EBF3 /* GMGridView.xcodeproj */;
@@ -180,6 +221,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = "json-framework-master/SBJson.xcodeproj"; sourceTree = "<group>"; };
+		1405C03D1678307500A1C1B5 /* JSONWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONWrapper.h; sourceTree = "<group>"; };
+		1405C03E1678307500A1C1B5 /* JSONWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONWrapper.m; sourceTree = "<group>"; };
+		1405C04116788B3100A1C1B5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1412087D15DA9EBB002CE3C8 /* aboutsex.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = aboutsex.db; sourceTree = "<group>"; };
 		141317D116650BEB003A615B /* below8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = below8.png; path = resources/below8.png; sourceTree = "<group>"; };
 		141317D216650BEB003A615B /* below8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "below8@2x.png"; path = "resources/below8@2x.png"; sourceTree = "<group>"; };
@@ -217,7 +262,6 @@
 		144BC05015B8031E00CF9E1B /* CommonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableViewController.m; sourceTree = "<group>"; };
 		14555E0B15F8E07D00F1D0CB /* NewStreamSniffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewStreamSniffer.h; sourceTree = "<group>"; };
 		14555E0C15F8E07E00F1D0CB /* NewStreamSniffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewStreamSniffer.m; sourceTree = "<group>"; };
-		14555E0E15F8E0E500F1D0CB /* NewStreamSnifferDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewStreamSnifferDelegate.h; sourceTree = "<group>"; };
 		14555E1515F9246E00F1D0CB /* MKInfoPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKInfoPanel.h; sourceTree = "<group>"; };
 		14555E1615F9246E00F1D0CB /* MKInfoPanel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKInfoPanel.m; sourceTree = "<group>"; };
 		14555E1715F9246E00F1D0CB /* MKInfoPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MKInfoPanel.xib; sourceTree = "<group>"; };
@@ -251,6 +295,9 @@
 		147C97C315BD9AC1000551ED /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		1481156615B9B450007AC3AE /* refresh48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refresh48.png; path = resources/refresh48.png; sourceTree = "<group>"; };
 		1481156A15B9B604007AC3AE /* stop48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop48.png; path = resources/stop48.png; sourceTree = "<group>"; };
+		1483179B16771AE30019949A /* fatcamp24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fatcamp24.png; path = resources/fatcamp24.png; sourceTree = "<group>"; };
+		1483179C16771AE30019949A /* fatcamp24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fatcamp24@2x.png"; path = "resources/fatcamp24@2x.png"; sourceTree = "<group>"; };
+		148317C3167771970019949A /* SampleStreamData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SampleStreamData; sourceTree = "<group>"; };
 		14A07B3215F7042C00B616D1 /* MyURLConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyURLConnectionDelegate.h; sourceTree = "<group>"; };
 		14A07B3315F7045C00B616D1 /* MyURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyURLConnection.h; sourceTree = "<group>"; };
 		14A07B3415F7045C00B616D1 /* MyURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyURLConnection.m; sourceTree = "<group>"; };
@@ -348,6 +395,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1405C03C16782DA900A1C1B5 /* libsbjson-ios.a in Frameworks */,
 				14ECB1DF166606D700796187 /* libTapkuLibrary.a in Frameworks */,
 				145B408315F5B29F00B9EBF3 /* libfppopover.a in Frameworks */,
 				145B408415F5B29F00B9EBF3 /* libGMGridView.a in Frameworks */,
@@ -365,9 +413,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1405C02916782D0C00A1C1B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1405C03316782D0C00A1C1B5 /* SBJson.framework */,
+				1405C03516782D0C00A1C1B5 /* SBJsonTests.octest */,
+				1405C03716782D0C00A1C1B5 /* libsbjson-ios.a */,
+				1405C03916782D0C00A1C1B5 /* sbjson-iosTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1414B7B11599FE94007E3BA8 = {
 			isa = PBXGroup;
 			children = (
+				1405C04116788B3100A1C1B5 /* Default-568h@2x.png */,
 				1414B7C61599FE94007E3BA8 /* AboutSex */,
 				1414B7BF1599FE94007E3BA8 /* Frameworks */,
 				1414B7BD1599FE94007E3BA8 /* Products */,
@@ -386,6 +446,7 @@
 		1414B7BF1599FE94007E3BA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */,
 				14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */,
 				145B407215F5B25F00B9EBF3 /* FPPopoverDemo.xcodeproj */,
 				145B406915F5B24B00B9EBF3 /* GMGridView.xcodeproj */,
@@ -558,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				14228CF015DE8C0C009BDC57 /* data */,
+				148317C3167771970019949A /* SampleStreamData */,
 				1412087D15DA9EBB002CE3C8 /* aboutsex.db */,
 				14C1153E15B90FA800CD0FB4 /* umFeedback.bundle */,
 				147C97C115BD9AB5000551ED /* Icon.png */,
@@ -609,6 +671,8 @@
 				14131806166549DF003A615B /* nightmode_active24@2x.png */,
 				1413180116654979003A615B /* nightmode_inactive24.png */,
 				14131807166549DF003A615B /* nightmode_inactive24@2x.png */,
+				1483179B16771AE30019949A /* fatcamp24.png */,
+				1483179C16771AE30019949A /* fatcamp24@2x.png */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -638,7 +702,6 @@
 				14D23DFE15B1C07F003366B3 /* StreamViewController.m */,
 				14555E0B15F8E07D00F1D0CB /* NewStreamSniffer.h */,
 				14555E0C15F8E07E00F1D0CB /* NewStreamSniffer.m */,
-				14555E0E15F8E0E500F1D0CB /* NewStreamSnifferDelegate.h */,
 			);
 			name = Stream;
 			sourceTree = "<group>";
@@ -685,6 +748,8 @@
 				14A07B3215F7042C00B616D1 /* MyURLConnectionDelegate.h */,
 				14A07B3315F7045C00B616D1 /* MyURLConnection.h */,
 				14A07B3415F7045C00B616D1 /* MyURLConnection.m */,
+				1405C03D1678307500A1C1B5 /* JSONWrapper.h */,
+				1405C03E1678307500A1C1B5 /* JSONWrapper.m */,
 				14BEC61315AC2ADE009A7B7D /* Store */,
 			);
 			name = Common;
@@ -724,6 +789,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1405C03B16782D9700A1C1B5 /* PBXTargetDependency */,
 				14FCE57B1665FAE700CD668A /* PBXTargetDependency */,
 				145B408015F5B27900B9EBF3 /* PBXTargetDependency */,
 				145B408215F5B27900B9EBF3 /* PBXTargetDependency */,
@@ -763,6 +829,10 @@
 					ProjectRef = 145B406915F5B24B00B9EBF3 /* GMGridView.xcodeproj */;
 				},
 				{
+					ProductGroup = 1405C02916782D0C00A1C1B5 /* Products */;
+					ProjectRef = 1405C02816782D0C00A1C1B5 /* SBJson.xcodeproj */;
+				},
+				{
 					ProductGroup = 14FCE56F1665FAAE00CD668A /* Products */;
 					ProjectRef = 14FCE56E1665FAAE00CD668A /* TapkuLibrary.xcodeproj */;
 				},
@@ -775,6 +845,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1405C03316782D0C00A1C1B5 /* SBJson.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SBJson.framework;
+			remoteRef = 1405C03216782D0C00A1C1B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1405C03516782D0C00A1C1B5 /* SBJsonTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SBJsonTests.octest;
+			remoteRef = 1405C03416782D0C00A1C1B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1405C03716782D0C00A1C1B5 /* libsbjson-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libsbjson-ios.a";
+			remoteRef = 1405C03616782D0C00A1C1B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1405C03916782D0C00A1C1B5 /* sbjson-iosTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "sbjson-iosTests.octest";
+			remoteRef = 1405C03816782D0C00A1C1B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		145B407115F5B24C00B9EBF3 /* libGMGridView.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -875,6 +973,10 @@
 				14ECB1EF1666110800796187 /* font24@2x.png in Resources */,
 				14ECB1FE16669C0900796187 /* news32.png in Resources */,
 				14ECB1FF16669C0900796187 /* news32@2x.png in Resources */,
+				1483179D16771AE30019949A /* fatcamp24.png in Resources */,
+				1483179E16771AE30019949A /* fatcamp24@2x.png in Resources */,
+				148317C4167771970019949A /* SampleStreamData in Resources */,
+				1405C04216788B3100A1C1B5 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,12 +1029,18 @@
 				14ECB1F51666216100796187 /* FontSizeSettingController.m in Sources */,
 				14ECB1F81666237200796187 /* CustomCellBackgroundView.m in Sources */,
 				14ECB1FB16665F5700796187 /* CommonViewController.m in Sources */,
+				1405C03F1678307500A1C1B5 /* JSONWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1405C03B16782D9700A1C1B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "sbjson-ios";
+			targetProxy = 1405C03A16782D9700A1C1B5 /* PBXContainerItemProxy */;
+		};
 		145B408015F5B27900B9EBF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = fppopover;
@@ -1037,6 +1145,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/GMGridView\"",
 					"\"$(SRCROOT)/TapKu\"/**",
+					"\"$(SRCROOT)/json-framework-master/Classes\"",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -1112,6 +1221,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/GMGridView\"",
 					"\"$(SRCROOT)/TapKu\"/**",
+					"\"$(SRCROOT)/json-framework-master/Classes\"",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -1135,6 +1245,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/GMGridView\"",
 					"\"$(SRCROOT)/TapKu\"/**",
+					"\"$(SRCROOT)/json-framework-master/Classes\"",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;

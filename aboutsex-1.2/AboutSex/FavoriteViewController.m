@@ -21,8 +21,8 @@
 @interface FavoriteViewController ()
 
 
-- (void) presentAbout;
-- (void) returnToFavorite;
+//- (void) presentAbout;
+//- (void) returnToFavorite;
 - (void) toggleMainView;
 - (UIView*) constructEmptyView;
 - (void) toggleEditButton;
@@ -161,7 +161,7 @@
             self.mEmptyView = [self constructEmptyView];
         }
         self.mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.view insertSubview:self.mEmptyView atIndex:0];
+        [self.mMainView insertSubview:self.mEmptyView atIndex:0];
     }
     [self toggleEditButton];
     return;
@@ -328,6 +328,8 @@
         Item* sItem = (Item*)[sItemsOfGroup objectAtIndex:0];
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSTimeZone* localzone = [NSTimeZone localTimeZone];
+        [calendar setTimeZone:localzone];
         int unit =NSMonthCalendarUnit |NSYearCalendarUnit;
         NSDateComponents *fistComponets = [calendar components: unit fromDate: sItem.mMarkedTime];
 

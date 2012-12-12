@@ -19,6 +19,7 @@
 #import "BaiduWrapperViewController.h"
 
 #import "StoreManager.h"
+#import "UserConfiger.h"
 
 
 #define SPACING 10
@@ -251,6 +252,15 @@
         
         cell.contentView = view;
         [view release];
+    }
+    
+    if ([UserConfiger isNightModeOn])
+    {
+        cell.contentView.backgroundColor = [UIColor grayColor];
+    }
+    else
+    {
+        cell.contentView.backgroundColor = BGCOLOR_OF_CELL;
     }
     
     [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];

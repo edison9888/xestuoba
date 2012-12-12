@@ -21,9 +21,11 @@
 #define BAIDU_ZHIDAO_URL_HARDCODE    @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=6&lm=0"
 
 #define DEFUALTS_KEY_LAST_RUN_VERSION   @"LAST_RUN_VERSION_KEY"
+#define DEFAULTS_KEY_FIRST_LAUNCH_OF_CURRENT_VERSION  @"FIRST_LUANCH_AFTER_OF_CURRENT_VERSION"
 #define DEFAULTS_KEY_NEED_USER_GUIDE_ON_SECTION_INDEX    @"NEED_USER_GIDE_ON_SECTION_INDEX"
 #define DEFAULTS_NEED_SHOW_LIBRARY  @"NEED_SHOW_LIBRARY"
 
+#define ALPAH_FOR_NIGHT_MODE 0.2
 
 static SharedStates* singleton = nil;
 static UITabBarController* MTabBarController = nil; //static variable will be released when the application exits.
@@ -153,7 +155,7 @@ static NSMutableArray*  SBackgroundColorviews = nil;
         
         MTabBarController.viewControllers = sControllers;
         MTabBarController.selectedIndex = 0;
-        
+        MTabBarController.delegate = self;
         [self configApperance:MTabBarController];
         
         
@@ -236,7 +238,12 @@ static NSMutableArray*  SBackgroundColorviews = nil;
         || ![sCurrentRunVersion isEqualToString:sLastRunVersion])
     {
         [sDefaults setObject:sCurrentRunVersion forKey:DEFUALTS_KEY_LAST_RUN_VERSION];
+        [sDefaults setBool:YES forKey:DEFAULTS_KEY_FIRST_LAUNCH_OF_CURRENT_VERSION];
         [sDefaults setBool:YES forKey:DEFAULTS_KEY_NEED_USER_GUIDE_ON_SECTION_INDEX];
+    }
+    else
+    {
+        [sDefaults setBool:NO forKey:DEFAULTS_KEY_FIRST_LAUNCH_OF_CURRENT_VERSION];
     }
     
     //test
@@ -248,6 +255,12 @@ static NSMutableArray*  SBackgroundColorviews = nil;
 - (NSString*) getBaiduZhidaoURL
 {
     return self.mBaiduZhidaoURLStr;
+}
+
+- (BOOL) isFirstLaunchOfCurrentVersion
+{
+    BOOL sIsFirstLaunchAfterUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:DEFAULTS_KEY_FIRST_LAUNCH_OF_CURRENT_VERSION];
+    return sIsFirstLaunchAfterUpdate;
 }
 
 - (BOOL) needUserGuideOnSectionIndex
@@ -291,7 +304,7 @@ static NSMutableArray*  SBackgroundColorviews = nil;
 
     if ([UserConfiger isNightModeOn])
     {
-        sBackgroundColorview.alpha = 0.8;
+        sBackgroundColorview.alpha = ALPAH_FOR_NIGHT_MODE;
     }
     
     if (!SBackgroundColorviews)
@@ -309,7 +322,7 @@ static NSMutableArray*  SBackgroundColorviews = nil;
     {
         for (UIView* sBGColorView in SBackgroundColorviews)
         {
-            sBGColorView.alpha = 0.8;
+            sBGColorView.alpha = ALPAH_FOR_NIGHT_MODE;
         }
     }
 }
@@ -329,15 +342,15 @@ static NSMutableArray*  SBackgroundColorviews = nil;
 #pragma mark -
 #pragma mark delegate methods for MyURLConnectionDelegate
 
-//- (void) failWithConnectionError: (NSError*)aErr
-//{
-//    
-//}
-//
-//- (void) failWithServerError: (NSInteger)aStatusCode
-//{
-//    
-//}
+- (void) failWithConnectionError: (NSError*)aErr
+{
+    
+}
+
+- (void) failWithServerError: (NSInteger)aStatusCode
+{
+    
+}
 
 - (void) succeed: (NSMutableData*)aData
 {
@@ -345,10 +358,11 @@ static NSMutableArray*  SBackgroundColorviews = nil;
     NSString* sBaiduZhidaoURLStr = nil;
     BOOL sNeedShowLibrary = FALSE;
 
-    //api for json is only available on ios 5.0 and later, so you should do it yourself on versions before 5.0.
-    id sJSONObject =  [NSJSONSerialization JSONObjectWithData: aData 
-                                             options:NSJSONReadingMutableContainers
-                                               error:&sErr];
+    id sJSONObject =  [JSONWrapper JSONObjectWithData: aData
+                                                      options:NSJSONReadingMutableContainers
+                                                        error:&sErr];
+
+    
     if ([sJSONObject isKindOfClass:[NSDictionary class]])
     {
         NSDictionary *sDict = (NSDictionary *)sJSONObject;
@@ -371,6 +385,28 @@ static NSMutableArray*  SBackgroundColorviews = nil;
 
 }
 
+
+#pragma mark - UITabBarControllerDelegate
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    UIViewController* sNewsViewController = [tabBarController.viewControllers objectAtIndex:0];
+    if ([viewController.tabBarItem.title isEqualToString:sNewsViewController.tabBarItem.title]
+        && sNewsViewController.tabBarItem.badgeValue)
+    {
+        UIViewController* sViewControllerToBeRefreshed = sNewsViewController;
+        if ([sNewsViewController isKindOfClass:[UINavigationController class]])
+        {
+            sViewControllerToBeRefreshed = ((UINavigationController*)sNewsViewController).topViewController;
+        }
+
+        if ([sViewControllerToBeRefreshed respondsToSelector:@selector(refreshFromOutside)])
+        {
+            [sViewControllerToBeRefreshed performSelector:@selector(refreshFromOutside)];
+        }
+    }
+    
+    return YES;
+}
 
 
 @end

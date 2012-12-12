@@ -104,7 +104,7 @@
     [sTitleButton setTitle:aTitle forState:UIControlStateNormal];
     [self.navigationItem setTitleView:sTitleButton];
     
-    NSMutableArray* sRightBarButtonItems = [[NSMutableArray alloc] initWithCapacity:2];
+//    NSMutableArray* sRightBarButtonItems = [[NSMutableArray alloc] initWithCapacity:2];
     
 //    //Text size change button
 //    UIButton* sFontSizeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -133,16 +133,13 @@
         sCollectionButton.frame = CGRectMake(0, 0, 20, 20);
         [sCollectionButton addTarget:self action:@selector(collectionButtonPressed) forControlEvents:UIControlEventTouchDown];
 
-        UIBarButtonItem* sCollectionStatusBarButton =  [[UIBarButtonItem alloc]initWithCustomView:sCollectionButton];
+        UIBarButtonItem* sCollectionStatusBarButtonItem =  [[UIBarButtonItem alloc]initWithCustomView:sCollectionButton];
         self.mCollectionButton = sCollectionButton;
         
-        [sRightBarButtonItems addObject:sCollectionStatusBarButton];
-        [sCollectionStatusBarButton release]; 
+        self.navigationItem.rightBarButtonItem = sCollectionStatusBarButtonItem;
+        [sCollectionStatusBarButtonItem release]; 
     }
     
-    
-    self.navigationItem.rightBarButtonItems = sRightBarButtonItems;
-    [sRightBarButtonItems release];
 
     return;
 }

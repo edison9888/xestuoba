@@ -66,6 +66,9 @@
 
 @property (nonatomic, retain) NSMutableArray* mStreamItems;
 @property (nonatomic, retain) MyURLConnection* mURLConnection;
+
+
+- (void) refreshFromOutside;
 //- (void)setupStrings;
 //- (void)addPullToRefreshHeader;
 //- (void)startLoading;

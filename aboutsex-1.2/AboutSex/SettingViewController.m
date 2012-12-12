@@ -26,6 +26,10 @@
 #define AboutViewController_TAG_FOR_LEFT_VERSION_TITLE_LABEL 1110
 #define AboutViewController_TAG_FOR_RIGHT_VERSION_NUMBER_LABEL 1111
 
+#define HEADER_HEIGHT_VIEW   105
+
+#define DEFUALT_RECOMMAND_APP_NAME  @"减肥记记"
+#define DEFAULT_RECOMMAND_APP_URL   @"https://itunes.apple.com/cn/app/jian-fei-ji-ji/id583710058"
 
 @interface SettingViewController ()
 {
@@ -36,12 +40,22 @@
     NSTimer* mUpdateCheckOuttimeTimer;
     NSString* mPathForUpdate;
     
+    
+    NSString* mRecommandedAppName;
+    NSString* mRecommandedAppUrl;
+    MyURLConnection* mURLConnection;
+    
 }
 @property (nonatomic, retain) UITableView* mTableView;
 
 @property (nonatomic, assign) BOOL mIsCheckingUpdate;
 @property (nonatomic, retain) NSTimer* mUpdateCheckOuttimeTimer;
 @property (nonatomic, retain)     NSString* mPathForUpdate;
+
+@property (nonatomic, retain) NSString* mRecommandedAppName;
+@property (nonatomic, retain) NSString* mRecommandedAppUrl;
+
+@property (nonatomic, retain) MyURLConnection* mURLConnection;
 
 - (void)updateCheckCallBack:(NSDictionary *)appInfo;
 - (void) showNewUpdateInfoOnMainThread:(id) aAppInfo;
@@ -57,6 +71,9 @@
 @synthesize mUpdateCheckOuttimeTimer;
 @synthesize mPathForUpdate;
 
+@synthesize mRecommandedAppName;
+@synthesize mRecommandedAppUrl;
+@synthesize mURLConnection;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -76,11 +93,42 @@
         if (aTitle)
         {
             self.navigationItem.title = aTitle;
+            [self setRecommandedAppInfo];
         }
         
     }
     return self;
 }
+
+- (void) setRecommandedAppInfo;
+{
+    //firstly initialize recommanded app info as default values.
+    self.mRecommandedAppName = DEFUALT_RECOMMAND_APP_NAME;
+    self.mRecommandedAppUrl = DEFAULT_RECOMMAND_APP_URL;
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSMutableURLRequest* sURLRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:GET_RECOMMANDED_APP_INFO]];
+    
+    [sURLRequest setHTTPMethod:@"POST"];
+    
+    [sURLRequest setValue:[NSString stringWithFormat:@"%d", 0] forHTTPHeaderField:@"Content-length"];
+    [sURLRequest setHTTPBody:nil];
+    
+    MyURLConnection* sURLConnection = [[MyURLConnection alloc]initWithDelegate:sURLRequest withDelegate:self];
+    self.mURLConnection = sURLConnection;
+    [sURLRequest release];
+    [sURLConnection release];
+    
+    if (![self.mURLConnection start])
+    {
+#ifdef DEBUG
+        NSLog(@"conncetin creation error.");
+#endif
+    }
+    
+    return;
+}
+
 
 - (void) loadView
 {
@@ -92,14 +140,18 @@
     
     [super loadView];
     
-    CGFloat sPosX = 0;
-    CGFloat sPosY = 0;
+
     
+    CGFloat sPosX = 0;
+    CGFloat sPosY = 5;
+    
+    //tableview
     UITableView* sTableView = [[UITableView alloc]initWithFrame:CGRectMake(sPosX, sPosY, self.mMainView.bounds.size.width, self.mMainView.bounds.size.height-sPosY) style:UITableViewStyleGrouped];
     sTableView.dataSource = self;
     sTableView.delegate = self;
-    sTableView.backgroundColor = [UIColor clearColor];
-    sTableView.scrollEnabled = FALSE;
+    [sTableView setBackgroundView:nil];
+    [sTableView setBackgroundColor:[UIColor clearColor]];
+//    sTableView.scrollEnabled = FALSE;
     
     [self.mMainView addSubview:sTableView];
     
@@ -134,6 +186,9 @@
     self.mTableView = nil;
     [self.mUpdateCheckOuttimeTimer invalidate];
     self.mUpdateCheckOuttimeTimer = nil;
+    self.mRecommandedAppName = nil;
+    self.mRecommandedAppUrl = nil;
+    self.mURLConnection = nil;
     [super dealloc];
 }
 
@@ -148,7 +203,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -158,9 +213,7 @@
         case 0:
             return 2;
         case 1:
-            return 2;
-        case 2:
-            return 1;
+            return 3;
         default:
             return 0;
     }
@@ -202,8 +255,12 @@
             
             sCell.textLabel.text = NSLocalizedString(@"nightmode", nil);
             [sCell.imageView setImage:[UIImage imageNamed:@"nightmode_inactive24.png"]];
-            ((TKSwitchCell*)sCell).switcher.onTintColor = MAIN_BGCOLOR;
+            if ([((TKSwitchCell*)sCell).switcher respondsToSelector:@selector(onTintColor)])
+            {
+                ((TKSwitchCell*)sCell).switcher.onTintColor = MAIN_BGCOLOR;     
+            }
             [((TKSwitchCell*)sCell).switcher addTarget:self action:@selector(nightModeChanged:) forControlEvents:UIControlEventValueChanged];
+            sCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
         if ([UserConfiger isNightModeOn])
@@ -254,27 +311,28 @@
         {
             if (0 == sRow)
             {
-                sCell.textLabel.text =  NSLocalizedString(@"Version", nil);
-                [sCell.imageView setImage:[UIImage imageNamed:@"app24.png"]];
-                sCell.detailTextLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
-                sCell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            else if (1 == sRow)
-            {
                 sCell.textLabel.text = NSLocalizedString(@"Check for update", nil);
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 [sCell.imageView setImage:[UIImage imageNamed:@"search24.png"]];
+            }
+            else if (1 == sRow)
+            {
+                sCell.textLabel.text = NSLocalizedString(@"Feedback", nil);
+                [sCell.imageView setImage:[UIImage imageNamed:@"chat24.png"]];
+                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            else if (2 == sRow)
+            {
+                sCell.textLabel.text = NSLocalizedString(@"Recomman Apps", nil);
+                sCell.detailTextLabel.text = self.mRecommandedAppName;
+                [sCell.imageView setImage:[UIImage imageNamed:@"app24.png"]];
+                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
             }
             else
             {
                 //nothing
             }
-        }
-        else if (2 == sSection)
-        {
-            sCell.textLabel.text = NSLocalizedString(@"Feedback", nil);
-            [sCell.imageView setImage:[UIImage imageNamed:@"chat24.png"]];
-            sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         else
         {
@@ -305,24 +363,56 @@
 #pragma mark -
 #pragma mark methods for delegate interface
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 20;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    if (0  == section)
-//    {
-//        UILabel* sHeaderLabel = [[[UILabel alloc]init] autorelease];
-//        sHeaderLabel.frame = CGRectMake(0, 0, 100, 200);
-//        sHeaderLabel.text = @"产品改进讨论区..";
-//        sHeaderLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Medium" size:15];
-//        [sHeaderLabel sizeToFit];
-//        return sHeaderLabel;
-//    }
-//    return nil;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (0 == section)
+    {
+        return HEADER_HEIGHT_VIEW;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (0  == section)
+    {
+        CGFloat sPosX = 0;
+        CGFloat sPosY = 0;
+
+        UIView* sHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, HEADER_HEIGHT_VIEW, tableView.bounds.size.width)] autorelease];
+
+        //0. icon
+        UIImage* sImage = [UIImage imageNamed:@"Icon-72_Rounded.png"];
+        UIImageView* sImageView = [[UIImageView alloc]initWithImage:sImage];
+        [sImageView setFrame:CGRectMake(sPosX, sPosY, 72, 72)];
+        sImageView.center = CGPointMake(self.mMainView.center.x, sImageView.center.y);
+        [sHeaderView addSubview:sImageView];
+        
+        [sImageView release];
+        
+        sPosX =43;
+        sPosY = sImageView.frame.origin.y+sImageView.frame.size.height+5;
+        //1. intro
+        UILabel* sIntroLabel = [[UILabel alloc] initWithFrame:CGRectMake(sPosX, sPosY, 270, 400)];
+        sIntroLabel.numberOfLines = 0;
+        NSString* sBundleDisplayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+        NSString* sVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
+        sIntroLabel.text = [NSString stringWithFormat:@"%@ %@", sBundleDisplayName, sVersion];
+        sIntroLabel.textAlignment = UITextAlignmentCenter;
+        sIntroLabel.font = [UIFont systemFontOfSize:17];
+        sIntroLabel.backgroundColor = [UIColor clearColor];
+        [sIntroLabel sizeToFit];
+        sIntroLabel.center = CGPointMake(self.mMainView.center.x, sIntroLabel.center.y);
+
+        [sHeaderView addSubview:sIntroLabel];
+        [sIntroLabel release];
+        return sHeaderView;
+    }
+    return nil;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -348,11 +438,6 @@
     {
         if (sRow == 0)
         {
-            return;
-            
-        }
-        else if (sRow == 1)
-        {
             if (!self.mIsCheckingUpdate)
             {
                 self.mIsCheckingUpdate = YES;
@@ -375,18 +460,19 @@
                 
             }
         }
-        else
-        {
-            //nothing done.
-        }
-    }
-    else if (sSection == 2)
-    {
-        if (sRow == 0)
+        else if (sRow == 1)
         {
             UIViewController* sViewController = [[UIViewController alloc]init];
             [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
             [sViewController release];
+        }
+        else if (sRow == 2)
+        {
+            [self presentRecommandedApp];
+        }
+        else
+        {
+            //nothing done.
         }
     }
     else
@@ -475,6 +561,15 @@
     }
 }
 
+- (void) presentRecommandedApp
+{
+    [MobClick event:@"UEID_RECOMMAND_APP_HIT"];
+    
+    NSString* sUrlOfFatcampOnStore = nil;
+    sUrlOfFatcampOnStore = self.mRecommandedAppUrl;
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: sUrlOfFatcampOnStore]];
+}
+
 #pragma mark -
 #pragma mark delegate for update checking's alertview
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -491,6 +586,46 @@
 
 - (void)appUpdate:(NSDictionary *)appInfo {
     NSLog(@"自定义更新 %@",appInfo);
-} 
+}
+
+#pragma mark -
+#pragma mark delegate methods for MyURLConnectionDelegate
+
+- (void) failWithConnectionError: (NSError*)aErr
+{
+}
+
+- (void) failWithServerError: (NSInteger)aStatusCode
+{
+}
+
+- (void) succeed: (NSMutableData*)aData
+{
+    NSError* sErr = nil;
+    
+    id sJSONObject =  [JSONWrapper JSONObjectWithData: aData
+                                              options:NSJSONReadingMutableContainers
+                                                error:&sErr];
+    
+    NSString* sRecommandedAppName = nil;
+    NSString* sRecommandedAppUrl = nil;
+    if ([sJSONObject isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *sDict = (NSDictionary *)sJSONObject;
+        sRecommandedAppName = (NSString*)[sDict objectForKey:@"recommanded_app_name"];
+        sRecommandedAppUrl = (NSString*)[sDict objectForKey:@"recommanded_app_url"];
+    }
+    
+    if (sRecommandedAppName
+        && sRecommandedAppUrl)
+    {
+        self.mRecommandedAppName = sRecommandedAppName;
+        self.mRecommandedAppUrl = sRecommandedAppUrl;
+    }
+
+    return;
+}
+
+
 
 @end

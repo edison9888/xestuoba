@@ -18,7 +18,9 @@
 
 #import "StreamItem.h"
 
-FMDatabase* ssFMDatabase;
+#import "SharedStates.h"
+
+FMDatabase* ssFMDatabase = nil;
 
 @implementation StoreManager
 
@@ -32,6 +34,21 @@ FMDatabase* ssFMDatabase;
 //    NSString* sPathForDB = [[NSBundle mainBundle]pathForResource:@"aboutsex" ofType:@"db" inDirectory:nil];
 
     return sPathForDB;
+}
+
++ (NSString*) getPathForDocumentsStreamDataDir
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* sDocumentsStreamDataDir = [documentsDirectory stringByAppendingPathComponent:@"StreamData/"];
+    return sDocumentsStreamDataDir;
+}
+
++ (NSString*) getPathForBundleStreamDataDir
+{
+    NSString* sBundlePath = [[NSBundle mainBundle] bundlePath];
+    NSString* sBundleStreamDataDir = [sBundlePath stringByAppendingPathComponent:@"SampleStreamData/"];
+    return sBundleStreamDataDir;
 }
 
 + (BOOL) openIfNecessary
@@ -50,20 +67,16 @@ FMDatabase* ssFMDatabase;
 #ifdef REMOVE_EXISTING_DB_ON_LAUNCH
     //test code, just remove aboutsex.db in Documents directory.
     {
-        
         if ([[NSFileManager defaultManager]fileExistsAtPath:sPathForDBinDocumensDir])
         {
             NSError* sErr = nil;
             [[NSFileManager defaultManager] removeItemAtPath:sPathForDBinDocumensDir error:&sErr];
-            
         }
-
     }
 #endif    
     
     //ensure the existence of aboutsex.db under Documents dir.
     BOOL sIsDBFileExistent = [[NSFileManager defaultManager]fileExistsAtPath:sPathForDBinDocumensDir];
-        
     if (!sIsDBFileExistent)
     {
         //copy aboutsex.db from bundle to Documents directory
@@ -81,7 +94,7 @@ FMDatabase* ssFMDatabase;
             NSData *sDBFileData = [NSData dataWithContentsOfFile:sPathForDBinBundle]; 
             [[NSFileManager defaultManager] createFileAtPath:sPathForDBinDocumensDir 
                                                     contents:sDBFileData 
-                                                    attributes:nil]; 
+                                            attributes:nil];
         }
         
         sIsDBFileExistent = [[NSFileManager defaultManager]fileExistsAtPath:sPathForDBinDocumensDir];
@@ -95,8 +108,37 @@ FMDatabase* ssFMDatabase;
         }
     }
     
+    //ensure the existence of sample stream files in StreamDataDir under Documents dir.
+    NSString* sDocumentsStreamDataDir = [self getPathForDocumentsStreamDataDir];
+    BOOL sIsDocumentsStreamDataDirExistent = [[NSFileManager defaultManager]fileExistsAtPath:sDocumentsStreamDataDir];
+    if (!sIsDocumentsStreamDataDirExistent)
+    {
+        BOOL sStatus = [[NSFileManager defaultManager] createDirectoryAtPath:sDocumentsStreamDataDir withIntermediateDirectories:NO attributes:nil error:nil];
+        if (sStatus)
+        {
+            NSString* sBundleStreamDataDir = [self getPathForBundleStreamDataDir];
+            NSArray* sBundleFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sBundleStreamDataDir error:nil];
+            for (NSString* sBundleFileName in sBundleFileNames)
+            {
+                NSString* sBundleSampleStreamFile = [sBundleStreamDataDir stringByAppendingPathComponent:sBundleFileName];
+                NSString* sDocumentsSampleStreamFile = [sDocumentsStreamDataDir stringByAppendingPathComponent:sBundleFileName];
+                
+                NSData *sBundleSampleStreamFileData = [NSData dataWithContentsOfFile:sBundleSampleStreamFile];
+                [[NSFileManager defaultManager] createFileAtPath:sDocumentsSampleStreamFile
+                                                        contents:sBundleSampleStreamFileData
+                                                    attributes:nil];
+            }
+            
+        }
+    }
     
+    if (ssFMDatabase)
+    {
+        [ssFMDatabase release];
+        ssFMDatabase = nil;
+    }
     ssFMDatabase = [FMDatabase databaseWithPath:sPathForDBinDocumensDir];
+    [ssFMDatabase retain];
 
     if (![ssFMDatabase open])
     {
@@ -106,110 +148,34 @@ FMDatabase* ssFMDatabase;
         return NO;
     }
 
-    [ssFMDatabase retain];
-
-    NSString* sSQLStr = nil;
     
-    if (![ssFMDatabase tableExists:@"sections"])
+//    BOOL sIsFirstLauchOfCurrentVersion = [[SharedStates getInstance] isFirstLaunchOfCurrentVersion];   
+//    if (sIsFirstLauchOfCurrentVersion)
     {
-        sSQLStr = @"CREATE TABLE sections(sectionID INTEGER PRIMARY KEY AUTOINCREMENT,sectionName VARCHAR(50), sectionOffset DOUBLE)";
-        [ssFMDatabase executeUpdate:sSQLStr];
-        
-        sSQLStr = @"INSERT INTO sections(sectionName, sectionOffset) VALUES(?,?)";
-        [ssFMDatabase executeUpdate:sSQLStr, SECTION_NAME_STREAM, [NSNumber numberWithDouble:0.0]];
-        [ssFMDatabase executeUpdate:sSQLStr, SECTION_NAME_COMMONSENSE, [NSNumber numberWithDouble:0.0]];
-        [ssFMDatabase executeUpdate:sSQLStr, SECTION_NAME_HELATH, [NSNumber numberWithDouble:0.0]];
-        [ssFMDatabase executeUpdate:sSQLStr, SECTION_NAME_SKILLS, [NSNumber numberWithDouble:0.0]];
-        [ssFMDatabase executeUpdate:sSQLStr, SECTION_NAME_PSYCHOLOGY, [NSNumber numberWithDouble:0.0]];
-        
-    };
+        if (![ssFMDatabase tableExists:@"stream_items"])
+        {
+            NSString* sSQLStr = @"CREATE TABLE stream_items(itemID INTEGER PRIMARY KEY AUTOINCREMENT, itemName TEXT, location TEXT, isRead BOOLEAN, isMarked BOOLEAN, releasedTime INTEGER, markedTime INTEGER, iconURL TEXT, summary TEXT, numVisits INTEGER, tag INTEGER)";
+            [ssFMDatabase executeUpdate:sSQLStr];
 
-    if (![ssFMDatabase tableExists:@"categories"])
-    {
-        sSQLStr = @"CREATE TABLE categories(categoryID INTEGER PRIMARY KEY AUTOINCREMENT, categoryName VARCHAR(100) NOT NULL, refSectionID INTEGER, FOREIGN KEY(refSectionID) REFERENCES sections(sectionID))";
-        [ssFMDatabase executeUpdate:sSQLStr];
-        
-        sSQLStr = @"INSERT INTO categories(categoryName, refSectionID) VALUES(?, ?)";
-        [ssFMDatabase executeUpdate:sSQLStr, @"无类别", [NSNumber numberWithInt:1]];
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"青春期", [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期", [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期", [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性器官", [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性器官", [NSNumber numberWithInt:2]];
-
-    };
-//    
-    if (![ssFMDatabase tableExists:@"items"])
-    {
-        sSQLStr = @"CREATE TABLE items(itemID INTEGER PRIMARY KEY AUTOINCREMENT, itemName TEXT, location TEXT, isRead BOOLEAN, isMarked BOOLEAN, releasedTime INTEGER, markedTime INTEGER, refCategoryID INTEGER, FOREIGN KEY(refCategoryID) REFERENCES categories(cagegoryID))";
-        [ssFMDatabase executeUpdate:sSQLStr];
-        
-        sSQLStr = @"INSERT INTO items(itemName, location, isRead, isMarked, releasedTime, markedTime, refCategoryID) VALUES(?, ?,?,?,?,?,?)";
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"梦见和小叔子发生关系 正常吗", @"data/dict/1.html",[NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"老公和豪放女练床技 害我守活寡", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"寂寞富婆与花样美男的故事", @"data/dict/3.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"老公给保姆纹身竟趁机偷腥", @"data/dict/4.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"揭秘两性性差异 男性每月两天性欲旺盛", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"好聚好散的“离婚茶”", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"约会时男人有哪些歪脑筋", @"data/dict/3.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"最受男人欢迎的“减压性爱”(组图) ", @"data/dict/4.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"性游戏”要适度 5大规则教你玩尽性", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女人都是结婚狂：谁在诱惑女人们结婚", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"让老公宠你一辈子的技巧", @"data/dict/3.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男人女人什么年龄最容易出轨？", @"data/dict/4.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男人靠什么吸引女人", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"婚外恋是一种能传染的心理疾病", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"盘点中国式妻子的10大坏习惯", @"data/dict/3.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"老公街上凶老婆，大家一起凶老公", @"data/dict/4.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:1]];
-        
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"青春期的冲动是怎么一回事？", @"data/dict/1xx.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性乳房的构造", @"data/dict/2xx.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性应该知道的性知识", @"data/dict/3xx.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:2]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"大姨妈说法的由来", @"data/dict/4xx.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:2]];
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期1", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期2", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期3", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期4", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期5", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期6", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期7", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期8", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"更年期9", @"data/dict/1.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:3]];
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期1", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期2", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期3", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期4", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期5", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期6", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期7", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期8", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期9", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"安全期10", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:4]];
-        
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性生理1", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:5]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性生理2", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:5]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性生理3", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:5]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性生理4", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:5]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"男性生理5", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:5]];
-        
-        
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理1", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理2", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理3", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理4", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理5", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理6", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        [ssFMDatabase executeUpdate:sSQLStr, @"女性生理7", @"data/dict/2.html",[ NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],   [NSDate date], [NSDate distantFuture], [NSNumber numberWithInt:6]];
-        
+            NSString* sDocumentsStreamDataDir = [self getPathForDocumentsStreamDataDir];
+            NSArray* sSampleStreamFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sDocumentsStreamDataDir error:nil];
+            for (NSString* sSampleFileName in sSampleStreamFileNames)
+            {
+                if (sSampleFileName.length>1)
+                {
+                    NSString* sDocumentsSampleStreamFile = [NSString stringWithFormat:@"%@%@", @"StreamData/", sSampleFileName];
+                    
+                    sSQLStr = @"INSERT INTO stream_items(itemName, location, isRead, isMarked, releasedTime, markedTime, iconURL, summary, numVisits, tag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    
+                    [ssFMDatabase executeUpdate:sSQLStr, sSampleFileName, sDocumentsSampleStreamFile,[NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate distantPast], [NSDate distantPast], @"", NSLocalizedString(@"Summary unvailable due to network problems", nil), [NSNumber numberWithInt:-1], [NSNumber numberWithInt:-1]];
+                }
+            }
+        }
     }
+
     
     return YES;
+    
 }
 
 + (void) close

@@ -79,7 +79,7 @@
     [sStartingTimeDict setValue:[NSNumber numberWithDouble:sStartingTime] forKey:@"startingTime"];
     
     NSError* sErr = nil;
-    NSData* sData = [NSJSONSerialization dataWithJSONObject:sStartingTimeDict options:NSJSONReadingMutableContainers error:&sErr];
+    NSData* sData = [JSONWrapper dataWithJSONObject:sStartingTimeDict options:NSJSONReadingMutableContainers error:&sErr];
     
     [self.mRequest setHTTPBody:sData];
     [self.mRequest setValue:[NSString stringWithFormat:@"%d", [sData length]] forHTTPHeaderField:@"Content-length"];
@@ -111,17 +111,19 @@
 {
     NSError* sErr = nil;
     
-    //api for json is only available on ios 5.0 and later, so you should do it yourself on versions before 5.0.
-    id sJSONObject =  [NSJSONSerialization JSONObjectWithData: aData 
+    id sJSONObject =  [JSONWrapper JSONObjectWithData: aData
                                                       options:NSJSONReadingMutableContainers
                                                         error:&sErr];
+
+    
     if ([sJSONObject isKindOfClass:[NSDictionary class]])
     {
         NSDictionary *sDict = (NSDictionary *)sJSONObject;
         NSInteger sNumOfNewStreams = [(NSNumber*)[sDict objectForKey:@"numOfNewStream"] integerValue];
-        
+                
         [self.mDelegate newStreamFound:sNumOfNewStreams];
-    }     
+    }
+    
     return;
 }
 

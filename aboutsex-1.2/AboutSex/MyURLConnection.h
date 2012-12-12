@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MyURLConnectionDelegate.h"
+#import "JSONWrapper.h"
 
 @interface MyURLConnection : NSObject<NSURLConnectionDataDelegate>
 {

@@ -7,8 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NewStreamSnifferDelegate.h"
+//#import "NewStreamSnifferDelegate.h"
 #import "MyURLConnectionDelegate.h"
+
+
+@protocol NewStreamSnifferDelegate <NSObject>
+
+@required
+- (void) newStreamFound:(NSInteger) aNumOfNewStream;
+- (NSDate*) getStartingDate;
+
+@end
 
 
 @interface NewStreamSniffer : NSObject<MyURLConnectionDelegate, MyURLConnectionDelegate>

@@ -16,6 +16,6 @@
     id<IndexDelegate> mDelegate;
 }
 
-@property (nonatomic, assign) id<IndexDelegate> mDelegate;
+@property (nonatomic, retain) id<IndexDelegate> mDelegate;
  
 @end

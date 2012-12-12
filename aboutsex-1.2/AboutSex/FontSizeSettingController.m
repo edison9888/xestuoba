@@ -88,7 +88,7 @@
     
     UIWebView* sWebView = [[UIWebView alloc]init];
     
-    [sWebView setFrame:CGRectMake(30, 70, 260, 300)];
+    [sWebView setFrame:CGRectMake(30, 70, 260, self.mMainView.bounds.size.height-70)];
     
     NSString* sFontSizeDemoHtml = [NSString stringWithFormat:FontSizeDemoHtmlTemp, [UserConfiger getFontSizeScalePercentByFontSizeType:sFontSizeType]];
     
@@ -98,8 +98,11 @@
     sWebView.backgroundColor = [UIColor clearColor];
     sWebView.layer.cornerRadius = 8;
     sWebView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    sWebView.layer.borderWidth = 0.7;
-    sWebView.scrollView.bounces = NO;
+    sWebView.layer.borderWidth = 0;
+    if ([sWebView respondsToSelector:@selector(scrollView)])
+    {
+        sWebView.scrollView.bounces = NO;        
+    }
   
     self.mWebViewForTestText = sWebView;
     [sWebView release];

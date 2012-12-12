@@ -44,6 +44,7 @@
 
 - (void) dealloc
 {
+    self.mDelegate = nil;
     [super dealloc];
     return;
 }

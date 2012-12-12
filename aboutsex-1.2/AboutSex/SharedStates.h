@@ -13,7 +13,7 @@
 //
 
 
-@interface SharedStates : NSObject<MyURLConnectionDelegate>
+@interface SharedStates : NSObject<UITabBarControllerDelegate, MyURLConnectionDelegate>
 {
 //    NSMutableData* mWebData;
     NSString* mBaiduZhidaoURLStr;
@@ -36,6 +36,7 @@
 
 
 - (NSString*) getBaiduZhidaoURL;
+- (BOOL) isFirstLaunchOfCurrentVersion;
 - (BOOL) needUserGuideOnSectionIndex;
 - (void) closeUserGuideOnSectionIndex;
 

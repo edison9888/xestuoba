@@ -52,11 +52,18 @@
     NewStreamSniffer * mNewStreamSniffer;
     NSDate* mTimeOfLastSuccessfulUpdate;
     BOOL mIsAutoRefresh;
+    
+    UIBarButtonItem* mRefreshButtonBarButtonItem;
+    UIBarButtonItem* mLoadingIndicatorBarButtonItem;
 }
 
 @property (nonatomic, retain) NewStreamSniffer * mNewStreamSniffer;
 @property (nonatomic, retain) NSDate* mTimeOfLastSuccessfulUpdate;
 @property (nonatomic, assign) BOOL mIsAutoRefresh;
+
+@property (nonatomic, retain) UIBarButtonItem* mRefreshButtonBarButtonItem;
+@property (nonatomic, retain) UIBarButtonItem* mLoadingIndicatorBarButtonItem;
+
 
 - (void) setup;
 - (void) refreshViaButton;
@@ -82,6 +89,9 @@
 @synthesize mNewStreamSniffer;
 @synthesize mTimeOfLastSuccessfulUpdate;
 @synthesize mIsAutoRefresh;
+
+@synthesize mLoadingIndicatorBarButtonItem;
+@synthesize mRefreshButtonBarButtonItem;
 
 //- (id)initWithStyle:(UITableViewStyle)style {
 //    self = [super initWithStyle:style];
@@ -113,26 +123,10 @@
     if (self)
     {
         
-//        UIButton* sNightModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        sNightModeButton.frame = CGRectMake(0, 0, 24, 24);
-//        
-//        [sNightModeButton setImage:[UIImage imageNamed:@"nightmode_inactive24.png" ] forState:UIControlStateNormal];
-//        
-//        [sNightModeButton addTarget:self action:@selector(nightModeButtonPressed:) forControlEvents:UIControlEventTouchDown];
-//
-//        
-//        UIBarButtonItem* sLeftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sNightModeButton];
-//        self.navigationItem.leftBarButtonItem = sLeftButtonItem;
-//        [sLeftButtonItem release];
+
 
     }
     return self;
-}
-
-- (void) nightModeButtonPressed:(id)aButton
-{
-    UIButton* sNightModeButton = (UIButton*)aButton;
-    [sNightModeButton setImage:[UIImage imageNamed:@"nightmode_active24.png" ] forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad {
@@ -152,6 +146,9 @@
     self.mURLConnection = nil;
     self.mNewStreamSniffer = nil;
     self.mTimeOfLastSuccessfulUpdate = nil;
+    
+    self.mLoadingIndicatorBarButtonItem = nil;
+    self.mRefreshButtonBarButtonItem = nil;
     [super dealloc];
 }
 
@@ -177,19 +174,22 @@
 {
     [self setupStrings];
     
-    UIButton* sRefreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sRefreshButton setImage:[UIImage imageNamed:@"singlerefresh24.png"] forState:UIControlStateNormal];
-    sRefreshButton.frame = CGRectMake(0, 0, 24, 24);
-//    sRefreshButton.showsTouchWhenHighlighted = YES;
-    [sRefreshButton addTarget:self action:@selector(refreshViaButton) forControlEvents:UIControlEventTouchDown];
+    if (!self.mRefreshButtonBarButtonItem)
+    {
+        UIButton* sRefreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sRefreshButton setImage:[UIImage imageNamed:@"singlerefresh24.png"] forState:UIControlStateNormal];
+        sRefreshButton.frame = CGRectMake(0, 0, 24, 24);
+        //    sRefreshButton.showsTouchWhenHighlighted = YES;
+        [sRefreshButton addTarget:self action:@selector(refreshViaButton) forControlEvents:UIControlEventTouchDown];
+        
+        UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithCustomView:sRefreshButton];
+        sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
+        
+        self.mRefreshButtonBarButtonItem = sRefershBarButtonItem;
+        [sRefershBarButtonItem release];
+    }
+    self.navigationItem.rightBarButtonItem = self.mRefreshButtonBarButtonItem;
     
-    UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithCustomView:sRefreshButton];
-
-    
-//    UIBarButtonItem* sRefershBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshViaButton)];
-    sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.navigationItem.rightBarButtonItem = sRefershBarButtonItem;
-    [sRefershBarButtonItem release];
     self.mTableView.backgroundColor = TAB_PAGE_BGCOLOR;
 
     return;
@@ -354,6 +354,10 @@
     }    
 }
 
+- (void) refreshFromOutside
+{
+    [self refreshViaButton];
+}
 
 - (void) refreshViaButton
 {
@@ -398,9 +402,19 @@
     if (!(self.isLoading))
     {
         self.isLoading = YES;
+      
+        if (!self.mLoadingIndicatorBarButtonItem)
+        {
+            UIActivityIndicatorView* sLoadingIndicatorView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
+            [sLoadingIndicatorView setFrame:CGRectMake(0, 0, 24, 24)];
+            UIBarButtonItem* sLoadingIndicatorBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sLoadingIndicatorView];
+            self.mLoadingIndicatorBarButtonItem = sLoadingIndicatorBarButtonItem;
+            [sLoadingIndicatorBarButtonItem release];
+        }
+
+        self.navigationItem.rightBarButtonItem = self.mLoadingIndicatorBarButtonItem;
         
-        UIButton* sRefreshButton = (UIButton*)self.navigationItem.rightBarButtonItem.customView;
-        [sRefreshButton setImage:[UIImage imageNamed:@"loading24.png"] forState:UIControlStateNormal];
+        [(UIActivityIndicatorView*)self.mLoadingIndicatorBarButtonItem.customView startAnimating];
     }
 }
 
@@ -409,9 +423,9 @@
     if (self.isLoading)
     {
         self.isLoading = NO;
-        
-        UIButton* sRefreshButton = (UIButton*)self.navigationItem.rightBarButtonItem.customView;
-        [sRefreshButton setImage:[UIImage imageNamed:@"singlerefresh24.png"] forState:UIControlStateNormal]; 
+
+        [(UIActivityIndicatorView*)self.mLoadingIndicatorBarButtonItem.customView stopAnimating];
+        self.navigationItem.rightBarButtonItem = self.mRefreshButtonBarButtonItem;
     }
 }
 
@@ -553,6 +567,12 @@
         sVisitsCountStr = [NSString stringWithFormat: @"%d %@", sItem.mNumVisits, NSLocalizedString(@"people have read", nil)];
         sVisitsCountLabel.text = sVisitsCountStr;
     }
+    else
+    {
+        NSString* sVisitsCountStr;
+        sVisitsCountStr = [NSString stringWithFormat: @"%d %@", 0, NSLocalizedString(@"people have read", nil)];
+        sVisitsCountLabel.text = sVisitsCountStr;
+    }
     
     //summary label
     NSString* sSummaryStr = sItem.mSummary;
@@ -602,10 +622,10 @@
 {
     NSError* sErr = nil;
     
-    //api for json is only available on ios 5.0 and later, so you should do it yourself on versions before 5.0.
-    id sJSONObject =  [NSJSONSerialization JSONObjectWithData: aData 
+    id sJSONObject =  [JSONWrapper JSONObjectWithData: aData
                                                       options:NSJSONReadingMutableContainers
                                                         error:&sErr];
+    
     //note that we only take into account the strem item really loaded. some of the stream items fetched from server may alreay exist in database and have been read or collected by user. we refetch them just in order to update their numVisit values, in passing. 
     NSInteger sNumOfNewStreamReallyLoaded = 0;
     

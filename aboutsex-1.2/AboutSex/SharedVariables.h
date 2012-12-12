@@ -86,6 +86,7 @@
 #endif
 
 #define GET_CONF                    ([HOST_URL_STR stringByAppendingPathComponent: @"conf/get_conf.php"])
+#define GET_RECOMMANDED_APP_INFO    ([HOST_URL_STR stringByAppendingPathComponent: @"conf/get_recommanded_app_info.php"])
 //#define GET_CONF                 @"http://localhost/aboutsex/conf/get_conf.php"
 
 #define GET_STREAM_URL_STR          ([HOST_URL_STR stringByAppendingPathComponent: @"stream/get_stream_json.php"])

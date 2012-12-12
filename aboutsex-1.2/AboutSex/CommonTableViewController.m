@@ -48,9 +48,26 @@
 {
     [super loadView];
     
-    UITableView* sTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.mMainView.bounds.size.height)];
+    CGFloat sHeightOfPossilbeNavBarAndTabBar = 0;
+    if (self.tabBarController
+        && !self.hidesBottomBarWhenPushed)
+    {
+        sHeightOfPossilbeNavBarAndTabBar += self.tabBarController.tabBar.bounds.size.height;
+    }
+    if (self.navigationController
+        && !self.navigationController.navigationBarHidden)
+    {
+        sHeightOfPossilbeNavBarAndTabBar += self.navigationController.navigationBar.bounds.size.height;
+    }
+    
+    UITableView* sTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.mMainView.bounds.size.width, self.mMainView.bounds.size.height-sHeightOfPossilbeNavBarAndTabBar)];
     
     [self.mMainView addSubview:sTableView];
+    
+//    UITableView* sTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//    
+//    [self.view addSubview:sTableView];
+
     
     self.mTableView = sTableView;
     [sTableView release];
