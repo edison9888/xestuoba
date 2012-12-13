@@ -61,10 +61,10 @@ FMDatabase* ssFMDatabase = nil;
     NSString* sPathForDBinDocumensDir = [self getPathForDBinDocunemtsDir];
 
 #ifdef DEBUG
-#define REMOVE_EXISTING_DB_ON_LAUNCH
+#define REMOVE_EXISTING_DB_ON_LAUNCH_IN_DEBUG_MODE
 #endif
     
-#ifdef REMOVE_EXISTING_DB_ON_LAUNCH
+#ifdef REMOVE_EXISTING_DB_ON_LAUNCH_IN_DEBUG_MODE
     //test code, just remove aboutsex.db in Documents directory.
     {
         if ([[NSFileManager defaultManager]fileExistsAtPath:sPathForDBinDocumensDir])
