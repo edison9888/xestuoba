@@ -9,6 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
 
+#import "IconData.h"
+
+@protocol GridViewPageDelegate <NSObject>
+
+@required
+
+- (NSInteger) getNumberOfCellsOnPage:(NSInteger)aPageIndex;
+- (IconData*) getIconDataForCellIndex:(NSInteger)aCellIndex onPage:(NSInteger)aPageIndex;
+
+//- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView onPage:(NSInteger)aPageIndex;
+//- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index onPage:(NSInteger)aPageIndex;
+//- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position onPage:(NSInteger)aPageIndex;
+//
+
+@end
 @interface LibraryViewController : CommonViewController
 {
 
