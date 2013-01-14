@@ -19,4 +19,5 @@
 
 - (id)initWithFrame:(CGRect)frame andDelegate:(id) aDelegate withPageIndex:(NSInteger)aPageIndex;
 
+- (void) reloadIcons;
 @end

@@ -9,6 +9,7 @@
 #import "ContentViewController.h"
 //#import "SVSegmentedControl.h"
 //#import "CMPopTipView.h"
+#import "UIWebView+Clean.h"
 
 #import "UserConfiger.h"
 
@@ -21,10 +22,12 @@
 {
     UIButton* mCollectionButton;
     NSTimer* mJSExecutationTimer;
+    BOOL mIsDisappearing;
 }
 
 @property (nonatomic, retain) UIButton* mCollectionButton;
 @property (nonatomic, retain) NSTimer* mJSExecutationTimer;
+@property (nonatomic, assign) BOOL mIsDisappearing;
 
 - (void) configureNaviBar: (NSString*) aTitle WithCollectionSupport:(BOOL)canCollect;
 - (void) constructSubviewsWithTitle:(NSString*)aTitle AndContentLoc:(NSURL*)aContentURL;
@@ -45,6 +48,7 @@
 @synthesize mCollectionButton;
 
 @synthesize mJSExecutationTimer;
+@synthesize mIsDisappearing;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,6 +56,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.mIsDisappearing = NO;
     }
     return self;
 }
@@ -82,8 +87,18 @@
     // Release any retained subviews of the main view.
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.mWebView stopLoading];
+    self.mIsDisappearing = YES;
+    
+}
+
 - (void) dealloc
 {
+    [self.mWebView cleanForDealloc];
     self.mWebView = nil;
     self.mPageLoadingIndicator = nil;
     
@@ -275,7 +290,10 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [self.mPageLoadingIndicator startAnimating];
+    if (self.mPageLoadingIndicator)
+    {
+        [self.mPageLoadingIndicator startAnimating];
+    }
 
 }
 
@@ -288,7 +306,10 @@
         [self.mJSExecutationTimer invalidate];
     }
     
-    [self.mPageLoadingIndicator stopAnimating];
+    if (self.mPageLoadingIndicator)
+    {
+        [self.mPageLoadingIndicator stopAnimating];
+    }
     
     [self setFontSizeForWebViewIfNecessary];
 //    [self.mWebView stringByEvaluatingJavaScriptFromString:@"document.body.style.backgroundColor = '#000099';"];
@@ -296,11 +317,15 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    
-    UIAlertView *alterview = [[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"fail to load page, please retry later", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alterview show];
-    [alterview release];
-    
+    //ensure that alert view pops only when the this controller still exists.
+    if (self.mWebView
+        && !self.mIsDisappearing)
+    {
+        UIAlertView *alterview = [[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"fail to load page, please retry later", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alterview show];
+        [alterview release];
+
+    }
 }
 
 

@@ -42,6 +42,7 @@
 @synthesize mDeltaPerRow;
 @synthesize mSection;
 @synthesize mSectionName;
+@synthesize mNeedShowCategoriesView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,15 +56,16 @@
 
 - (id) init
 {
-    return [self initWithTitle:nil  AndSectionName:nil];
+    return [self initWithTitle:nil  AndSectionName:nil AndShowCategories:NO];
 }
 
-- (id) initWithTitle:(NSString*)aTitle AndSectionName: (NSString*) aSectionName
+- (id) initWithTitle:(NSString*)aTitle AndSectionName: (NSString*) aSectionName AndShowCategories:(BOOL)aShowCategories
 {
     self = [super initWithTitle:aTitle];
     if (self)
     {
         self.mSectionName = aSectionName;
+        self.mNeedShowCategoriesView = aShowCategories;
 
         //init progress button and add action to it.
 //        self.mProgressButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -88,12 +90,17 @@
         self.mProgressLabel = sProgressLabel;
         [sProgressLabel release];
         
-        UIImageView* sBelowImageView = [[UIImageView alloc] initWithFrame:CGRectMake((sSize.width-12)-10, sSize.height+sTopPadding, 8, 8)];
-        [sBelowImageView setImage:[UIImage imageNamed:@"below8.png"]];
-        [sRightControl addSubview:sBelowImageView];
-        [sBelowImageView release];
+        if (self.mNeedShowCategoriesView)
+        {
+            UIImageView* sBelowImageView = [[UIImageView alloc] initWithFrame:CGRectMake((sSize.width-12)-10, sSize.height+sTopPadding, 8, 8)];
+            [sBelowImageView setImage:[UIImage imageNamed:@"below8.png"]];
+            [sRightControl addSubview:sBelowImageView];
+            [sBelowImageView release];
+            
+            [sRightControl addTarget:self action:@selector(presentIndex) forControlEvents:UIControlEventTouchDown];
+
+        }
         
-        [sRightControl addTarget:self action:@selector(presentIndex) forControlEvents:UIControlEventTouchDown];
         UIBarButtonItem* sBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:sRightControl];
         [sRightControl release];
         
@@ -157,7 +164,8 @@
         [self refreshProgressIndicator];
     };
     
-    if ([[SharedStates getInstance] needUserGuideOnSectionIndex])
+    if (self.mNeedShowCategoriesView
+        && [[SharedStates getInstance] needUserGuideOnSectionIndex])
     {
         [self presentIndex];
         [[SharedStates getInstance] closeUserGuideOnSectionIndex];

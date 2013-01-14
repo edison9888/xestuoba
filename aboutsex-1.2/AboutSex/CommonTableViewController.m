@@ -9,6 +9,9 @@
 #import "CommonTableViewController.h"
 #import "ContentViewController.h"
 #import "TaggedButton.h"
+#import "MobClick.h"
+
+
 @interface CommonTableViewController ()
 {
     UITableView* mTableView;
@@ -296,6 +299,11 @@
     //refresh the corresponding item's isRead status if necessary.
     [self markItemOfSeletedRowAsReaded];
     
+    //record the title of the page read by the user.
+    NSDictionary* sDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           sTitle, @"title", nil];
+    [MobClick event:@"UEID_READ_ITEM" attributes: sDict];
+
     
     return;
 }

@@ -17,6 +17,7 @@
 
 - (NSInteger) getNumberOfCellsOnPage:(NSInteger)aPageIndex;
 - (IconData*) getIconDataForCellIndex:(NSInteger)aCellIndex onPage:(NSInteger)aPageIndex;
+- (void) pushViewController:(UIViewController*)sViewController animated:(BOOL)animated;
 
 //- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView onPage:(NSInteger)aPageIndex;
 //- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index onPage:(NSInteger)aPageIndex;
@@ -24,6 +25,8 @@
 //
 
 @end
+
+
 @interface LibraryViewController : CommonViewController
 {
 

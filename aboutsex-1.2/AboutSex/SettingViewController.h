@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CommonViewController.h"
-#import "MyURLConnection.h"
 
-@interface SettingViewController : CommonViewController<UITableViewDataSource, UITableViewDelegate, MyURLConnectionDelegate>
+@interface SettingViewController : CommonViewController<UITableViewDataSource, UITableViewDelegate>
 
 
 

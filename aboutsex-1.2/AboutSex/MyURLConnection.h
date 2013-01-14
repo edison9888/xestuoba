@@ -15,15 +15,15 @@
     id<MyURLConnectionDelegate> mDelegate;
     NSMutableData* mWebData;
     NSMutableURLRequest* mRequest;
-
+    NSURLConnection* mURLConnection;
 }
 
 @property (nonatomic, assign) id<MyURLConnectionDelegate> mDelegate;
 @property (nonatomic, retain)  NSMutableData* mWebData;
 @property (nonatomic, retain)  NSMutableURLRequest* mRequest;
-
+@property (nonatomic, retain)  NSURLConnection* mURLConnection;
 
 - (id) initWithDelegate: (NSMutableURLRequest*)aRequest withDelegate:(id<MyURLConnectionDelegate>) aDelegate;
 - (BOOL) start;
-
+- (void) stop;
 @end

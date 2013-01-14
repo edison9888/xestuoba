@@ -30,6 +30,9 @@
 //
 //#define TAG_FOR_READCOUNT_LABEL 201
 
+
+
+
 @interface LibraryViewController () <XLCycleScrollViewDatasource,XLCycleScrollViewDelegate,GridViewPageDelegate>
 {
     NSMutableArray* mIconDataArray;
@@ -43,8 +46,6 @@
 @property (nonatomic, assign) NSInteger mIndexOfIconTouched;
 @property (nonatomic, retain) XLCycleScrollView* mHorizontalScrollView;
 @property (nonatomic, retain) NSMutableArray* mGridViewPages;
-
-- (void) returToLibrary;
 
 @end
 
@@ -85,16 +86,11 @@
         //    sRefreshButton.showsTouchWhenHighlighted = YES;
         [sPresentBaiduButton addTarget:self action:@selector(presentBaiduViewController) forControlEvents:UIControlEventTouchDown];
         
-        UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithCustomView:sPresentBaiduButton];
-//        UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithTitle:@"问答" style:UIBarButtonItemStyleBordered target:self action:@selector(presentBaiduViewController)];
+        UIBarButtonItem* sAskBarButtonItem =  [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"AskandAnswer", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(presentBaiduViewController)];
+        sAskBarButtonItem.style = UIBarButtonItemStylePlain;
+        self.navigationItem.rightBarButtonItem = sAskBarButtonItem;
+        [sAskBarButtonItem release];
 
-        sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
-        
-            
-        self.navigationItem.rightBarButtonItem = sRefershBarButtonItem;
-        [sRefershBarButtonItem release];
-
-    
         [self loadIconData];
     }
     
@@ -104,8 +100,9 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-        
-//    [self loadIconData];
+    
+    [self refreshIconInfo];
+    //    [self loadIconData];
 //    [self.mGridView reloadData];
 }
 
@@ -117,6 +114,32 @@
     [super dealloc];
 }
 
+//refresh icon info and make gridviewpages reload the new icon info.
+- (void) refreshIconInfo
+{
+    if (!self.mIconDataArray)
+    {
+        [self loadIconData];
+    }
+    else
+    {
+        for (NSMutableArray* sIconArray in self.mIconDataArray)
+        {
+            for (IconData* sIconData in sIconArray)
+            {
+                sIconData.mReadCount = [StoreManager getReadCountInSection:sIconData.mSectionNameOrURL];
+            }
+        }
+        
+    }
+    
+    //
+    for (GridViewPage* sPage in self.mGridViewPages)
+    {
+        [sPage reloadIcons];
+    }
+
+}
 
 - (void) loadView 
 {
@@ -179,8 +202,101 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void) loadIconData
+{
+    NSMutableArray* sDataOnPage0 = [NSMutableArray arrayWithCapacity:4];
+    IconData* sIcon1 = [[IconData alloc]init];
+    sIcon1.mTitle = NSLocalizedString(@"Physiology", nil);
+    sIcon1.mImage = [UIImage imageNamed:@"physiology140*100.png"];
+    //    sIcon1.mJSONFilePath = nil;
+    sIcon1.mSectionNameOrURL = SECTION_NAME_PHYSILOGY;
+    sIcon1.mTotal = [StoreManager getTotalOfItemsInsection:sIcon1.mSectionNameOrURL];
+    sIcon1.mReadCount = [StoreManager getReadCountInSection:sIcon1.mSectionNameOrURL];
+    [sDataOnPage0 addObject: sIcon1];
+    [sIcon1 release];
+    
+    IconData* sIcon2 = [[IconData alloc]init];
+    sIcon2.mTitle = NSLocalizedString(@"Health", nil);
+    sIcon2.mImage = [UIImage imageNamed:@"health140*100.png"];
+    sIcon2.mSectionNameOrURL = SECTION_NAME_HEALTH;
+    sIcon2.mTotal = [StoreManager getTotalOfItemsInsection:sIcon2.mSectionNameOrURL];
+    sIcon2.mReadCount = [StoreManager getReadCountInSection:sIcon2.mSectionNameOrURL];
+    
+    [sDataOnPage0 addObject: sIcon2];
+    [sIcon2 release];
+    
+    IconData* sIcon3 = [[IconData alloc]init];
+    sIcon3.mTitle = NSLocalizedString(@"Diet", nil);
+    sIcon3.mImage = [UIImage imageNamed:@"diet140*100.png"];
+    sIcon3.mSectionNameOrURL = SECTION_NAME_DIET;
+    sIcon3.mTotal = [StoreManager getTotalOfItemsInsection:sIcon3.mSectionNameOrURL];
+    sIcon3.mReadCount = [StoreManager getReadCountInSection:sIcon3.mSectionNameOrURL];
+    [sDataOnPage0 addObject: sIcon3];
+    [sIcon3 release];
+    
+    IconData* sIcon4 = [[IconData alloc]init];
+    sIcon4.mTitle = NSLocalizedString(@"Life", nil);
+    sIcon4.mImage = [UIImage imageNamed:@"life140*100.png"];
+    sIcon4.mSectionNameOrURL = SECTION_NAME_LIFE;
+    sIcon4.mTotal = [StoreManager getTotalOfItemsInsection:sIcon4.mSectionNameOrURL];
+    sIcon4.mReadCount = [StoreManager getReadCountInSection:sIcon4.mSectionNameOrURL];
+    [sDataOnPage0 addObject: sIcon4];
+    [sIcon4 release];
+    
+    
+    NSMutableArray* sDataOnPage1 = [NSMutableArray arrayWithCapacity:4];
+    
+    IconData* sIcon5 = [[IconData alloc]init];
+    sIcon5.mTitle = NSLocalizedString(@"Contraception", nil);
+    sIcon5.mImage = [UIImage imageNamed:@"contraception140*100.png"];
+    sIcon5.mSectionNameOrURL = SECTION_NAME_CONTRACEPTION;
+    sIcon5.mTotal = [StoreManager getTotalOfItemsInsection:sIcon5.mSectionNameOrURL];
+    sIcon5.mReadCount = [StoreManager getReadCountInSection:sIcon5.mSectionNameOrURL];
+    [sDataOnPage1 addObject: sIcon5];
+    [sIcon5 release];
+    
+    IconData* sIcon6 = [[IconData alloc]init];
+    sIcon6.mTitle = NSLocalizedString(@"Pregnancy", nil);
+    sIcon6.mImage = [UIImage imageNamed:@"pregancy140*100.png"];
+    sIcon6.mSectionNameOrURL = SECTION_NAME_PREGNANCY;
+    sIcon6.mTotal = [StoreManager getTotalOfItemsInsection:sIcon6.mSectionNameOrURL];
+    sIcon6.mReadCount = [StoreManager getReadCountInSection:sIcon6.mSectionNameOrURL];
+    [sDataOnPage1 addObject: sIcon6];
+    [sIcon6 release];
+    
+    IconData* sIcon7 = [[IconData alloc]init];
+    sIcon7.mTitle = NSLocalizedString(@"Culture", nil);
+    sIcon7.mImage = [UIImage imageNamed:@"culture140*100.png"];
+    sIcon7.mSectionNameOrURL = SECIION_NAME_CULTURE;
+    sIcon7.mTotal = [StoreManager getTotalOfItemsInsection:sIcon7.mSectionNameOrURL];
+    sIcon7.mReadCount = [StoreManager getReadCountInSection:sIcon7.mSectionNameOrURL];
+    [sDataOnPage1 addObject: sIcon7];
+    [sIcon7 release];
+    
+    IconData* sIcon8 = [[IconData alloc]init];
+    sIcon8.mTitle = NSLocalizedString(@"Terms", nil);
+    sIcon8.mImage = [UIImage imageNamed:@"terms140*100.png"];
+    sIcon8.mSectionNameOrURL = SECTION_NAME_TERMS;
+    sIcon8.mTotal = [StoreManager getTotalOfItemsInsection:sIcon8.mSectionNameOrURL];
+    sIcon8.mReadCount = [StoreManager getReadCountInSection:sIcon8.mSectionNameOrURL];
+    [sDataOnPage1 addObject: sIcon8];
+    [sIcon8 release];
+    
+    self.mIconDataArray = [NSMutableArray arrayWithCapacity:2];
+    
+    [self.mIconDataArray addObject:sDataOnPage0];
+    [self.mIconDataArray addObject:sDataOnPage1];
+    
+}
+
 - (void) presentBaiduViewController
 {
+    UIViewController* sViewController = [[BaiduWrapperViewController alloc]initWithTitle:NSLocalizedString(@"AskandAnswer", nil)];
+    sViewController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:sViewController animated:YES];
+    [sViewController release];
+
     return;
 }
 
@@ -259,345 +375,15 @@
     return nil;
 }
 
-- (void) loadIconData
+- (void) pushViewController:(UIViewController*)sViewController animated:(BOOL)animated
 {
-    NSMutableArray* sDataOnPage0 = [NSMutableArray arrayWithCapacity:4];
-    IconData* sIcon1 = [[IconData alloc]init];
-    sIcon1.mTitle = NSLocalizedString(@"Physiology", nil);
-    sIcon1.mImage = [UIImage imageNamed:@"physiology140*100.png"];
-//    sIcon1.mJSONFilePath = nil;
-//    sIcon1.mSectionNameOrURL = SECTION_NAME_COMMONSENSE;
-//    sIcon1.mTotal = [StoreManager getTotalOfItemsInsection:sPhysiologyIcon.mSectionNameOrURL];
-//    sIcon1.mReadCount = [StoreManager getReadCountInSection:sPhysiologyIcon.mSectionNameOrURL];
-    [sDataOnPage0 addObject: sIcon1];
-    [sIcon1 release];
-
-    IconData* sIcon2 = [[IconData alloc]init];
-    sIcon2.mTitle = NSLocalizedString(@"Health", nil);
-    sIcon2.mImage = [UIImage imageNamed:@"health140*100.png"];
-    [sDataOnPage0 addObject: sIcon2];
-    [sIcon2 release];
-
-    IconData* sIcon3 = [[IconData alloc]init];
-    sIcon3.mTitle = NSLocalizedString(@"Diet", nil);
-    sIcon3.mImage = [UIImage imageNamed:@"diet140*100.png"];
-    [sDataOnPage0 addObject: sIcon3];
-    [sIcon3 release];
-
-    IconData* sIcon4 = [[IconData alloc]init];
-    sIcon4.mTitle = NSLocalizedString(@"Life", nil);
-    sIcon4.mImage = [UIImage imageNamed:@"life140*100.png"];
-    [sDataOnPage0 addObject: sIcon4];
-    [sIcon4 release];
-
-    
-    NSMutableArray* sDataOnPage1 = [NSMutableArray arrayWithCapacity:4];
-    
-    IconData* sIcon5 = [[IconData alloc]init];
-    sIcon5.mTitle = NSLocalizedString(@"Contraception", nil);
-    sIcon5.mImage = [UIImage imageNamed:@"contraception140*100.png"];
-    [sDataOnPage1 addObject: sIcon5];
-    [sIcon5 release];
-    
-    IconData* sIcon6 = [[IconData alloc]init];
-    sIcon6.mTitle = NSLocalizedString(@"Pregnancy", nil);
-    sIcon6.mImage = [UIImage imageNamed:@"pregancy140*100.png"];
-    [sDataOnPage1 addObject: sIcon6];
-    [sIcon6 release];
-    
-    IconData* sIcon7 = [[IconData alloc]init];
-    sIcon7.mTitle = NSLocalizedString(@"Culture", nil);
-    sIcon7.mImage = [UIImage imageNamed:@"culture140*100.png"];
-    [sDataOnPage1 addObject: sIcon7];
-    [sIcon7 release];
-    
-    IconData* sIcon8 = [[IconData alloc]init];
-    sIcon8.mTitle = NSLocalizedString(@"Terms", nil);
-    sIcon8.mImage = [UIImage imageNamed:@"terms140*100.png"];
-    [sDataOnPage1 addObject: sIcon8];
-    [sIcon8 release];
-    
-    self.mIconDataArray = [NSMutableArray arrayWithCapacity:2];
-    
-    [self.mIconDataArray addObject:sDataOnPage0];
-    [self.mIconDataArray addObject:sDataOnPage1];
-    
+    if (sViewController)
+    {
+        [self.navigationController pushViewController:sViewController animated:animated];
+    }
 }
 
 
-
-////////////////////////////////////////////////////////////////
-//#pragma mark GMGridViewDataSource
-////////////////////////////////////////////////////////////////
-//
-//- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
-//{
-//    return [self.mIconDataArray count];
-//}
-//
-//- (CGSize)sizeForItemsInGMGridView:(GMGridView *)gridView
-//{
-//    return SIZE_OF_CELL;
-//}
-//
-//- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
-//{
-//    //NSLog(@"Creating view indx %d", index);
-//    
-//    
-//    GMGridViewCell *cell = [gridView dequeueReusableCell];
-//    
-//    if (!cell) 
-//    {
-//        cell = [[[GMGridViewCell alloc] init] autorelease];
-////        cell.deleteButtonIcon = [UIImage imageNamed:@"icon72.png"];
-////        cell.deleteButtonOffset = CGPointMake(-15, -15);
-//        CGSize size = [self sizeForItemsInGMGridView:gridView];
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-//        view.backgroundColor = BGCOLOR_OF_CELL;
-//        view.layer.masksToBounds = NO;
-//        view.layer.cornerRadius = 8;
-//        view.layer.shadowColor = [UIColor grayColor].CGColor;
-//        view.layer.shadowOffset = CGSizeMake(0, 5);
-////        view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
-////        view.layer.shadowRadius = 8;
-////        view.layer.shadowOpacity = 1.0f;
-//        
-//        cell.contentView = view;
-//        [view release];
-//    }
-//    
-//    if ([UserConfiger isNightModeOn])
-//    {
-//        cell.contentView.backgroundColor = [UIColor grayColor];
-//    }
-//    else
-//    {
-//        cell.contentView.backgroundColor = BGCOLOR_OF_CELL;
-//    }
-//    
-//    [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-//    
-//    
-//    IconData* sIconData = (IconData*)[mIconDataArray objectAtIndex:index];
-//    
-//    //label displaying the title for the corresponding category.
-//    UILabel *sTitleLabel = [[UILabel alloc] initWithFrame:cell.contentView.bounds];
-//    sTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    sTitleLabel.text = sIconData.mTitle;
-//    sTitleLabel.textAlignment = UITextAlignmentCenter;
-//    sTitleLabel.backgroundColor = [UIColor clearColor];
-//    sTitleLabel.textColor = [UIColor blackColor];
-////    sTitleLabel.font = [UIFont boldSystemFontOfSize:20];
-//    [sTitleLabel sizeToFit];
-//    sTitleLabel.center = cell.contentView.center;
-//    [cell.contentView addSubview:sTitleLabel];
-//    [sTitleLabel release];
-//    
-//    //label displaying number of items read and item in total respectively.
-//    if (sIconData.mIsLocal)
-//    {
-//        UILabel* sCountLabel = [[UILabel alloc] initWithFrame:cell.contentView.bounds];
-//        sCountLabel.text = [NSString stringWithFormat:@"%d / %d", sIconData.mReadCount, sIconData.mTotal];
-//        sCountLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
-//        sCountLabel.textColor = [UIColor grayColor];
-//        sCountLabel.backgroundColor = [UIColor clearColor];
-//        [sCountLabel sizeToFit];
-//        sCountLabel.center = CGPointMake(cell.contentView.bounds.size.width-sCountLabel.bounds.size.width/2, 
-//                                         sCountLabel.bounds.size.height/2);
-//        sCountLabel.tag = TAG_FOR_READCOUNT_LABEL;
-//        [cell.contentView addSubview:sCountLabel];
-//        [sCountLabel release];
-//    }
-//    
-//    return cell;
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView deleteItemAtIndex:(NSInteger)index
-//{
-//    //icon data now cannot be removed by user!!!
-////    [mIconDataArray removeObjectAtIndex:index];
-//}
-//
-////////////////////////////////////////////////////////////////
-//#pragma mark GMGridViewActionDelegate
-////////////////////////////////////////////////////////////////
-//
-//- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
-//{
-//    self.mIndexOfIconTouched = position;
-//    
-//    GMGridViewCell* sCell = [gridView cellForItemAtIndex:position];
-//    
-//    //1. haha, the cell has to shake for a moment before open a page for you.
-//    CGFloat rotation = 0.03;
-//    CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform"];
-//    shake.duration = 0.1;
-//    shake.autoreverses = YES;
-//    shake.repeatCount  = 1;
-//    shake.removedOnCompletion = YES;
-//    shake.delegate = self;
-//    shake.fromValue = [NSValue valueWithCATransform3D:CATransform3DRotate(sCell.contentView.layer.transform,-rotation, 0.0 ,0.0 ,1.0)];
-//    shake.toValue   = [NSValue valueWithCATransform3D:CATransform3DRotate(sCell.contentView.layer.transform, rotation, 0.0 ,0.0 ,1.0)];
-//    
-//    [sCell.layer addAnimation:shake forKey:nil];                        
-//    
-//    return;
-//}
-//
-//- (void) returToLibrary
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    return;
-//}
-//
-////-(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
-////{
-////    //2. present a new viewcontroller holding items for corresponding content.
-////   if (INVALID_INDEX != mIndexOfIconTouched)
-////    {
-////        IconData* sIconData = (IconData*)[self.mIconDataArray objectAtIndex:mIndexOfIconTouched];
-////        NSString* sTitle = sIconData.mTitle;
-////        NSString* sSectionName = sIconData.mSectionNameOrURL;
-////        
-////        UIViewController* sSectionViewController;
-////        if (sIconData.mIsLocal)
-////        {
-////            sSectionViewController = [[SectionViewController alloc] initWithTitle:sTitle AndSectionName:sSectionName];
-////        }
-////        else 
-////        {
-////            sSectionViewController = [[BaiduWrapperViewController alloc]initWithTitle:sTitle];
-////        }
-////        sSectionViewController.hidesBottomBarWhenPushed = YES;
-////        [self.navigationController pushViewController:sSectionViewController animated:YES];
-////        [sSectionViewController release];
-////#ifdef DEBUG
-////        NSLog(@"Did tap at index %d", mIndexOfIconTouched);
-////#endif
-////    }
-////}
-//
-//
-//
-//#pragma mark -
-//#pragma mark -
-//#pragma mark cos we now disable the rotation,sorting, pinching recognizer, the below methods for the corresponding delegates are useless. you may implemet them as you like when you need these funcionalities, in the future.
-//#pragma mark -
-//
-////////////////////////////////////////////////////////////////
-//#pragma mark GMGridViewSortingDelegate
-////////////////////////////////////////////////////////////////
-//
-//- (void)GMGridView:(GMGridView *)gridView didStartMovingCell:(GMGridViewCell *)cell
-//{
-////    [UIView animateWithDuration:0.3 
-////                          delay:0 
-////                        options:UIViewAnimationOptionAllowUserInteraction 
-////                     animations:^{
-////                         cell.contentView.backgroundColor = [UIColor orangeColor];
-////                         cell.contentView.layer.shadowOpacity = 0.7;
-////                     } 
-////                     completion:nil
-////     ];
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView didEndMovingCell:(GMGridViewCell *)cell
-//{
-////    [UIView animateWithDuration:0.3 
-////                          delay:0 
-////                        options:UIViewAnimationOptionAllowUserInteraction 
-////                     animations:^{  
-////                         cell.contentView.backgroundColor = [UIColor greenColor];
-////                         cell.contentView.layer.shadowOpacity = 0;
-////                     }
-////                     completion:nil
-////     ];
-//}
-//
-//- (BOOL)GMGridView:(GMGridView *)gridView shouldAllowShakingBehaviorWhenMovingCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
-//{
-//    return YES;
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView moveItemAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex
-//{
-////    NSObject *object = [_data objectAtIndex:oldIndex];
-////    [_data removeObject:object];
-////    [_data insertObject:object atIndex:newIndex];
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView exchangeItemAtIndex:(NSInteger)index1 withItemAtIndex:(NSInteger)index2
-//{
-////    [mIconDataArray exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
-//}
-//
-//
-////////////////////////////////////////////////////////////////
-//#pragma mark DraggableGridViewTransformingDelegate
-////////////////////////////////////////////////////////////////
-//
-//- (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
-//{
-////    return CGSizeMake(310, 310);
-//    return CGSizeZero;
-//}
-//
-//- (UIView *)GMGridView:(GMGridView *)gridView fullSizeViewForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
-//{
-////    UIView *fullView = [[UIView alloc] init];
-////    fullView.backgroundColor = [UIColor yellowColor];
-////    fullView.layer.masksToBounds = NO;
-////    fullView.layer.cornerRadius = 8;
-////    
-////    CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index];
-////    fullView.bounds = CGRectMake(0, 0, size.width, size.height);
-////    
-////    UILabel *label = [[UILabel alloc] initWithFrame:fullView.bounds];
-////    label.text = [NSString stringWithFormat:@"Fullscreen View for cell at index %d", index];
-////    label.textAlignment = UITextAlignmentCenter;
-////    label.backgroundColor = [UIColor clearColor];
-////    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-////    
-////
-////    label.font = [UIFont boldSystemFontOfSize:15];
-////    
-////    
-////    [fullView addSubview:label];
-////    
-////    
-////    return fullView;
-//    return nil;
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView didStartTransformingCell:(GMGridViewCell *)cell
-//{
-////    [UIView animateWithDuration:0.5 
-////                          delay:0 
-////                        options:UIViewAnimationOptionAllowUserInteraction 
-////                     animations:^{
-////                         cell.contentView.backgroundColor = [UIColor blueColor];
-////                         cell.contentView.layer.shadowOpacity = 0.7;
-////                     } 
-////                     completion:nil];
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView didEndTransformingCell:(GMGridViewCell *)cell
-//{
-////    [UIView animateWithDuration:0.5 
-////                          delay:0 
-////                        options:UIViewAnimationOptionAllowUserInteraction 
-////                     animations:^{
-////                         cell.contentView.backgroundColor = [UIColor redColor];
-////                         cell.contentView.layer.shadowOpacity = 0;
-////                     } 
-////                     completion:nil];
-//}
-//
-//- (void)GMGridView:(GMGridView *)gridView didEnterFullSizeForCell:(UIView *)cell
-//{
-//    
-//}
 
 
 @end

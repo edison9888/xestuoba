@@ -11,6 +11,7 @@
 
 #import "SharedVariables.h"
 #import "UserConfiger.h"
+#import "SectionViewController.h"
 
 #define SPACING 10
 #define SIZE_OF_CELL  CGSizeMake(140, 100)
@@ -85,6 +86,10 @@
 
 }
 
+- (void) reloadIcons
+{
+    [self.mGridView reloadData];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -228,38 +233,39 @@
     return;
 }
 
-- (void) returToLibrary
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    return;
-}
-
-//-(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+//- (void) returToLibrary
 //{
-//    //2. present a new viewcontroller holding items for corresponding content.
-//   if (INVALID_INDEX != mIndexOfIconTouched)
-//    {
-//        IconData* sIconData = (IconData*)[self.mIconDataArray objectAtIndex:mIndexOfIconTouched];
-//        NSString* sTitle = sIconData.mTitle;
-//        NSString* sSectionName = sIconData.mSectionNameOrURL;
-//
-//        UIViewController* sSectionViewController;
-//        if (sIconData.mIsLocal)
-//        {
-//            sSectionViewController = [[SectionViewController alloc] initWithTitle:sTitle AndSectionName:sSectionName];
-//        }
-//        else
-//        {
-//            sSectionViewController = [[BaiduWrapperViewController alloc]initWithTitle:sTitle];
-//        }
-//        sSectionViewController.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:sSectionViewController animated:YES];
-//        [sSectionViewController release];
-//#ifdef DEBUG
-//        NSLog(@"Did tap at index %d", mIndexOfIconTouched);
-//#endif
-//    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    return;
 //}
+
+-(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+{
+    //2. present a new viewcontroller holding items for corresponding content.
+   if (INVALID_INDEX != mIndexOfIconTouched)
+    {
+        IconData* sIconData = [self.mDelegate getIconDataForCellIndex: self.mIndexOfIconTouched onPage: self.mPageIndex];
+        NSString* sTitle = sIconData.mTitle;
+        NSString* sSectionName = sIconData.mSectionNameOrURL;
+
+        
+        BOOL sNeedShowCategories = NO;
+        NSInteger sNumberOfCategoriesInSection = [StoreManager getTotalOfCategoriesInSection:sSectionName];
+        if (sNumberOfCategoriesInSection > 1)
+        {
+            sNeedShowCategories = YES;
+        }
+        
+        UIViewController* sSectionViewController = [[SectionViewController alloc] initWithTitle:sTitle AndSectionName:sSectionName AndShowCategories:sNeedShowCategories];
+        
+        sSectionViewController.hidesBottomBarWhenPushed = YES;
+        [self.mDelegate pushViewController:sSectionViewController animated:YES];
+        [sSectionViewController release];
+#ifdef DEBUG
+        NSLog(@"Did tap at index %d", mIndexOfIconTouched);
+#endif
+    }
+}
 
 
 

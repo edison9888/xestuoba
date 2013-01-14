@@ -630,11 +630,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "790"
-         endingLineNumber = "790"
+         startingLineNumber = "819"
+         endingLineNumber = "819"
          landmarkName = "+removeUncollectedStreamItemsIfExceeds:aMinCount:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -656,11 +656,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "521"
-         endingLineNumber = "521"
+         startingLineNumber = "534"
+         endingLineNumber = "534"
          landmarkName = "+getSectionByName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -682,11 +682,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "470"
-         endingLineNumber = "470"
+         startingLineNumber = "480"
+         endingLineNumber = "480"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -695,11 +695,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "526"
-         endingLineNumber = "526"
+         startingLineNumber = "539"
+         endingLineNumber = "539"
          landmarkName = "+getSectionByName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -825,11 +825,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "672"
-         endingLineNumber = "672"
+         startingLineNumber = "701"
+         endingLineNumber = "701"
          landmarkName = "+getAllFavoriteItems"
          landmarkType = "5">
       </FileBreakpoint>
@@ -838,11 +838,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "690"
-         endingLineNumber = "690"
+         startingLineNumber = "719"
+         endingLineNumber = "719"
          landmarkName = "+updateItemReleasedTime:ItemID:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -916,11 +916,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/CommonTableViewController.m"
-         timestampString = "376843324.062288"
+         timestampString = "379844504.006508"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "261"
-         endingLineNumber = "261"
+         startingLineNumber = "264"
+         endingLineNumber = "264"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -929,11 +929,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/BaiduWrapperViewController.m"
-         timestampString = "368444425.700842"
+         timestampString = "379865938.843207"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "402"
-         endingLineNumber = "402"
+         startingLineNumber = "414"
+         endingLineNumber = "414"
          landmarkName = "-webViewDidStartLoad:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -942,37 +942,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/BaiduWrapperViewController.m"
-         timestampString = "368444425.700842"
+         timestampString = "379865938.843207"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "284"
-         endingLineNumber = "284"
-         landmarkName = "-hideBaiduBarByExecutingJS"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/BaiduWrapperViewController.m"
-         timestampString = "368444425.700842"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "288"
-         endingLineNumber = "288"
-         landmarkName = "-hideBaiduBarByExecutingJS"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/BaiduWrapperViewController.m"
-         timestampString = "368444425.700842"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "408"
-         endingLineNumber = "408"
+         startingLineNumber = "420"
+         endingLineNumber = "420"
          landmarkName = "-webViewDidFinishLoad:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1059,11 +1033,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "674"
-         endingLineNumber = "674"
+         startingLineNumber = "703"
+         endingLineNumber = "703"
          landmarkName = "@implementation StoreManager"
          landmarkType = "3">
       </FileBreakpoint>
@@ -1085,85 +1059,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "426"
-         endingLineNumber = "426"
-         landmarkName = "+getStreamSectionForRecentNDays:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "421"
-         endingLineNumber = "421"
-         landmarkName = "+getStreamSectionForRecentNDays:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "394"
-         endingLineNumber = "394"
-         landmarkName = "+getStreamSectionForRecentNDays:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "435"
-         endingLineNumber = "435"
-         landmarkName = "+getStreamSectionForRecentNDays:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "418"
-         endingLineNumber = "418"
-         landmarkName = "+getStreamSectionForRecentNDays:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "420"
-         endingLineNumber = "420"
-         landmarkName = "+getStreamSectionForRecentNDays:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "436"
@@ -1176,11 +1072,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "437"
-         endingLineNumber = "437"
+         startingLineNumber = "431"
+         endingLineNumber = "431"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1189,11 +1085,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "395"
-         endingLineNumber = "395"
+         startingLineNumber = "404"
+         endingLineNumber = "404"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1202,11 +1098,89 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "388"
-         endingLineNumber = "388"
+         startingLineNumber = "445"
+         endingLineNumber = "445"
+         landmarkName = "+getStreamSectionForRecentNDays:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "428"
+         endingLineNumber = "428"
+         landmarkName = "+getStreamSectionForRecentNDays:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "430"
+         endingLineNumber = "430"
+         landmarkName = "+getStreamSectionForRecentNDays:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "446"
+         endingLineNumber = "446"
+         landmarkName = "+getStreamSectionForRecentNDays:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "447"
+         endingLineNumber = "447"
+         landmarkName = "+getStreamSectionForRecentNDays:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "405"
+         endingLineNumber = "405"
+         landmarkName = "+getStreamSectionForRecentNDays:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "398"
+         endingLineNumber = "398"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1215,11 +1189,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/CommonTableViewController.m"
-         timestampString = "376843324.062288"
+         timestampString = "379844504.006508"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "285"
-         endingLineNumber = "285"
+         startingLineNumber = "288"
+         endingLineNumber = "288"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1228,11 +1202,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "792"
-         endingLineNumber = "792"
+         startingLineNumber = "821"
+         endingLineNumber = "821"
          landmarkName = "@implementation StoreManager"
          landmarkType = "3">
       </FileBreakpoint>
@@ -1267,11 +1241,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "789"
-         endingLineNumber = "789"
+         startingLineNumber = "818"
+         endingLineNumber = "818"
          landmarkName = "+removeUncollectedStreamItemsIfExceeds:aMinCount:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1306,11 +1280,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "481"
-         endingLineNumber = "481"
+         startingLineNumber = "491"
+         endingLineNumber = "491"
          landmarkName = "+getSectionByName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1319,11 +1293,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "360"
-         endingLineNumber = "360"
+         startingLineNumber = "370"
+         endingLineNumber = "370"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1332,11 +1306,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "344"
-         endingLineNumber = "344"
+         startingLineNumber = "354"
+         endingLineNumber = "354"
          landmarkName = "+getLatestStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1345,11 +1319,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "400"
-         endingLineNumber = "400"
+         startingLineNumber = "410"
+         endingLineNumber = "410"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1384,11 +1358,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "458"
-         endingLineNumber = "458"
+         startingLineNumber = "468"
+         endingLineNumber = "468"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1397,11 +1371,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "464"
-         endingLineNumber = "464"
+         startingLineNumber = "474"
+         endingLineNumber = "474"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1410,11 +1384,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "428"
-         endingLineNumber = "428"
+         startingLineNumber = "438"
+         endingLineNumber = "438"
          landmarkName = "+getStreamSectionForRecentNDays:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1436,11 +1410,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "490"
-         endingLineNumber = "490"
+         startingLineNumber = "500"
+         endingLineNumber = "500"
          landmarkName = "+getSectionByName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1449,11 +1423,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "713"
-         endingLineNumber = "713"
+         startingLineNumber = "742"
+         endingLineNumber = "742"
          landmarkName = "+updateItemMarkedStatus:Time:ItemID:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1488,11 +1462,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376929933.102553"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "160"
+         endingLineNumber = "160"
          landmarkName = "+openIfNecessary"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1644,11 +1618,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/MyURLConnection.m"
-         timestampString = "368813822.447423"
+         timestampString = "379833793.963127"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-connection:didReceiveData:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1657,11 +1631,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/MyURLConnection.m"
-         timestampString = "368513181.394255"
+         timestampString = "379833793.963127"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "45"
-         endingLineNumber = "45"
+         startingLineNumber = "48"
+         endingLineNumber = "48"
          landmarkName = "-start"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1670,11 +1644,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "315"
-         endingLineNumber = "315"
+         startingLineNumber = "325"
+         endingLineNumber = "325"
          landmarkName = "+addOrUpdateStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1683,11 +1657,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "339"
-         endingLineNumber = "339"
+         startingLineNumber = "349"
+         endingLineNumber = "349"
          landmarkName = "+getLatestStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1696,11 +1670,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "322"
-         endingLineNumber = "322"
+         startingLineNumber = "332"
+         endingLineNumber = "332"
          landmarkName = "+getLatestStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1709,11 +1683,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "722"
-         endingLineNumber = "722"
+         startingLineNumber = "751"
+         endingLineNumber = "751"
          landmarkName = "+updateItemReadStatus:ItemID:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1722,11 +1696,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "595"
-         endingLineNumber = "595"
+         startingLineNumber = "624"
+         endingLineNumber = "624"
          landmarkName = "+getAllFavoriteItems"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1748,11 +1722,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "573"
-         endingLineNumber = "573"
+         startingLineNumber = "586"
+         endingLineNumber = "586"
          landmarkName = "+getTotalOfItemsInsection:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1761,11 +1735,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "571"
-         endingLineNumber = "571"
+         startingLineNumber = "584"
+         endingLineNumber = "584"
          landmarkName = "+getTotalOfItemsInsection:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1774,11 +1748,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "574"
-         endingLineNumber = "574"
+         startingLineNumber = "587"
+         endingLineNumber = "587"
          landmarkName = "+getTotalOfItemsInsection:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1787,11 +1761,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "607"
-         endingLineNumber = "607"
+         startingLineNumber = "636"
+         endingLineNumber = "636"
          landmarkName = "+getAllFavoriteItems"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1800,11 +1774,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "621"
-         endingLineNumber = "621"
+         startingLineNumber = "650"
+         endingLineNumber = "650"
          landmarkName = "+getAllFavoriteItems"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1823,19 +1797,6 @@
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376843639.646649"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "232"
-         endingLineNumber = "232"
-         landmarkName = "-setSomeVariables"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/NewStreamSniffer.m"
@@ -1930,11 +1891,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "272"
-         endingLineNumber = "272"
+         startingLineNumber = "282"
+         endingLineNumber = "282"
          landmarkName = "+addOrUpdateStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1943,11 +1904,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "303"
-         endingLineNumber = "303"
+         startingLineNumber = "313"
+         endingLineNumber = "313"
          landmarkName = "+addOrUpdateStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1956,11 +1917,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "310"
-         endingLineNumber = "310"
+         startingLineNumber = "320"
+         endingLineNumber = "320"
          landmarkName = "+addOrUpdateStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2046,32 +2007,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376843639.646649"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "236"
-         endingLineNumber = "236"
-         landmarkName = "-setSomeVariables"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376843639.646649"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "269"
-         endingLineNumber = "269"
-         landmarkName = "-needUserGuideOnSectionIndex"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "AboutSex/StreamViewController.m"
          timestampString = "376996569.574866"
          startingColumnNumber = "9223372036854775807"
@@ -2151,11 +2086,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/CommonTableViewController.m"
-         timestampString = "376843324.062288"
+         timestampString = "379844504.006508"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "265"
-         endingLineNumber = "265"
+         startingLineNumber = "268"
+         endingLineNumber = "268"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2189,51 +2124,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376982169.0618"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "378"
-         endingLineNumber = "378"
-         landmarkName = "-succeed:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376843639.646649"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "201"
-         endingLineNumber = "201"
-         landmarkName = "-setBaiduZhidaoURL"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376843639.646649"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "357"
-         endingLineNumber = "357"
-         landmarkName = "-succeed:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "282"
-         endingLineNumber = "282"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
          landmarkName = "+addOrUpdateStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2267,19 +2163,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AboutSex/SharedStates.m"
-         timestampString = "376982169.0618"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "366"
-         endingLineNumber = "366"
-         landmarkName = "-succeed:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "AboutSex/SVSegmentedControl.m"
          timestampString = "375731674.387775"
          startingColumnNumber = "9223372036854775807"
@@ -2294,11 +2177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/ContentViewController.m"
-         timestampString = "376973989.560112"
+         timestampString = "379865909.300393"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "272"
-         endingLineNumber = "272"
+         startingLineNumber = "287"
+         endingLineNumber = "287"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2396,11 +2279,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376919882.472185"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "79"
-         endingLineNumber = "79"
+         startingLineNumber = "89"
+         endingLineNumber = "89"
          landmarkName = "+openIfNecessary"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2422,11 +2305,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/CommonTableViewController.m"
-         timestampString = "376843324.062288"
+         timestampString = "379844504.006508"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112"
+         startingLineNumber = "115"
+         endingLineNumber = "115"
          landmarkName = "-refreshTableView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2448,24 +2331,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "328"
-         endingLineNumber = "328"
+         startingLineNumber = "338"
+         endingLineNumber = "338"
          landmarkName = "+getLatestStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "745"
-         endingLineNumber = "745"
+         startingLineNumber = "774"
+         endingLineNumber = "774"
          landmarkName = "+updateStreamItemMarkedStatus:Time:ItemID:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2474,11 +2357,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376929933.102553"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112"
+         startingLineNumber = "122"
+         endingLineNumber = "122"
          landmarkName = "+openIfNecessary"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2487,24 +2370,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376929933.102553"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "155"
-         endingLineNumber = "155"
-         landmarkName = "+openIfNecessary"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AboutSex/StoreManager.m"
-         timestampString = "376932643.584548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "341"
-         endingLineNumber = "341"
+         startingLineNumber = "351"
+         endingLineNumber = "351"
          landmarkName = "+getLatestStreamItems:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2539,16 +2409,16 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/StoreManager.m"
-         timestampString = "376981965.5142"
+         timestampString = "379838037.92614"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "115"
-         endingLineNumber = "115"
+         startingLineNumber = "125"
+         endingLineNumber = "125"
          landmarkName = "+openIfNecessary"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/NewStreamSniffer.m"
@@ -2565,11 +2435,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "376998022.018741"
+         timestampString = "379834182.473186"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "401"
-         endingLineNumber = "401"
+         startingLineNumber = "487"
+         endingLineNumber = "487"
          landmarkName = "-tabBarController:shouldSelectViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2578,11 +2448,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "376997515.761961"
+         timestampString = "379834182.473186"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "392"
-         endingLineNumber = "392"
+         startingLineNumber = "478"
+         endingLineNumber = "478"
          landmarkName = "-tabBarController:shouldSelectViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2604,11 +2474,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "376998401.347526"
+         timestampString = "379834182.473186"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "396"
-         endingLineNumber = "396"
+         startingLineNumber = "482"
+         endingLineNumber = "482"
          landmarkName = "-tabBarController:shouldSelectViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2617,11 +2487,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/SharedStates.m"
-         timestampString = "376998404.067362"
+         timestampString = "379834182.473186"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "402"
-         endingLineNumber = "402"
+         startingLineNumber = "488"
+         endingLineNumber = "488"
          landmarkName = "-tabBarController:shouldSelectViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2652,16 +2522,536 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/LibraryViewController.m"
-         timestampString = "377923153.641223"
+         timestampString = "379857171.081955"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "126"
-         endingLineNumber = "126"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
          landmarkName = "-loadView"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/BaiduWrapperViewController.m"
+         timestampString = "379865938.843207"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
+         landmarkName = "-startLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/BaiduWrapperViewController.m"
+         timestampString = "379865938.843207"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "413"
+         endingLineNumber = "413"
+         landmarkName = "-webViewDidStartLoad:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/BaiduWrapperViewController.m"
+         timestampString = "379865938.843207"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "218"
+         endingLineNumber = "218"
+         landmarkName = "-presentNotice"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379834182.473186"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "436"
+         endingLineNumber = "436"
+         landmarkName = "-succeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "301"
+         endingLineNumber = "301"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "313"
+         endingLineNumber = "313"
+         landmarkName = "-presentRecommandedApp:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "285"
+         endingLineNumber = "285"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SettingViewController.m"
+         timestampString = "379749407.899109"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "243"
+         endingLineNumber = "243"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SettingViewController.m"
+         timestampString = "379749407.899109"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "247"
+         endingLineNumber = "247"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379834182.473186"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "455"
+         endingLineNumber = "455"
+         landmarkName = "-succeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379834182.473186"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "363"
+         endingLineNumber = "363"
+         landmarkName = "-latestRecommendAppsViewed"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SettingViewController.m"
+         timestampString = "379749407.899109"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "529"
+         endingLineNumber = "529"
+         landmarkName = "-presentComments"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SettingViewController.m"
+         timestampString = "379749407.899109"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "508"
+         endingLineNumber = "508"
+         landmarkName = "-presentRecommandedAppsViewController"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379834182.473186"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "450"
+         endingLineNumber = "450"
+         landmarkName = "-succeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379762482.776655"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "243"
+         endingLineNumber = "243"
+         landmarkName = "-setDefaultsValue"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379762482.776655"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
+         landmarkName = "-setDefaultsValue"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379762482.776655"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "246"
+         endingLineNumber = "246"
+         landmarkName = "-setDefaultsValue"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379762482.776655"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "293"
+         endingLineNumber = "293"
+         landmarkName = "-getCommentURL"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SettingViewController.m"
+         timestampString = "379749407.899109"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
+         landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SettingViewController.m"
+         timestampString = "379749434.162037"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "137"
+         endingLineNumber = "137"
+         landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379834182.473186"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "451"
+         endingLineNumber = "451"
+         landmarkName = "-succeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/LibraryViewController.m"
+         timestampString = "379857171.081955"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "105"
+         endingLineNumber = "105"
+         landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "144"
+         endingLineNumber = "144"
+         landmarkName = "-setRecommandedAppInfo"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "143"
+         endingLineNumber = "143"
+         landmarkName = "-setRecommandedAppInfo"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "204"
+         endingLineNumber = "204"
+         landmarkName = "-failWithConnectionError:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "210"
+         endingLineNumber = "210"
+         landmarkName = "-failWithServerError:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/ContentViewController.m"
+         timestampString = "379865909.300393"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
+         landmarkName = "-constructSubviewsWithTitle:AndContentLoc:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "342"
+         endingLineNumber = "342"
+         landmarkName = "+getLatestStreamItems:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "343"
+         endingLineNumber = "343"
+         landmarkName = "+getLatestStreamItems:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManager.m"
+         timestampString = "379838037.92614"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "347"
+         endingLineNumber = "347"
+         landmarkName = "+getLatestStreamItems:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/ContentViewController.m"
+         timestampString = "379865909.300393"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "94"
+         endingLineNumber = "94"
+         landmarkName = "-viewWillDisappear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
+         landmarkName = "-viewWillDisappear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "88"
+         endingLineNumber = "88"
+         landmarkName = "-viewWillDisappear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/SharedStates.m"
+         timestampString = "379838589.805409"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "256"
+         endingLineNumber = "256"
+         landmarkName = "-setSomeVariables"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/CommonTableViewController.m"
+         timestampString = "379844556.340128"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "303"
+         endingLineNumber = "303"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/CommonTableViewController.m"
+         timestampString = "379844562.512003"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "265"
+         endingLineNumber = "265"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/LibraryViewController.m"
+         timestampString = "379857171.081955"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "53"
+         endingLineNumber = "53"
+         landmarkName = "@implementation LibraryViewController"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/ContentViewController.m"
+         timestampString = "379866024.29938"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "321"
+         endingLineNumber = "321"
+         landmarkName = "-webView:didFailLoadWithError:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379867969.435564"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "215"
+         endingLineNumber = "215"
+         landmarkName = "-succeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/RecommandedAppsController.m"
+         timestampString = "379868249.803714"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "288"
+         endingLineNumber = "288"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

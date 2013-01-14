@@ -27,6 +27,7 @@
 + (Section*) getSectionByName: (NSString*) aName;
 + (NSInteger) getReadCountInSection: (NSString*) aSectionName;
 + (NSInteger) getTotalOfItemsInsection:(NSString*) aSectionName;
++ (NSInteger) getTotalOfCategoriesInSection:(NSString*) aSectionName;
 + (NSMutableArray*) getAllFavoriteItems;
 
 

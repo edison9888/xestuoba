@@ -61,7 +61,7 @@ FMDatabase* ssFMDatabase = nil;
     NSString* sPathForDBinDocumensDir = [self getPathForDBinDocunemtsDir];
 
 #ifdef DEBUG
-#define REMOVE_EXISTING_DB_ON_LAUNCH_IN_DEBUG_MODE
+//#define REMOVE_EXISTING_DB_ON_LAUNCH_IN_DEBUG_MODE
 #endif
     
 #ifdef REMOVE_EXISTING_DB_ON_LAUNCH_IN_DEBUG_MODE
@@ -73,7 +73,17 @@ FMDatabase* ssFMDatabase = nil;
             [[NSFileManager defaultManager] removeItemAtPath:sPathForDBinDocumensDir error:&sErr];
         }
     }
-#endif    
+#endif 
+    
+    //remove aboutsex.db in Documens directory for the first launch.
+    if ([[SharedStates getInstance] isFirstLaunchOfCurrentVersion])
+    {
+        if ([[NSFileManager defaultManager]fileExistsAtPath:sPathForDBinDocumensDir])
+        {
+            NSError* sErr = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:sPathForDBinDocumensDir error:&sErr];
+        }
+    }
     
     //ensure the existence of aboutsex.db under Documents dir.
     BOOL sIsDBFileExistent = [[NSFileManager defaultManager]fileExistsAtPath:sPathForDBinDocumensDir];
@@ -149,30 +159,30 @@ FMDatabase* ssFMDatabase = nil;
     }
 
     
-//    BOOL sIsFirstLauchOfCurrentVersion = [[SharedStates getInstance] isFirstLaunchOfCurrentVersion];   
-//    if (sIsFirstLauchOfCurrentVersion)
-    {
-        if (![ssFMDatabase tableExists:@"stream_items"])
-        {
-            NSString* sSQLStr = @"CREATE TABLE stream_items(itemID INTEGER PRIMARY KEY AUTOINCREMENT, itemName TEXT, location TEXT, isRead BOOLEAN, isMarked BOOLEAN, releasedTime INTEGER, markedTime INTEGER, iconURL TEXT, summary TEXT, numVisits INTEGER, tag INTEGER)";
-            [ssFMDatabase executeUpdate:sSQLStr];
-
-            NSString* sDocumentsStreamDataDir = [self getPathForDocumentsStreamDataDir];
-            NSArray* sSampleStreamFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sDocumentsStreamDataDir error:nil];
-            for (NSString* sSampleFileName in sSampleStreamFileNames)
-            {
-                if (sSampleFileName.length>1)
-                {
-                    NSString* sDocumentsSampleStreamFile = [NSString stringWithFormat:@"%@%@", @"StreamData/", sSampleFileName];
-                    
-                    sSQLStr = @"INSERT INTO stream_items(itemName, location, isRead, isMarked, releasedTime, markedTime, iconURL, summary, numVisits, tag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    
-                    [ssFMDatabase executeUpdate:sSQLStr, sSampleFileName, sDocumentsSampleStreamFile,[NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate distantPast], [NSDate distantPast], @"", NSLocalizedString(@"Summary unvailable due to network problems", nil), [NSNumber numberWithInt:-1], [NSNumber numberWithInt:-1]];
-                }
-            }
-        }
-    }
-
+////    BOOL sIsFirstLauchOfCurrentVersion = [[SharedStates getInstance] isFirstLaunchOfCurrentVersion];   
+////    if (sIsFirstLauchOfCurrentVersion)
+//    {
+//        if (![ssFMDatabase tableExists:@"stream_items"])
+//        {
+//            NSString* sSQLStr = @"CREATE TABLE stream_items(itemID INTEGER PRIMARY KEY AUTOINCREMENT, itemName TEXT, location TEXT, isRead BOOLEAN, isMarked BOOLEAN, releasedTime INTEGER, markedTime INTEGER, iconURL TEXT, summary TEXT, numVisits INTEGER, tag INTEGER)";
+//            [ssFMDatabase executeUpdate:sSQLStr];
+//
+//            NSString* sDocumentsStreamDataDir = [self getPathForDocumentsStreamDataDir];
+//            NSArray* sSampleStreamFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sDocumentsStreamDataDir error:nil];
+//            for (NSString* sSampleFileName in sSampleStreamFileNames)
+//            {
+//                if (sSampleFileName.length>1)
+//                {
+//                    NSString* sDocumentsSampleStreamFile = [NSString stringWithFormat:@"%@%@", @"StreamData/", sSampleFileName];
+//                    
+//                    sSQLStr = @"INSERT INTO stream_items(itemName, location, isRead, isMarked, releasedTime, markedTime, iconURL, summary, numVisits, tag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//                    
+//                    [ssFMDatabase executeUpdate:sSQLStr, sSampleFileName, sDocumentsSampleStreamFile,[NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO],  [NSDate distantPast], [NSDate distantPast], @"", NSLocalizedString(@"Summary unvailable due to network problems", nil), [NSNumber numberWithInt:-1], [NSNumber numberWithInt:-1]];
+//                }
+//            }
+//        }
+//    }
+//
     
     return YES;
     
@@ -512,7 +522,10 @@ FMDatabase* ssFMDatabase = nil;
     sSection.mCategories = sCategories;
     [sCategories release];
 
-    sSQLStr = @"SELECT * FROM items WHERE items.refCategoryID = ? ORDER BY releasedTime DESC";
+    //
+//    sSQLStr = @"SELECT * FROM items WHERE items.refCategoryID = ? ORDER BY releasedTime DESC";
+    sSQLStr = @"SELECT * FROM items WHERE items.refCategoryID = ? ORDER BY itemID ASC";
+
     for (Category* sCat in sSection.mCategories)
     {
         //assignment for sCat.mItems
@@ -572,6 +585,22 @@ FMDatabase* ssFMDatabase = nil;
     [rs close];
     
     return -1;
+}
+
++ (NSInteger) getTotalOfCategoriesInSection:(NSString*) aSectionName
+{
+    [StoreManager openIfNecessary];
+    NSString* sSQLStr = @"SELECT COUNT(*) FROM categories, sections WHERE sections.sectionName=? AND sections.sectionID=categories.refSectionID";
+    FMResultSet *rs = [ssFMDatabase executeQuery:sSQLStr, aSectionName];
+    
+    if ([rs next])
+    {
+        return [rs intForColumnIndex:0];
+    }
+    [rs close];
+    
+    return -1;
+
 }
 
 + (NSMutableArray*) getAllFavoriteItems

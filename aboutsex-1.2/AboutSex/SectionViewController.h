@@ -13,10 +13,13 @@
 {
     Section* mSection;
     NSString* mSectionName;
+    BOOL mNeedShowCategoriesView;
 }
 
 @property (nonatomic, retain) NSString* mSectionName;
 @property (nonatomic, retain) Section* mSection;
+@property (nonatomic, assign) BOOL mNeedShowCategoriesView;
 
-- (id) initWithTitle:(NSString*)aTitle AndSectionName: (NSString*) aSectionName;
+- (id) initWithTitle:(NSString*)aTitle AndSectionName: (NSString*) aSectionName AndShowCategories:(BOOL)aShowCategories;
+
 @end

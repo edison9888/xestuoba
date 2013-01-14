@@ -9,14 +9,19 @@
 #import "BaiduWrapperViewController.h"
 #import "SharedVariables.h"
 #import "SharedStates.h"
+#import "UIWebView+Clean.h"
 
 
-#define URL_ZHIDAO_SEX_COMPLETE    @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=6&lm=0"
+//#define URL_ZHIDAO_SEX_COMPLETE    @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=6&lm=0"
+//
+//#define URL_ZHIDAO_SEX_UNCOMPLETE @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=9&lm=2"
+//
+//#define URL_ZHIDAO_SEX_HIGHREWARD @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=11&lm=4"
 
-#define URL_ZHIDAO_SEX_UNCOMPLETE @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=9&lm=2"
+//#define  URL_ZHIDAO_SEX_COMPLETE @"http://wenda.qihoo.com/c/136"
 
-#define URL_ZHIDAO_SEX_HIGHREWARD @"http://wapiknow.baidu.com/browse/174/?ssid=0&from=844b&bd_page_type=1&uid=wiaui_1340783265_7490&pu=sz%401320_2001&st=3&font=0&step=11&lm=4"
 
+#define  URL_DEFAULT_ASK_URL @"http://wenwen.wap.soso.com/cat.jsp?sid=AfZV6GBmmO9_4t0RkKGfPmF_&sid=AfZV6GBmmO9_4t0RkKGfPmF_&catid=1192689664&state=4"
 
 #define HEIGHT_SEARCH1_BAR  50
 
@@ -28,6 +33,7 @@
     UIButton* mBackButton;
     UIButton* mStopOrRefreshButton;
     UIAlertView* mLoadingErrAlertView;
+    BOOL mIsDisappearing;
 }
 
 @property (nonatomic, retain) UIActivityIndicatorView* mActivityIndicatorView;
@@ -35,10 +41,10 @@
 @property (nonatomic, retain) UIButton* mBackButton;
 @property (nonatomic, retain) UIButton* mStopOrRefreshButton;
 @property (nonatomic, retain) UIAlertView* mLoadingErrAlertView;
-
+@property (nonatomic, assign) BOOL mIsDisappearing;
 
 - (void) startLoad;
-- (void) hideBaiduBarByExecutingJS;
+//- (void) hideBaiduBarByExecutingJS;
 - (void) hideWebView;
 - (void) showWebView;
 - (void) reShowWebView;
@@ -62,7 +68,7 @@
 @synthesize mBackButton;
 @synthesize mStopOrRefreshButton;
 @synthesize mLoadingErrAlertView;
-
+@synthesize mIsDisappearing;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -80,6 +86,7 @@
     if (self)
     {
         self.navigationItem.title = aTitle;
+        self.mIsDisappearing = NO;
     }
     return self;
 }
@@ -159,6 +166,7 @@
 
 - (void) dealloc
 {
+    [self.mWebView cleanForDealloc];
     self.mWebView = nil;
     self.mActivityIndicatorView = nil;
     self.mLoadingErrAlertView = nil;
@@ -181,27 +189,81 @@
     return;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ( [[SharedStates getInstance] needShowNoticeForAsKAndAnswer])
+    {
+        [self presentNotice];
+        [[SharedStates getInstance] closeShowAskAndAnswerNotice];
+    }    
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.mWebView stopLoading];
+    self.mIsDisappearing = YES;
+}
+
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void) presentNotice
+{
+    NSString* sProvider = [[SharedStates getInstance] getAskProvider];
+    if (!sProvider
+        || sProvider.length <= 0)
+    {
+        sProvider = NSLocalizedString(@"third party", nil);
+    }
+    
+    NSString* sNotcice = [NSString stringWithFormat:NSLocalizedString(@"Content of this section is provided by %@.", nil), sProvider];
+    UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:sNotcice  delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
+    sAlertView.delegate = self;
+    
+    [sAlertView show];
+    [sAlertView release];
+
+}
+
 
 - (void) startLoad
 {
+    
+    NSString* sURLStr = [[SharedStates getInstance] getAskURL];
+    if (!sURLStr
+        || sURLStr.length <= 4)
+    {
+        sURLStr = URL_DEFAULT_ASK_URL;
+    }
+    
+    NSURLRequest* sRequest  = [NSURLRequest requestWithURL:[NSURL URLWithString: sURLStr]];
 
-    NSURLRequest* sRequest  = [NSURLRequest requestWithURL:[NSURL URLWithString: [[SharedStates getInstance] getBaiduZhidaoURL]]];
     [self.mWebView loadRequest:sRequest];
 }
 
+
 //- (void) hideBaiduBarByExecutingJS
 //{
-//    static NSString* sJSFunHideByID = @"function hideByID(aID)"
+////    static NSString* sSetDisplayStatusByTag = @"function setDisplayStatusByTag(aTag, aDisplayStatus)"
+////    "{"
+////        "var elems = document.getElementsByTagName(aTag);"
+////        "for (i=0; i<elems.length; i++)"
+////        "{ elems[i].style.display=aDisplayStatus; }"
+////    "};";
+//    
+//    static NSString* sSetDisplayStatusByID = @"function SetDisplayStatusByID(aID, aStatus)"
 //    "{"
 //    "var targetNode = document.getElementById(aID);"
-//    "targetNode.style.display='none';"
+//    "targetNode.style.display=aStatus;"
 //    "};";
-//    static NSString* sJSFunHideDivNodeByClass1 = @"function hideByClass(aClass, aStatus)"
+//
+//    static NSString* sSetDisplayStatusForDivByClass = @"function SetDisplayStatusForDivByClass(aClass, aStatus)"
 //    "{"
 //    "var divElements = document.getElementsByTagName('div');"
 //    "for (i=0; i<divElements.length; i++)"
@@ -219,80 +281,25 @@
 ////        "var elementsOfTargetClass = document.getElementsByClassName(aClass);"
 ////        "for (i=0; i<elementsOfTargetClass.length; i++)"
 ////        "{"
-////            "if (elementsOfTargetClass[i].tagName == 'div')"
+////            "if (elementsOfTargetClass[i].tagName == \"div')"
 ////            "{elementsOfTargetClass[i].style.display=aStatus;}"
 ////        "}"
 ////    "};";
+//
 //    
-//    static NSString* sHideSearchArea = @"hideByID(\"search1\"); ";
-//    static  NSString* sHideGoBackNavArea = @"hideByClass(\"goback\", \"none\"); ";
-//    static NSString* sHideUIHeaderCategorizedSearch = @"hideByClass(\"ui-header\", \"none\"); ";
-//    static NSString* sHideFooter = @"hideByID(\"footer\"); ";
-//    static NSString* sShowTop = @"hideByClass(\"ui-gotop\", \"display\");";
-//    static NSString* sWindowMoveToTop = @"window.scrollTo(0,0); ";
-//    
-//    NSString* sJSStr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@", sJSFunHideByID, sJSFunHideDivNodeByClass1, sHideSearchArea, sHideGoBackNavArea, sHideUIHeaderCategorizedSearch, sHideFooter, sShowTop];
+////    static NSString* sHideHeader = @"setDisplayStatusByTag(\"header\", \"block\");";
+//    static NSString* sHideUIHeader = @"SetDisplayStatusForDivByClass(\"ui-header\", \"none\"); ";
+//    static NSString* sHideGoBack = @"SetDisplayStatusForDivByClass(\"goback\", \"none\"); ";
+//    static NSString* sHideFooter = @"SetDisplayStatusByID(\"footer\", \"none\"); ";
+//        
+//    NSString* sJSStr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", sSetDisplayStatusByID, sSetDisplayStatusForDivByClass, sHideGoBack, sHideUIHeader, sHideFooter];
 //    
 //    [self.mWebView stringByEvaluatingJavaScriptFromString:sJSStr];
-////    [self.mWebView stringByEvaluatingJavaScriptFromString:sWindowMoveToTop];
-//
-//        
+//    
 //    return;
 //
+//    
 //}
-
-- (void) hideBaiduBarByExecutingJS
-{
-//    static NSString* sSetDisplayStatusByTag = @"function setDisplayStatusByTag(aTag, aDisplayStatus)"
-//    "{"
-//        "var elems = document.getElementsByTagName(aTag);"
-//        "for (i=0; i<elems.length; i++)"
-//        "{ elems[i].style.display=aDisplayStatus; }"
-//    "};";
-    
-    static NSString* sSetDisplayStatusByID = @"function SetDisplayStatusByID(aID, aStatus)"
-    "{"
-    "var targetNode = document.getElementById(aID);"
-    "targetNode.style.display=aStatus;"
-    "};";
-
-    static NSString* sSetDisplayStatusForDivByClass = @"function SetDisplayStatusForDivByClass(aClass, aStatus)"
-    "{"
-    "var divElements = document.getElementsByTagName('div');"
-    "for (i=0; i<divElements.length; i++)"
-    "{"
-    "if (divElements[i].className == aClass)"
-    "{"
-    "divElements[i].style.display=aStatus;"
-    "}"
-    "}"
-    "};";
-    
-    //problematic
-//    static NSString* sJSFunHideDivNodeByClass = @"function hideByClass(aClass, aStatus)"
-//    "{"
-//        "var elementsOfTargetClass = document.getElementsByClassName(aClass);"
-//        "for (i=0; i<elementsOfTargetClass.length; i++)"
-//        "{"
-//            "if (elementsOfTargetClass[i].tagName == \"div')"
-//            "{elementsOfTargetClass[i].style.display=aStatus;}"
-//        "}"
-//    "};";
-
-    
-//    static NSString* sHideHeader = @"setDisplayStatusByTag(\"header\", \"block\");";
-    static NSString* sHideUIHeader = @"SetDisplayStatusForDivByClass(\"ui-header\", \"none\"); ";
-    static NSString* sHideGoBack = @"SetDisplayStatusForDivByClass(\"goback\", \"none\"); ";
-    static NSString* sHideFooter = @"SetDisplayStatusByID(\"footer\", \"none\"); ";
-        
-    NSString* sJSStr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", sSetDisplayStatusByID, sSetDisplayStatusForDivByClass, sHideGoBack, sHideUIHeader, sHideFooter];
-    
-    [self.mWebView stringByEvaluatingJavaScriptFromString:sJSStr];
-    
-    return;
-
-    
-}
 
 
 - (void) hideWebView
@@ -384,11 +391,16 @@
 - (void) handleLoadFailure
 {
     [self reShowWebView];
-    UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"fail to load page, please retry later", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
-    sAlertView.delegate = self;
-    
-    [sAlertView show];
-    [sAlertView release];
+    if (self.mWebView
+        && !self.mIsDisappearing)
+    {
+        UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"fail to load page, please retry later", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
+        sAlertView.delegate = self;
+        
+        [sAlertView show];
+        [sAlertView release];
+
+    }
 
     
 //    [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(dismissLoadingErrAlert:) userInfo:nil repeats:NO];  
@@ -405,14 +417,14 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [self hideBaiduBarByExecutingJS];  
+//    [self hideBaiduBarByExecutingJS];  
     [self performSelector:@selector(reShowWebView) withObject:nil afterDelay:0.2];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self.mWebView stopLoading];
-    [self hideBaiduBarByExecutingJS];  
+//    [self hideBaiduBarByExecutingJS];  
     [self handleLoadFailure];
 //    [self performSelector:@selector(handleLoadFailure) withObject:nil afterDelay:0.4];      
 

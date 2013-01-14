@@ -42,7 +42,7 @@ FMDatabase* ssFMDatabase;
     NSString* sPathForDBinDocumensDir = [self getPathForDBinDocunemtsDir];
 
 #ifdef DEBUG
-//#define REMOVE_EXISTING_DB_ON_LAUNCH
+#define REMOVE_EXISTING_DB_ON_LAUNCH
 #endif
     
 #ifdef REMOVE_EXISTING_DB_ON_LAUNCH

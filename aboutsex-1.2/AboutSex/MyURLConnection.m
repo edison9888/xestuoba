@@ -13,6 +13,7 @@
 @synthesize mDelegate;
 @synthesize mWebData;
 @synthesize mRequest;
+@synthesize mURLConnection;
 
 - (id) initWithDelegate: (NSMutableURLRequest*)aRequest withDelegate:(id<MyURLConnectionDelegate>) aDelegate
 {
@@ -31,6 +32,8 @@
     self.mDelegate = nil;
     self.mWebData = nil;
     self.mRequest = nil;
+    self.mURLConnection = nil;
+    
     [super dealloc];
 }
 
@@ -50,9 +53,19 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];   
         sRet = NO;
     }
+    
+    self.mURLConnection = sURLConnection;
     [sURLConnection release];
     
     return sRet;
+}
+
+- (void) stop
+{
+    if (self.mURLConnection)
+    {
+        [self.mURLConnection cancel];
+    }
 }
 
 #pragma mark -

@@ -45,7 +45,7 @@
     [self.window makeKeyAndVisible];
     
     //UMeng SDK invocation
-    [MobClick startWithAppkey:APP_KEY_UMENG];
+    [MobClick startWithAppkey:APP_KEY_UMENG reportPolicy:BATCH channelId:CHANNEL_ID];
     
     [self checkUpdateAutomatically];
     

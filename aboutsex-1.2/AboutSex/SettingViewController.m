@@ -10,7 +10,6 @@
 #import "UMFeedback.h"
 #import "SharedVariables.h"
 #import "SharedStates.h"
-
 #import "MobClick.h"
 #import "SVProgressHUD.h"
 
@@ -19,7 +18,9 @@
 #import "UserConfiger.h"
 
 #import "FontSizeSettingController.h"
+#import "RecommandedAppsController.h"
 #import "CustomCellBackgroundView.h"
+#import "CustomBadge.h"
 
 #define MAX_TIME_OF_UPDATE_CHECK    7
 #define TIME_OF_CHECK_RESULTS_BEFORE_DISAPPEAR  1.7
@@ -27,9 +28,8 @@
 #define AboutViewController_TAG_FOR_RIGHT_VERSION_NUMBER_LABEL 1111
 
 #define HEADER_HEIGHT_VIEW   105
+#define TAG_BADGE_VIEW          1111
 
-#define DEFUALT_RECOMMAND_APP_NAME  @"减肥记记"
-#define DEFAULT_RECOMMAND_APP_URL   @"https://itunes.apple.com/cn/app/jian-fei-ji-ji/id583710058"
 
 @interface SettingViewController ()
 {
@@ -40,22 +40,13 @@
     NSTimer* mUpdateCheckOuttimeTimer;
     NSString* mPathForUpdate;
     
-    
-    NSString* mRecommandedAppName;
-    NSString* mRecommandedAppUrl;
-    MyURLConnection* mURLConnection;
-    
 }
 @property (nonatomic, retain) UITableView* mTableView;
 
 @property (nonatomic, assign) BOOL mIsCheckingUpdate;
 @property (nonatomic, retain) NSTimer* mUpdateCheckOuttimeTimer;
-@property (nonatomic, retain)     NSString* mPathForUpdate;
+@property (nonatomic, retain) NSString* mPathForUpdate;
 
-@property (nonatomic, retain) NSString* mRecommandedAppName;
-@property (nonatomic, retain) NSString* mRecommandedAppUrl;
-
-@property (nonatomic, retain) MyURLConnection* mURLConnection;
 
 - (void)updateCheckCallBack:(NSDictionary *)appInfo;
 - (void) showNewUpdateInfoOnMainThread:(id) aAppInfo;
@@ -70,10 +61,6 @@
 @synthesize mIsCheckingUpdate;
 @synthesize mUpdateCheckOuttimeTimer;
 @synthesize mPathForUpdate;
-
-@synthesize mRecommandedAppName;
-@synthesize mRecommandedAppUrl;
-@synthesize mURLConnection;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -93,40 +80,11 @@
         if (aTitle)
         {
             self.navigationItem.title = aTitle;
-            [self setRecommandedAppInfo];
+            
         }
         
     }
     return self;
-}
-
-- (void) setRecommandedAppInfo;
-{
-    //firstly initialize recommanded app info as default values.
-    self.mRecommandedAppName = DEFUALT_RECOMMAND_APP_NAME;
-    self.mRecommandedAppUrl = DEFAULT_RECOMMAND_APP_URL;
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    NSMutableURLRequest* sURLRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:GET_RECOMMANDED_APP_INFO]];
-    
-    [sURLRequest setHTTPMethod:@"POST"];
-    
-    [sURLRequest setValue:[NSString stringWithFormat:@"%d", 0] forHTTPHeaderField:@"Content-length"];
-    [sURLRequest setHTTPBody:nil];
-    
-    MyURLConnection* sURLConnection = [[MyURLConnection alloc]initWithDelegate:sURLRequest withDelegate:self];
-    self.mURLConnection = sURLConnection;
-    [sURLRequest release];
-    [sURLConnection release];
-    
-    if (![self.mURLConnection start])
-    {
-#ifdef DEBUG
-        NSLog(@"conncetin creation error.");
-#endif
-    }
-    
-    return;
 }
 
 
@@ -140,7 +98,6 @@
     
     [super loadView];
     
-
     
     CGFloat sPosX = 0;
     CGFloat sPosY = 5;
@@ -179,6 +136,17 @@
     
     [self.mTableView reloadData];
     
+    if (!self.navigationItem.rightBarButtonItem
+        && [[SharedStates getInstance] getCommentURL]
+        && [[SharedStates getInstance] getCommentURL].length > 0)
+    {
+        UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Comment", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(presentComments)];
+        sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
+        self.navigationItem.rightBarButtonItem = sRefershBarButtonItem;
+        [sRefershBarButtonItem release];
+    }
+
+    
 }
 
 - (void) dealloc
@@ -186,9 +154,6 @@
     self.mTableView = nil;
     [self.mUpdateCheckOuttimeTimer invalidate];
     self.mUpdateCheckOuttimeTimer = nil;
-    self.mRecommandedAppName = nil;
-    self.mRecommandedAppUrl = nil;
-    self.mURLConnection = nil;
     [super dealloc];
 }
 
@@ -273,6 +238,45 @@
         }
 
     }
+    else if (sSection == 1 && sRow == 1)
+    {
+        sCell = [tableView dequeueReusableCellWithIdentifier:@"BadgeCell"];
+        if (!sCell)
+        {
+            sCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BadgeCell"] autorelease];
+            CustomCellBackgroundView* sBGView = [CustomCellBackgroundView backgroundCellViewWithFrame:sCell.frame Row:[indexPath row] totalRow:[tableView numberOfRowsInSection:[indexPath section]] borderColor:SELECTED_CELL_COLOR fillColor:SELECTED_CELL_COLOR tableViewStyle:tableView.style];
+            sCell.selectedBackgroundView = sBGView;
+            sCell.backgroundColor = [UIColor clearColor];
+            
+            if ([[SharedStates getInstance] getNumOfUpdatesForRecommandedApps] > 0)
+            {
+                NSString* sBadgeValuedStr = [NSString stringWithFormat:@"%d", [[SharedStates getInstance] getNumOfUpdatesForRecommandedApps]];
+                CustomBadge* sCustomBadgeView = [CustomBadge customBadgeWithString:sBadgeValuedStr withStringColor:[UIColor whiteColor] withInsetColor:[UIColor redColor] withBadgeFrame:YES withBadgeFrameColor:[UIColor whiteColor] withScale:1.0 withShining:YES];
+                sCustomBadgeView.center = CGPointMake(sCell.center.x+7, sCell.center.y-5);
+                sCustomBadgeView.tag = TAG_BADGE_VIEW;
+
+                [sCell addSubview:sCustomBadgeView];
+            }
+        }
+        
+        if ([[SharedStates getInstance] getNumOfUpdatesForRecommandedApps] <= 0)
+        {
+            CustomBadge* sBadgeView = (CustomBadge*)[sCell viewWithTag:TAG_BADGE_VIEW];
+            if (sBadgeView)
+            {
+                [sBadgeView removeFromSuperview];
+            }
+        }
+        
+        sCell.textLabel.text = NSLocalizedString(@"Recommanded Apps", nil);
+        
+
+        
+        //                sCell.detailTextLabel.text = self.mRecommandedAppName;
+        [sCell.imageView setImage:[UIImage imageNamed:@"app24.png"]];
+        sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+    }
     else
     {
         sCell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -317,17 +321,17 @@
             }
             else if (1 == sRow)
             {
-                sCell.textLabel.text = NSLocalizedString(@"Feedback", nil);
-                [sCell.imageView setImage:[UIImage imageNamed:@"chat24.png"]];
-                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                sCell.textLabel.text = NSLocalizedString(@"Recommanded Apps", nil);
+//                //                sCell.detailTextLabel.text = self.mRecommandedAppName;
+//                [sCell.imageView setImage:[UIImage imageNamed:@"app24.png"]];
+//                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
             }
             else if (2 == sRow)
             {
-                sCell.textLabel.text = NSLocalizedString(@"Recomman Apps", nil);
-                sCell.detailTextLabel.text = self.mRecommandedAppName;
-                [sCell.imageView setImage:[UIImage imageNamed:@"app24.png"]];
+                sCell.textLabel.text = NSLocalizedString(@"Feedback", nil);
+                [sCell.imageView setImage:[UIImage imageNamed:@"chat24.png"]];
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
             }
             else
             {
@@ -416,6 +420,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSInteger sSection = [indexPath section];
     NSInteger sRow = [indexPath row];
     
@@ -462,13 +469,12 @@
         }
         else if (sRow == 1)
         {
-            UIViewController* sViewController = [[UIViewController alloc]init];
-            [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
-            [sViewController release];
+            [self presentRecommandedAppsViewController];
+
         }
         else if (sRow == 2)
         {
-            [self presentRecommandedApp];
+            [self presentFeedbackController];
         }
         else
         {
@@ -496,6 +502,34 @@
     [sFontSizeSettingViewController release];
 
 }
+
+- (void) presentRecommandedAppsViewController
+{
+    RecommandedAppsController* sRecommandedAppsViewController = [[RecommandedAppsController alloc] init];
+    sRecommandedAppsViewController.hidesBottomBarWhenPushed = YES;
+    sRecommandedAppsViewController.title = NSLocalizedString(@"Recommanded Apps", nil);
+    
+    [self.navigationController pushViewController:sRecommandedAppsViewController animated:YES];
+    
+    
+    [sRecommandedAppsViewController release];
+    
+    [[SharedStates getInstance] latestRecommendAppsViewed];
+}
+
+- (void) presentFeedbackController
+{
+    UIViewController* sViewController = [[UIViewController alloc]init];
+    [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
+    [sViewController release];
+}
+
+- (void) presentComments
+{
+    NSString* sCommentsURL = [[SharedStates getInstance] getCommentURL];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: sCommentsURL]];
+}
+
 
 - (void)updateCheckCallBack:(NSDictionary *)appInfo
 {
@@ -561,14 +595,7 @@
     }
 }
 
-- (void) presentRecommandedApp
-{
-    [MobClick event:@"UEID_RECOMMAND_APP_HIT"];
-    
-    NSString* sUrlOfFatcampOnStore = nil;
-    sUrlOfFatcampOnStore = self.mRecommandedAppUrl;
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: sUrlOfFatcampOnStore]];
-}
+
 
 #pragma mark -
 #pragma mark delegate for update checking's alertview
@@ -586,44 +613,6 @@
 
 - (void)appUpdate:(NSDictionary *)appInfo {
     NSLog(@"自定义更新 %@",appInfo);
-}
-
-#pragma mark -
-#pragma mark delegate methods for MyURLConnectionDelegate
-
-- (void) failWithConnectionError: (NSError*)aErr
-{
-}
-
-- (void) failWithServerError: (NSInteger)aStatusCode
-{
-}
-
-- (void) succeed: (NSMutableData*)aData
-{
-    NSError* sErr = nil;
-    
-    id sJSONObject =  [JSONWrapper JSONObjectWithData: aData
-                                              options:NSJSONReadingMutableContainers
-                                                error:&sErr];
-    
-    NSString* sRecommandedAppName = nil;
-    NSString* sRecommandedAppUrl = nil;
-    if ([sJSONObject isKindOfClass:[NSDictionary class]])
-    {
-        NSDictionary *sDict = (NSDictionary *)sJSONObject;
-        sRecommandedAppName = (NSString*)[sDict objectForKey:@"recommanded_app_name"];
-        sRecommandedAppUrl = (NSString*)[sDict objectForKey:@"recommanded_app_url"];
-    }
-    
-    if (sRecommandedAppName
-        && sRecommandedAppUrl)
-    {
-        self.mRecommandedAppName = sRecommandedAppName;
-        self.mRecommandedAppUrl = sRecommandedAppUrl;
-    }
-
-    return;
 }
 
 

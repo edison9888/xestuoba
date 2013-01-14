@@ -9,18 +9,40 @@
 #ifndef AboutSex_SharedVariables_h
 #define AboutSex_SharedVariables_h
 
+
 #define APP_DIR [NSHomeDirectory() stringByAppendingString:@"/"]
 #define DATA_PATH [NSHomeDirectory() stringByAppendingString:@"/data/"]
 #define HEADER_HEIGHT 35
 
 #define APP_KEY_UMENG   @"500833e652701557bd000054"
 
+#define TEST
+
+#if (defined(DEBUG) || defined(TEST))
+#define CHANNEL_ID  @"test"
+#elif defined(APP_STORE_RELEASE)
+#define CHANNEL_ID  @"REAL_APP_STORE"
+#elif defined(WEI_PHONE_RELEASE)
+#define CHANNEL_ID  @"Weiphone"
+#endif
+
 
 #define SECTION_NAME_STREAM         @"stream"
-#define SECTION_NAME_COMMONSENSE    @"commonsense"
-#define SECTION_NAME_HELATH         @"health"
-#define SECTION_NAME_SKILLS         @"skills"
-#define SECTION_NAME_PSYCHOLOGY     @"psychology"
+//#define SECTION_NAME_COMMONSENSE    @"commonsense"
+//#define SECTION_NAME_HELATH         @"health"
+//#define SECTION_NAME_SKILLS         @"skills"
+//#define SECTION_NAME_PSYCHOLOGY     @"psychology"
+
+
+#define SECTION_NAME_PHYSILOGY      @"physiology"
+#define SECTION_NAME_HEALTH         @"health"
+#define SECTION_NAME_DIET           @"diet"
+#define SECTION_NAME_LIFE           @"life"
+#define SECTION_NAME_CONTRACEPTION  @"contraception"
+#define SECTION_NAME_PREGNANCY      @"pregnancy"
+#define SECIION_NAME_CULTURE        @"culture"
+#define SECTION_NAME_TERMS          @"terms"
+
 
 
 #define RGB_DIV_255(x)      ((CGFloat)(x/255.0))
