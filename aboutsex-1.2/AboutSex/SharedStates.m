@@ -308,16 +308,16 @@ static NSMutableArray*  SBackgroundColorviews = nil;
     [self.mCache setObject:aData forKey:CACHE_KEY_RECOMMANDED_APPS_CACHE];
 }
 
-- (void) cacheObject:(id)aObj forKey:(id)aKey
-{
-    [self.mCache setObject:aObj forKey:aKey];
-}
-
-- (id) getCachedObjectForKey:(id)aKey
-{
-    return [self.mCache objectForKey:aKey];
-}
-
+//- (void) cacheObject:(id)aObj forKey:(id)aKey
+//{
+//    [self.mCache setObject:aObj forKey:aKey];
+//}
+//
+//- (id) getCachedObjectForKey:(id)aKey
+//{
+//    return [self.mCache objectForKey:aKey];
+//}
+//
 
 - (BOOL) isFirstLaunchOfCurrentVersion
 {

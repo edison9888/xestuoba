@@ -152,6 +152,8 @@
 		14F923AB16857AD700A49CD1 /* terms140*100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F923A916857AD700A49CD1 /* terms140*100@2x.png */; };
 		14F923C91686125200A49CD1 /* baidu24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F923C71686125200A49CD1 /* baidu24.png */; };
 		14F923CA1686125200A49CD1 /* baidu24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F923C81686125200A49CD1 /* baidu24@2x.png */; };
+		14FB76B016A50C64001188DD /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB76AD16A50C64001188DD /* SDCachedURLResponse.m */; };
+		14FB76B116A50C64001188DD /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB76AF16A50C64001188DD /* SDURLCache.m */; };
 		14FCE4761665EB9900CD668A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FCE4751665EB9900CD668A /* SettingViewController.m */; };
 		14FCE4791665F06D00CD668A /* setting32.png in Resources */ = {isa = PBXBuildFile; fileRef = 14FCE4771665F06D00CD668A /* setting32.png */; };
 		14FCE47A1665F06D00CD668A /* setting32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14FCE4781665F06D00CD668A /* setting32@2x.png */; };
@@ -458,6 +460,10 @@
 		14F923A916857AD700A49CD1 /* terms140*100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "terms140*100@2x.png"; path = "resources/terms140*100@2x.png"; sourceTree = "<group>"; };
 		14F923C71686125200A49CD1 /* baidu24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baidu24.png; path = resources/baidu24.png; sourceTree = "<group>"; };
 		14F923C81686125200A49CD1 /* baidu24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "baidu24@2x.png"; path = "resources/baidu24@2x.png"; sourceTree = "<group>"; };
+		14FB76AC16A50C64001188DD /* SDCachedURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCachedURLResponse.h; sourceTree = "<group>"; };
+		14FB76AD16A50C64001188DD /* SDCachedURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCachedURLResponse.m; sourceTree = "<group>"; };
+		14FB76AE16A50C64001188DD /* SDURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDURLCache.h; sourceTree = "<group>"; };
+		14FB76AF16A50C64001188DD /* SDURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDURLCache.m; sourceTree = "<group>"; };
 		14FCE4741665EB9900CD668A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		14FCE4751665EB9900CD668A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		14FCE4771665F06D00CD668A /* setting32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = setting32.png; path = resources/setting32.png; sourceTree = "<group>"; };
@@ -667,6 +673,7 @@
 		14B97D7515BE7E14008E6F76 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				14FB76AB16A50B36001188DD /* SDURLCache */,
 				14170269168439A0000AF866 /* HorizontalScrollView */,
 				141317E516652F17003A615B /* CMPopTipView.h */,
 				141317E616652F17003A615B /* CMPopTipView.m */,
@@ -884,6 +891,17 @@
 				14BEC61315AC2ADE009A7B7D /* Store */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		14FB76AB16A50B36001188DD /* SDURLCache */ = {
+			isa = PBXGroup;
+			children = (
+				14FB76AC16A50C64001188DD /* SDCachedURLResponse.h */,
+				14FB76AD16A50C64001188DD /* SDCachedURLResponse.m */,
+				14FB76AE16A50C64001188DD /* SDURLCache.h */,
+				14FB76AF16A50C64001188DD /* SDURLCache.m */,
+			);
+			name = SDURLCache;
 			sourceTree = "<group>";
 		};
 		14FCE4731665EAC000CD668A /* Setting */ = {
@@ -1196,6 +1214,8 @@
 				14A9428B16A451D80082F340 /* SDWebImageDownloader.m in Sources */,
 				14A9428C16A451D80082F340 /* SDWebImageManager.m in Sources */,
 				14A9428D16A451D80082F340 /* UIImageView+WebCache.m in Sources */,
+				14FB76B016A50C64001188DD /* SDCachedURLResponse.m in Sources */,
+				14FB76B116A50C64001188DD /* SDURLCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

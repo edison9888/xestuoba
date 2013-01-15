@@ -191,7 +191,8 @@
     }
     else 
     {
-        NSURLRequest* sRequest = [NSURLRequest requestWithURL:aContentURL];
+        //
+        NSURLRequest* sRequest = [NSURLRequest requestWithURL:aContentURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20];
         [sWebView loadRequest:sRequest];
     }
     

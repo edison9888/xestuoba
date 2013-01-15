@@ -23,9 +23,6 @@
     UITableView* mTableView;
     UIActivityIndicatorView* mPageLoadingIndicator;
 
-
-    NSString* mRecommandedAppName;
-    NSString* mRecommandedAppUrl;
     MyURLConnection* mURLConnection;
     
     NSMutableArray* mAppList;
@@ -33,9 +30,6 @@
 }
 @property (nonatomic, retain) UITableView* mTableView;
 @property (nonatomic, retain) UIActivityIndicatorView* mPageLoadingIndicator;
-
-@property (nonatomic, retain) NSString* mRecommandedAppName;
-@property (nonatomic, retain) NSString* mRecommandedAppUrl;
 
 @property (nonatomic, retain) MyURLConnection* mURLConnection;
 
@@ -47,8 +41,6 @@
 @implementation RecommandedAppsController
 @synthesize mTableView;
 @synthesize mPageLoadingIndicator;
-@synthesize mRecommandedAppName;
-@synthesize mRecommandedAppUrl;
 @synthesize mURLConnection;
 
 @synthesize mAppList;
@@ -67,8 +59,6 @@
 {
     self.mTableView = nil;
     self.mPageLoadingIndicator = nil;
-    self.mRecommandedAppName = nil;
-    self.mRecommandedAppUrl = nil;
     self.mURLConnection = nil;
 
     self.mAppList = nil;
@@ -152,6 +142,7 @@
         
         NSString* sURLStr = [NSString stringWithFormat:@"%@?channed_id=%@", GET_RECOMMANDED_APP_INFO, CHANNEL_ID];
         
+        //i like nsurlcache, but when cache policy is set to NSURLRequestReturnCacheDataElseLoad, the cache is stored to disk, and will be used forever, even if the data from the server has changed. To change the storage policy to memory only is hard to me for now, cos when the willCacheResponse method of the connection delegate wont called on ios 5.0+ if cache policy is not NSURLRequestUseProtocolCachePolicy.
         NSMutableURLRequest* sURLRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:sURLStr]];
         
         [sURLRequest setHTTPMethod:@"GET"];
@@ -283,7 +274,6 @@
     
     sCell.textLabel.text = sAppInfo.mName;
     sCell.detailTextLabel.text = sAppInfo.mDetail;
-//    [sCell.imageView setImage: [self getImageForURLStr:sAppInfo.mIconURL]];
 
     [sCell.imageView setImageWithURL:[NSURL URLWithString:sAppInfo.mIconURL]
                    placeholderImage:[UIImage imageNamed:@"app40.png"]];
@@ -311,35 +301,6 @@
     [MobClick event:@"UEID_RECOMMAND_APP_HIT" attributes: sDict];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: sAppInfo.mURLStr]];
-}
-
-- (UIImage*) getImageForURLStr:(NSString*)aURLStr
-{
-    
-    UIImage* sImage = [[SharedStates getInstance] getCachedObjectForKey:aURLStr];
-
-    if (sImage)
-    {
-        return sImage;
-    }
-    else
-    {
-        NSURL* sURL = [NSURL URLWithString:aURLStr];
-        NSData* sData = [NSData dataWithContentsOfURL:sURL];
-                
-        sImage = [[[UIImage alloc] initWithData:sData] autorelease];
-        
-//        if ([UIScreen mainScreen].scale == 1.0)
-        {
-            sImage = [UIImage imageWithCGImage: sImage.CGImage scale:2.0 orientation:UIImageOrientationUp];
-        }
-        [[SharedStates getInstance] cacheObject:sImage forKey:aURLStr];
-        
-        return sImage;
-
-    }
-    
-    
 }
 
 @end

@@ -62,8 +62,8 @@
 - (NSData*) getRecommandedAppCacheData;
 - (void) cacheRecommandedAppData:(NSData*)aData;
 
-- (void) cacheObject:(id)aObj forKey:(id)aKey;
-- (id) getCachedObjectForKey:(id)aKey;
+//- (void) cacheObject:(id)aObj forKey:(id)aKey;
+//- (id) getCachedObjectForKey:(id)aKey;
 
 - (BOOL) isFirstLaunchOfCurrentVersion;
 - (BOOL) needUserGuideOnSectionIndex;

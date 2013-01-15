@@ -15,6 +15,7 @@
 #import "SharedVariables.h"
 
 #import "time.h"
+#import "SDURLCache.h"
 
 @interface AppDelegate ()
 
@@ -51,6 +52,14 @@
     
     //init SharedStates.
     [SharedStates getInstance];
+    
+    
+    //for now, we do not need cache to disk.
+//    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
+//                                                         diskCapacity:1024*1024*5 // 5MB disk cache
+//                                                             diskPath:[SDURLCache defaultCachePath]];
+//    [NSURLCache setSharedURLCache:urlCache];
+//    [urlCache release];
     
     return YES;
 }
