@@ -234,17 +234,19 @@
 
 - (void) startLoad
 {
-    
     NSString* sURLStr = [[SharedStates getInstance] getAskURL];
     if (!sURLStr
         || sURLStr.length <= 4)
     {
-        sURLStr = URL_DEFAULT_ASK_URL;
+        [self webView:self.mWebView didFailLoadWithError:nil];
+    }
+    else
+    {
+        NSURLRequest* sRequest  = [NSURLRequest requestWithURL:[NSURL URLWithString: sURLStr]];
+        
+        [self.mWebView loadRequest:sRequest];
     }
     
-    NSURLRequest* sRequest  = [NSURLRequest requestWithURL:[NSURL URLWithString: sURLStr]];
-
-    [self.mWebView loadRequest:sRequest];
 }
 
 

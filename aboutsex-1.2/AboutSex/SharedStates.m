@@ -427,8 +427,7 @@ static NSMutableArray*  SBackgroundColorviews = nil;
 - (void) succeed: (NSMutableData*)aData
 {
     NSError* sErr = nil;
-
-
+    
     id sJSONObject =  [JSONWrapper JSONObjectWithData: aData
                                                       options:NSJSONReadingMutableContainers
                                                         error:&sErr];
@@ -445,11 +444,9 @@ static NSMutableArray*  SBackgroundColorviews = nil;
         self.mAskProvider = (NSString*)[sDict objectForKey:@"ask_provider"];
         [[NSUserDefaults standardUserDefaults] setObject:self.mAskProvider forKey:DEFAULTS_ASK_PROVIDER];
         
-        
         //Comment URL
         self.mCommentURL = (NSString*)[sDict objectForKey:@"comment_url"];
         [[NSUserDefaults standardUserDefaults] setObject:self.mCommentURL forKey:DEFAULTS_COMMENT_URL];
-        
         
         //about recommand apps
         NSString* sDate4NumUpdatesForRecAppsClient = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_DATE_FOR_NUM_OF_UPDATES_FOR_RECOMMANDED_APPS];

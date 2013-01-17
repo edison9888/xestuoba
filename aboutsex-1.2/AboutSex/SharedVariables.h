@@ -16,7 +16,7 @@
 
 #define APP_KEY_UMENG   @"500833e652701557bd000054"
 
-#define TEST
+#define WEI_PHONE_RELEASE
 
 #if (defined(DEBUG) || defined(TEST))
 #define CHANNEL_ID  @"test"
