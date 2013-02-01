@@ -16,15 +16,19 @@
 
 #define APP_KEY_UMENG   @"500833e652701557bd000054"
 
-#define WEI_PHONE_RELEASE
+#define APP_STORE_RELEASE
 
-#if (defined(DEBUG) || defined(TEST))
-#define CHANNEL_ID  @"test"
-#elif defined(APP_STORE_RELEASE)
+#if defined(APP_STORE_RELEASE)
 #define CHANNEL_ID  @"REAL_APP_STORE"
 #elif defined(WEI_PHONE_RELEASE)
 #define CHANNEL_ID  @"Weiphone"
+#elif (defined(DEBUG) || defined(TEST))
+#define CHANNEL_ID  @"test"
+#else
+#define CHANNEL_ID  @"Other"
 #endif
+
+
 
 
 #define SECTION_NAME_STREAM         @"stream"
