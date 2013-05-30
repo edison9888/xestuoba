@@ -1,0 +1,17 @@
+body{
+		
+		padding: 0px 0px 60px 0px;
+}
+	
+#footer {
+	color:#593217;
+}
+
+img{
+    display:block;margin: 0 auto;
+    max-width:300px;
+}
+		
+.img_wrapper{
+    text-align:center;
+}
