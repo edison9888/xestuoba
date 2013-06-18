@@ -54,7 +54,7 @@
     NSMutableArray* mStreamItems;
     BOOL mHasMore;
     UIActivityIndicatorView* mLoadingMoreActivityIndicator;
-    
+ 
 //    UITableView* mTableView;
 }
 
@@ -73,6 +73,7 @@
 @property (nonatomic, retain) UIActivityIndicatorView* mLoadingMoreActivityIndicator;
 
 
++ (NewStreamController*) shared;
 - (void) refreshFromOutside;
 - (void) refreshViaButton;
 //- (void)setupStrings;

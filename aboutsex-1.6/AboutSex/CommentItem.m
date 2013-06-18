@@ -9,10 +9,27 @@
 #import "CommentItem.h"
 
 @implementation CommentItem
+@synthesize mID;
 @synthesize mItem;
 @synthesize mName;
 @synthesize mContent;
 @synthesize mDate;
+@synthesize mDings;
+@synthesize mCais;
+@synthesize mDidDing;
+@synthesize mDidCai;
+
+- (id) init
+{
+    self = [super init];
+    if (self)
+    {
+        self.mDidDing = NO;
+        self.mDidCai = NO;
+    }
+    
+    return self;
+}
 
 - (void) dealloc
 {

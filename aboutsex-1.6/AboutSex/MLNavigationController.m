@@ -108,13 +108,11 @@
 //to speed it up, we set factor to 1.0, and set interplocation quality to kCGInterpolationNone.
 - (UIImage *)capture
 {
-    UIGraphicsBeginImageContextWithOptions([UIApplication sharedApplication].keyWindow.bounds.size, YES, 1.0);//scale factor set to 0.5, speed up
-//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
+    NSLog(@"height:%f", self.view.bounds.size.height);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(320, 480), YES, 1.0);
     CGContextSetInterpolationQuality(UIGraphicsGetCurrentContext(), kCGInterpolationNone);
     
-    [[UIApplication sharedApplication].keyWindow.layer renderInContext:UIGraphicsGetCurrentContext()];
-
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view.layer renderInContext:UIGraphicsGetCurrentContext()];
     
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -174,8 +172,8 @@
         lastScreenShotView = [[[UIImageView alloc]initWithImage:lastScreenShot]autorelease];
         [self.backgroundView insertSubview:lastScreenShotView belowSubview:blackMask];
         
-    }else if (recoginzer.state == UIGestureRecognizerStateEnded){
-        
+    }else if (recoginzer.state == UIGestureRecognizerStateEnded)
+    {
         if (touchPoint.x - startTouch.x > 50)
         {
             [UIView animateWithDuration:0.3 animations:^{

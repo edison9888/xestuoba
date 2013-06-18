@@ -79,4 +79,23 @@
     return sDate;
 }
 
+- (NSDate*) endDateOfTheDayinLocalTimezone
+{
+    NSDate* sStartDateofTheDayInLocalTimeZone = [self startDateOfTheDayinLocalTimezone];
+    NSDate* sDate = [sStartDateofTheDayInLocalTimeZone dateByAddingTimeInterval:SECONDS_FOR_ONE_DAY-1];
+    
+    return sDate;
+}
+
+- (NSInteger) ceilingDaysSinceStartingOfDate:(NSDate*)aDate
+{
+    NSDate* sStartingOfDate = [aDate startDateOfTheDayinLocalTimezone];
+    NSDate* sEndOfDate = [self endDateOfTheDayinLocalTimezone];
+    NSTimeInterval sTimeInterval = [sEndOfDate timeIntervalSinceDate:sStartingOfDate];
+    
+    NSInteger sDays = ceil(sTimeInterval/((CGFloat)(SECONDS_FOR_ONE_DAY)));
+    return sDays;
+}
+
+
 @end

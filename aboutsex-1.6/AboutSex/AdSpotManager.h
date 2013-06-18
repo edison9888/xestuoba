@@ -13,7 +13,7 @@ typedef enum _E_SPOT_AD_TYPE
 {
     E_SPOT_AD_TYPE_Youmi,
     E_SPOT_AD_TYPE_Guomob,
-    E_SPOT_AD_TYPE_Waps,
+//    E_SPOT_AD_TYPE_Waps,
     
 }E_SPOT_AD_TYPE;
 

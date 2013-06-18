@@ -12,17 +12,18 @@
 #import "SharedVariables.h"
 #import "StoreManager.h"
 #import "StreamViewController.h"
+#import "AffectionViewController.h"
 
 @interface CommonTableViewController2 : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
     BOOL mHasAppearedBefore;
-    id<StreamViewControllerDelegate> mDelegate;
+    id<AffectionViewControllerDelegate> mDelegate;
 
 }
 
 @property (nonatomic, retain) UITableView* mTableView;
 @property (nonatomic, assign) BOOL mHasAppearedBefore;
-@property (nonatomic, assign) id<StreamViewControllerDelegate> mDelegate;
+@property (nonatomic, assign) id<AffectionViewControllerDelegate> mDelegate;
 
 
 - (id) initWithTitle:(NSString*)aTitle;

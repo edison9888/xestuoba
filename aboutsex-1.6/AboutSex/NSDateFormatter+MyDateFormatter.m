@@ -167,9 +167,40 @@ static NSDateFormatter* SDateFormatter = nil;
     return sDateStr;
 }
 
++ (NSString*) standardYMDFormatedStringLeadigZeroCN: (NSDate*)aDate
+{
+    NSDateFormatter* sDF = [self getDateFormatter];
+    
+    [sDF setLocaleTimeZone];
+    
+    NSString* sDateStr;
+    
+    NSString* sFormatStr = [NSString stringWithFormat:@"yyyy%@M%@d%@", NSLocalizedString(@"year", nil), NSLocalizedString(@"month", nil), NSLocalizedString(@"day", nil)];
+    [sDF setDateFormat:sFormatStr];
+    sDateStr = [sDF stringFromDate:aDate];
+    
+    return sDateStr;
+}
+
+
 + (NSString*) mmssFromSeconds:(NSTimeInterval)aSeconds
 {
     return [NSString stringWithFormat:@"%02d:%02d", (int)aSeconds/60, (int)aSeconds % 60, nil];
+}
+
++ (NSString*) weekDay:(NSDate*)aDate
+{
+    NSDateFormatter* sDF = [self getDateFormatter];
+    
+    [sDF setLocaleTimeZone];
+    
+    NSString* sDateStr;
+    
+    NSString* sFormatStr = @"eee";
+    [sDF setDateFormat:sFormatStr];
+    sDateStr = [sDF stringFromDate:aDate];
+    
+    return sDateStr;
 }
 
 @end

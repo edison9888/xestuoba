@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StreamItem.h"
+#import "CommentItem.h"
 
 @interface InteractivityCountManager : NSObject
 
@@ -17,4 +18,6 @@
 - (void) collectItem:(StreamItem*)aItem Collected:(BOOL)aIsCollected;
 - (void) likeItem:(StreamItem*)aItem;
 
+- (void) dingComment:(CommentItem*)aCommentItem;
+- (void) caiComment:(CommentItem*)aCommentItem;
 @end

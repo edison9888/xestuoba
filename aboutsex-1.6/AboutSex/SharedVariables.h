@@ -141,6 +141,8 @@
 
 #define URL_GET_HOT_STREAM             ([HOST_URL_STR stringByAppendingString: @"stream/get_hot_stream.php"])
 
+#define URL_GET_HOT_COMMENTS            [HOST_URL_STR stringByAppendingFormat:@"stream/get_hot_comments.php"]
+
 #define URL_GET_GROUP_STREAM           ([HOST_URL_STR stringByAppendingString: @"stream/get_group_stream.php"])
 
 #define URL_POST_COMMENT            ([HOST_URL_STR stringByAppendingString: @"stream/post_comments.php"])
@@ -148,8 +150,11 @@
 #define URL_COLLECT_ITEM            ([HOST_URL_STR stringByAppendingString: @"stream/collect_item.php"])
 #define URL_LIKE_ITEM               ([HOST_URL_STR stringByAppendingString: @"stream/like_item.php"])
 
+#define URL_DING_COMMENT(itemID)        [HOST_URL_STR stringByAppendingFormat:@"stream/ding_comment.php?commentID=%d",itemID]
 
-#define URL_GET_FMS(pageIndex,pageSize) [HOST_URL_STR stringByAppendingFormat:@"fm/get_fms.php?pageIndex=%d&pageSize=%d",pageIndex,pageSize]
+#define URL_CAI_COMMENT(itemID)           [HOST_URL_STR stringByAppendingFormat:@"stream/cai_comment.php?commentID=%d",itemID]
+
+#define URL_GET_FMS(pageIndex,pageSize, type) [HOST_URL_STR stringByAppendingFormat:@"fm/get_fms.php?pageIndex=%d&pageSize=%d&type=%d",pageIndex,pageSize, type]
 
 
 #define KEY_ADSMOGO             @"9e668f6ebf204b3290eda237d46e2d16"
@@ -169,6 +174,8 @@
 #define MOBWIN_ID           @"5E9765F3D4447CD5021547EF8C3BC382"
 
 #define CACHE_FILE_HOT_STREAMS @"hot_streams.data"
+#define CACHE_FILE_HOT_COMMENTS @"hot_comments.data"
+
 
 
 //notification

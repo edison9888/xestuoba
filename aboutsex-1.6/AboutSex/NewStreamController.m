@@ -38,6 +38,7 @@
 #import "AFNetworking.h"
 #import "NSURL+WithChanelID.h"
 #import "InteractivityCountManager.h"
+#import "MLNavigationController.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -99,13 +100,20 @@
 @synthesize mHasMore;
 @synthesize mLoadingMoreActivityIndicator;
 
-//- (id)initWithStyle:(UITableViewStyle)style {
-//    self = [super initWithStyle:style];
-//    if (self != nil) {
-//        [self setup];
-//    }
-//    return self;
-//}
++ (NewStreamController*) shared
+{
+    static NewStreamController* S_NewStreamController = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        S_NewStreamController = [[NewStreamController alloc] initWithTitle:NSLocalizedString(@"Latest Articles", nil)];
+//        S_NavOfNewStreamController = [[MLNavigationController alloc] initWithRootViewController:sNewStreamController];
+        
+        
+    });
+    
+    return S_NewStreamController;
+}
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -140,6 +148,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (!self.mRefreshButtonBarButtonItem)
+    {
+        UIButton* sRefreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sRefreshButton setImage:[UIImage imageNamed:@"singlerefresh24.png"] forState:UIControlStateNormal];
+        sRefreshButton.frame = CGRectMake(0, 0, 24, 24);
+        //    sRefreshButton.showsTouchWhenHighlighted = YES;
+        [sRefreshButton addTarget:self action:@selector(refreshViaButton) forControlEvents:UIControlEventTouchDown];
+        
+        UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithCustomView:sRefreshButton];
+        sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
+        
+        self.mRefreshButtonBarButtonItem = sRefershBarButtonItem;
+        [sRefershBarButtonItem release];
+    }
+    self.navigationItem.rightBarButtonItem = self.mRefreshButtonBarButtonItem;
+
     
     [self addPullToRefreshHeader];
     
@@ -567,11 +592,12 @@
     if (!(self.isLoading))
     {
         self.isLoading = YES;
-              
+        
         if ([self.mDelegate respondsToSelector:@selector(beginLoading)])
         {
             [self.mDelegate beginLoading];
         }
+
     }
 }
 
@@ -581,10 +607,9 @@
     {
         self.isLoading = NO;
 
-        [(UIActivityIndicatorView*)self.mLoadingIndicatorBarButtonItem.customView stopAnimating];
         if ([self.mDelegate respondsToSelector:@selector(endLoading)])
         {
-            [self.mDelegate endLoading];         
+            [self.mDelegate endLoading];
         }
     }
 }

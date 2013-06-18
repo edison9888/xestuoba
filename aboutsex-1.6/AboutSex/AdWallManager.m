@@ -8,7 +8,7 @@
 
 #import "AdWallManager.h"
 #import "YoumiWallAdapter.h"
-#import "DianruWallAdapter.h"
+//#import "DianruWallAdapter.h"
 #import "MobClick.h"
 
 
@@ -32,10 +32,10 @@
     NSMutableArray* sWalls = [NSMutableArray array];
     
     WallAdpater* sYoumiWall = [self adWallByType:E_WALL_AD_TYPE_Youmi];
-    WallAdpater* sDianruWall = [self adWallByType:E_WALL_AD_TYPE_Dianru];
+//    WallAdpater* sDianruWall = [self adWallByType:E_WALL_AD_TYPE_Dianru];
     
     [sWalls addObject:sYoumiWall];
-    [sWalls addObject:sDianruWall];
+//    [sWalls addObject:sDianruWall];
     
     return sWalls;
 }
@@ -47,9 +47,6 @@
     {
         case E_WALL_AD_TYPE_Youmi:
             sAdWall = [[[YoumiWallAdapter alloc] init] autorelease];
-            break;
-        case E_WALL_AD_TYPE_Dianru:
-            sAdWall = [[[DianruWallAdapter alloc] init] autorelease];
             break;
         default:
             sAdWall = [[[YoumiWallAdapter alloc] init] autorelease];
@@ -72,11 +69,11 @@
         }
         else if ([sAdName caseInsensitiveCompare:@"Miidi"] == NSOrderedSame)
         {
-            sADType = E_WALL_AD_TYPE_Miidi;
+//            sADType = E_WALL_AD_TYPE_Miidi;
         }
         else if ([sAdName caseInsensitiveCompare:@"Dianru"] == NSOrderedSame)
         {
-            sADType = E_WALL_AD_TYPE_Dianru;
+//            sADType = E_WALL_AD_TYPE_Dianru;
         }
         else
         {

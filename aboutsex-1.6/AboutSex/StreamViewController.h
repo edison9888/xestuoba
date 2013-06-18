@@ -20,8 +20,7 @@
 
 @interface StreamViewController : UIViewController<StreamViewControllerDelegate>
 
-
-- (id) initWithTitle:(NSString*)aTitle;
++ (UINavigationController*) shared;
 - (void) refreshFromOutside;//just goto the newstream viewcontroller and the refresh for new streams if any.
 
 @end

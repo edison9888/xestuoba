@@ -12,6 +12,14 @@
 
 //
 
+#define GENERAL_DURATION 5
+#define MIN_DURATION 1
+#define MAX_DURATION 7
+#define GENERAL_PERIOD 28
+#define MIN_PERIOD 25
+
+
+
 typedef enum  {
     ENUM_AD_BAR_SOURCE_TYPE_GUOMENG,
     ENUM_AD_BAR_SOURCE_TYPE_YOUMI,
@@ -42,6 +50,8 @@ typedef enum  {
     
     NSCache* mCache;
     
+    NSMutableArray* mPeriods;
+    
 }
 
 @property (nonatomic, retain) MyURLConnection* mURLConnection;
@@ -53,6 +63,7 @@ typedef enum  {
 
 @property (nonatomic, assign) BOOL mIsFirstLaunch;
 @property (nonatomic, retain) NSCache* mCache;
+@property (nonatomic, retain) NSMutableArray* mPeriods;
 
 + (SharedStates*)getInstance;
 
@@ -100,4 +111,16 @@ typedef enum  {
 
 - (ENUM_AD_BAR_SOURCE_TYPE) getADBarSourceType;
 - (NSString*) getCommentNotice;
+
++ (BOOL) isCurLanguageChinese;
+
+
+- (NSArray*) getPeriods;
+- (NSDate*) getLastPeriodStartDate;
+- (NSDate*) getLastPeriodEndDate;
+
+- (void) addPeriodStartDate:(NSDate*)aStartDate EndDate:(NSDate*)aEndDate;
+- (NSInteger) getPeriodDays;
+- (NSInteger) getDuration;
+
 @end

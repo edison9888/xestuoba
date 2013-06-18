@@ -22,8 +22,6 @@
 #import "KKPasscodeLock.h"
 #import "PointsManager.h"
 #import "YouMiConfig.h"
-#import "DianRuAdWall.h"
-#import "WapsOffer/AppConnect.h"
 #import <AVFoundation/AVFoundation.h>
 
 
@@ -68,21 +66,26 @@
     [YouMiConfig launchWithAppID: SECRET_ID_YOUMI appSecret: SECRET_KEY_YOUMI];
     [YouMiConfig setUseInAppStore:NO];
     [YouMiConfig setIsTesting:NO];
-    [DianRuAdWall beforehandAdWallWithDianRuAppKey:AD_DIANRU_ID];
-    [AppConnect getConnect:AD_WAPS_ID pid:CHANNEL_ID];
-    [AppConnect initPopAd];
+//    [AppConnect getConnect:AD_WAPS_ID pid:CHANNEL_ID];
+//    [AppConnect initPopAd];
 
     
     //
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
-//    self.window.rootViewController = [[SharedStates getInstance] getMainTabController];
     [self.window makeKeyAndVisible];
 
     [StoreManager openIfNecessary];
-    self.window.rootViewController = [[SharedStates getInstance] getMainTabController];
-    [[SharedStates getInstance] configBackground];
     
+    PPRevealSideViewController* sRootViewController = [[PPRevealSideViewController alloc] initWithRootViewController:[[SharedStates getInstance] getMainTabController]];
+    sRootViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView;
+    sRootViewController.panInteractionsWhenOpened = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView;
+    sRootViewController.tapInteractionsWhenOpened = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView;
+    [sRootViewController setDirectionsToShowBounce:PPRevealSideDirectionNone];
+    
+    sRootViewController.delegate = self;
+    self.window.rootViewController = sRootViewController;
+    [[SharedStates getInstance] configBackground];
     
     //    
     //UMeng SDK invocation
@@ -91,9 +94,6 @@
 
     [AFKReviewTroller numberOfExecutions];
     [self checkUpdateAutomatically];
-    
-
-    
     
     //init SharedStates.
     [SharedStates getInstance];
@@ -122,14 +122,7 @@
     //
     [[KKPasscodeLock sharedLock] setDefaultSettings];
     [[KKPasscodeLock sharedLock] invalidatePasswordAfter5Times];
-    
-    //
-//    NSString* sBlankFilePath = [[NSBundle mainBundle] pathForResource:@"5sec" ofType:@"mp3"];
-//    AVAudioPlayer*  sPlayer = [[[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:sBlankFilePath] error:nil] autorelease];
-//	[sPlayer prepareToPlay];
-//    [sPlayer play];
-//    [sPlayer stop];
-    
+        
     // Handle launching from a notification
 	UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif)
@@ -138,10 +131,7 @@
 		NSLog(@"Recieved Notification %@",localNotif);
 	}
 
-    [self scheduleLocalNotification];
-    
 
-    
     return YES;
 }
 
@@ -150,21 +140,21 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
     
-    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-    if (localNotif == nil)
+    UILocalNotification* sLocalNotification = [[UILocalNotification alloc] init];
+    if (sLocalNotification == nil)
         return;
-    localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:LOCAL_NOTIFICATION_INTERVAL];
-    localNotif.timeZone = [NSTimeZone localTimeZone];
+    sLocalNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:LOCAL_NOTIFICATION_INTERVAL];
+    sLocalNotification.timeZone = [NSTimeZone localTimeZone];
 	
 	// Notification details
-    localNotif.alertBody = NSLocalizedString(@"You've got updates in Aboutsex", nil);
+    sLocalNotification.alertBody = NSLocalizedString(@"You've got updates in Aboutsex", nil);
 	
-    localNotif.soundName = UILocalNotificationDefaultSoundName;
-    localNotif.applicationIconBadgeNumber = 1;
+    sLocalNotification.soundName = UILocalNotificationDefaultSoundName;
+    sLocalNotification.applicationIconBadgeNumber = 1;
 		
 	// Schedule the notification
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-    [localNotif release];
+    [[UIApplication sharedApplication] scheduleLocalNotification:sLocalNotification];
+    [sLocalNotification release];
 }
 
 
@@ -229,7 +219,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [DianRuAdWall dianruOnPause];
+    [self scheduleLocalNotification];
+
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -242,11 +233,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     //refresh point from all ad platform
-    [DianRuAdWall dianruOnResume];
     [[PointsManager shared] refreshPoints];
     
     //
-    if ([[KKPasscodeLock sharedLock] isPasscodeRequired]) {
+    if ([[KKPasscodeLock sharedLock] isPasscodeRequired])
+    {
         KKPasscodeViewController* sPasscodeViewController = [[KKPasscodeViewController alloc] initWithNibName:nil bundle:nil];
         sPasscodeViewController.mode = KKPasscodeModeEnter;
         sPasscodeViewController.title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
@@ -255,17 +246,6 @@
         dispatch_async(dispatch_get_main_queue(),^ {
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sPasscodeViewController];
             nav.navigationBar.tintColor = MAIN_BGCOLOR;
-//            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-//                nav.modalPresentationStyle = UIModalPresentationFormSheet;
-//                nav.navigationBar.barStyle = UIBarStyleBlack;
-//                nav.navigationBar.opaque = NO;
-//            } else
-//            {
-//                nav.navigationBar.tintColor = _navigationController.navigationBar.tintColor;
-//                nav.navigationBar.translucent = _navigationController.navigationBar.translucent;
-//                nav.navigationBar.opaque = _navigationController.navigationBar.opaque;
-//                nav.navigationBar.barStyle = _navigationController.navigationBar.barStyle;
-//            }
             self.mNavOfPasswordEnterViewController = nav;
             [self.window.rootViewController presentModalViewController:self.mNavOfPasswordEnterViewController animated:NO];
             sPasscodeViewController.title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
@@ -274,10 +254,8 @@
         
     }
     
-    
     //
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-
 }
 
 - (void)shouldEraseApplicationData:(KKPasscodeViewController*)viewController
@@ -310,6 +288,19 @@
 {
     [MobClick checkUpdate:NSLocalizedString(@"New Version Found", nil) cancelButtonTitle:NSLocalizedString(@"Skip", nil) otherButtonTitles:NSLocalizedString(@"Update now", nil)];
 }
+
+
+//#pragma mark - PPRevealSideViewControllerDelegate
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPushController:(UIViewController *)pushedController
+{
+    [[SharedStates getInstance] getMainTabController].tabBar.userInteractionEnabled = NO;
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPopToController:(UIViewController *)centerController
+{
+    [[SharedStates getInstance] getMainTabController].tabBar.userInteractionEnabled = YES;
+}
+
 
 
 @end

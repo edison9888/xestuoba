@@ -30,36 +30,29 @@
  */
 
 #import "TKImageCache.h"
-#import <TapkuLibrary/TapkuLibrary.h>
+#import "TKNetworkQueue.h"
+#import "TKHTTPRequest.h"
+#import "TKGlobal.h"
 
-
-#pragma mark -
-@interface TKImageRequest : TKHTTPRequest 
-@property (strong,nonatomic) NSString *key;
-@end 
+#pragma mark - TKImageRequest
+@interface TKImageRequest : TKHTTPRequest
+@property (nonatomic,strong) NSString *key;
+@end
 
 @implementation TKImageRequest
-@synthesize key;
 @end
 
 
-
-@interface TKImageCache (private)
-
-- (NSString *) _filePathWithKey:(NSString *)key;
-- (BOOL) _imageExistsOnDiskWithKey:(NSString *)key;
-- (UIImage*) _imageFromDiskWithKey:(NSString*)key;
-- (void) _readImageFromDiskWithKey:(NSString*)key tag:(NSUInteger)tag;
-- (void) _sendRequestForURL:(NSURL*)url key:(NSString*)key tag:(NSUInteger)tag;
-
+#pragma mark - TKImageCache
+@interface TKImageCache (){
+	NSString *_cacheDirectoryPath;
+	NSMutableDictionary *_diskKeys;
+	NSMutableDictionary *_requestKeys;
+	dispatch_queue_t cache_queue;
+}
 @end
 
-
-#pragma mark -
 @implementation TKImageCache
-@synthesize cacheDirectoryName=_cacheDirectoryName,notificationName=_notificationName;
-@synthesize timeTillRefreshCache=_timeTillRefreshCache;
-@synthesize imagesQueue=_imagesQueue;
 
 - (id) init{
 	self = [self initWithCacheDirectoryName:@"imagecache"];
@@ -73,6 +66,9 @@
 	
 	_requestKeys = [[NSMutableDictionary alloc] init];
 	_imagesQueue = [[TKNetworkQueue alloc] init];
+	
+	self.shouldNetworkActivity = YES;
+	
 	cache_queue = dispatch_queue_create("com.tapku",NULL);
 	
 	self.notificationName = @"NewCachedImageFile";
@@ -80,9 +76,7 @@
 	
 	return self;
 }
-- (void) dealloc{
-	dispatch_release(cache_queue);	
-}
+
 
 
 
@@ -90,107 +84,105 @@
 	return [self imageForKey:key url:url queueIfNeeded:queueIfNeeded tag:0];
 }
 - (UIImage*) imageForKey:(NSString*)key url:(NSURL*)url queueIfNeeded:(BOOL)queueIfNeeded tag:(NSUInteger)tag{
-
+	
 	if(key==nil) return nil;
-	if([self objectForKey:key]) return [self objectForKey:key];
+	
+	id obj = [self objectForKey:key];
+	if(obj) return obj;
 	
 	if([self _imageExistsOnDiskWithKey:key]){
 		
 		[self _readImageFromDiskWithKey:key tag:tag];
 		
 		if(self.timeTillRefreshCache > 0){
+			
+			
 			NSString *path = [[self cacheDirectoryPath] stringByAppendingPathComponent:key];
 			NSDate *created = [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL] fileCreationDate];
 			NSTimeInterval timeSince = fabs([created timeIntervalSinceNow]);
 			
 			if(_timeTillRefreshCache > timeSince) queueIfNeeded = NO;
-
+			
 		}else
 			queueIfNeeded = NO;
 		
 	}
-		
-	if(queueIfNeeded && url) [self _sendRequestForURL:url key:key tag:tag];
-
+	
+	if(queueIfNeeded && url)
+		[self _sendRequestForURL:url key:key tag:tag];
+	
 	return nil;
 }
 
 
 - (void) _sendRequestForURL:(NSURL*)url key:(NSString*)key tag:(NSUInteger)tag{
 	
-	if(key == nil || [_requestKeys objectForKey:key]!=nil) return;
-	
-
-	[_requestKeys setObject:[NSNull null] forKey:key];
-	NSString *filePath = [self _filePathWithKey:key];
-	
-	TKImageRequest * request = (TKImageRequest*)[TKImageRequest requestWithURL:url];
-	request.tag = tag;
-	request.key = key;
-	request.delegate = self;
-	request.didFinishSelector = @selector(_requestDidFinish:);
-	request.didFailSelector = @selector(_requestDidFail:);
-	request.downloadDestinationPath = filePath;
-	[_imagesQueue addOperation:request];
-
-
+	dispatch_async(cache_queue,^{
+		
+		if([_requestKeys objectForKey:key]!=nil) return;
+		
+		[_requestKeys setObject:[NSNull null] forKey:key];
+		NSString *filePath = [self _filePathWithKey:key];
+		
+		
+		TKImageRequest * request = (TKImageRequest*)[TKImageRequest requestWithURL:url];
+		request.tag = tag;
+		request.key = key;
+		request.delegate = self;
+		request.didFinishSelector = @selector(_requestDidFinish:);
+		request.didFailSelector = @selector(_requestDidFail:);
+		request.downloadDestinationPath = filePath;
+		request.showNetworkActivity = self.shouldNetworkActivity;
+		[_imagesQueue addOperation:request];
+		
+	});
 	
 }
 - (void) _requestDidFinish:(TKImageRequest*)request{
 	
 	NSString *key = request.key;
 	
-	dispatch_async(dispatch_get_main_queue(), ^{
-		if([_requestKeys objectForKey:key])
-			[_requestKeys removeObjectForKey:key];
-	});
+	
 	
 	if(request.statusCode != 200){
-		[[NSFileManager defaultManager] removeItemAtPath:request.downloadDestinationPath error:nil];
+		dispatch_async(cache_queue,^{
+			
+			if([_requestKeys objectForKey:key])
+				[_requestKeys removeObjectForKey:key];
+			
+			[[NSFileManager defaultManager] removeItemAtPath:request.downloadDestinationPath error:nil];
+		});
 		return;
 	}
 	
-
 	
-	
-	
-	if([[NSFileManager defaultManager] fileExistsAtPath:[self _filePathWithKey:key]]){
+	dispatch_async(cache_queue,^{
 		
-		dispatch_async(cache_queue,^{
-			UIImage *cacheImage = [self adjustImageRecieved:[self _imageFromDiskWithKey:key]];
-			
-			
-			if(cacheImage){
-				
-				
-				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:request.key,@"key",cacheImage,@"image",[NSNumber numberWithUnsignedInt:request.tag],@"tag",nil];
-
-				
-				dispatch_async(dispatch_get_main_queue(), ^{
-					
-					if(_diskKeys) [_diskKeys setObject:[NSNull null] forKey:request.key];
-					
-					
-					[self setObject:cacheImage forKey:request.key];
-					//[[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName object:dict];
-					
-					[[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName object:self userInfo:dict];
-					
-					
-				});
-			}
+		if([_requestKeys objectForKey:key])
+			[_requestKeys removeObjectForKey:key];
+		
+		
+		UIImage *cacheImage = [self adjustImageRecieved:[self _imageFromDiskWithKey:key]];
+		if(cacheImage==nil) return;
+		
+		[self setObject:cacheImage forKey:request.key];
+		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:key,@"key",cacheImage,@"image",[NSNumber numberWithUnsignedInt:request.tag],@"tag",nil];
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[_diskKeys setObject:[NSNull null] forKey:request.key];
+			[[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName object:self userInfo:dict];
 		});
 		
-		
-	}
+	});
 	
 	
 }
 - (void) _requestDidFail:(TKImageRequest*)request{
 	
-	NSString *key = request.key;
-
-	dispatch_async(dispatch_get_main_queue(), ^{
+	
+	dispatch_async(cache_queue,^{
+		NSString *key = request.key;
+		
 		if([_requestKeys objectForKey:key])
 			[_requestKeys removeObjectForKey:key];
 	});
@@ -207,9 +199,15 @@
 
 
 
+- (void) removeAllObjects{
+	[super removeAllObjects];
+	[self cancelOperations];
+}
 - (void) cancelOperations{
 	[_imagesQueue cancelAllOperations];
-	[_requestKeys removeAllObjects];
+	dispatch_async(cache_queue,^{
+		[_requestKeys removeAllObjects];
+	});
 }
 - (void) clearCachedImages{
 	
@@ -222,50 +220,49 @@
 		
 		
 		for( NSString *file in files ) {
-			if( file != @"." && file != @".." ) {
+			if( ![file isEqual:@"."] && ![file isEqual:@".."] ) {
 				NSString *path = [[self cacheDirectoryPath] stringByAppendingPathComponent:file];
 				[[NSFileManager defaultManager] removeItemAtPath:path error:&error];
 				
-			}    
+			}
 		}
 		
 		
 	});
-
+	
 	
 }
 - (void) removeCachedImagesFromDiskOlderThanTime:(NSTimeInterval)time{
 	
-	
+	NSString *path = [self cacheDirectoryPath];
 	UIBackgroundTaskIdentifier bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
 
-	
-	NSError* error = nil;
-	NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self cacheDirectoryPath] error:&error];
-	
-	for( NSString *file in files ) {
-		if( file != @"." && file != @".." ) {
-			
-			NSString *path = [[self cacheDirectoryPath] stringByAppendingPathComponent:file];
-			NSDate *created = [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL] fileCreationDate];
-			NSTimeInterval timeSince = fabs([created timeIntervalSinceNow]);
-			
-			
-			
-			
-			if(timeSince > time){
+	dispatch_async(cache_queue,^{
+		
+		
+		NSError* error = nil;
+		NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
+		
+		for( NSString *file in files ) {
+			if( ![file isEqual:@"."] && ![file isEqual:@".."] ) {
 				
-				if(_diskKeys) [_diskKeys removeObjectForKey:file];
-
-				[[NSFileManager defaultManager] removeItemAtPath:[[self cacheDirectoryPath] stringByAppendingPathComponent:file] error:&error];
+				NSString *path = [path stringByAppendingPathComponent:file];
+				NSDate *created = [[[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL] fileCreationDate];
+				NSTimeInterval timeSince = fabs([created timeIntervalSinceNow]);
+				
+				if(timeSince > time){
+					
+					dispatch_async(dispatch_get_main_queue(), ^{
+						if(_diskKeys) [_diskKeys removeObjectForKey:file];
+					});
+					[[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingPathComponent:file] error:&error];
+				}
 			}
-			
-		}    
-	}
+		}
+		[[UIApplication sharedApplication] endBackgroundTask:bgTask];
+		
+	});
 	
-	
-	[[UIApplication sharedApplication] endBackgroundTask:bgTask];
-
 	
 }
 - (void) printAllCaching{
@@ -273,8 +270,8 @@
 	NSError* error = nil;
 	NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self cacheDirectoryPath] error:&error];
 	
-	NSLog(@"%@",files);
-
+	TKLog(@"%@",files);
+	
 	
 	
 }
@@ -288,7 +285,10 @@
 }
 - (BOOL) _imageExistsOnDiskWithKey:(NSString *)key{
 	
+	
 	if(_diskKeys) return [_diskKeys objectForKey:key]==nil ? NO : YES;
+	
+	
 	
     return [[NSFileManager defaultManager] fileExistsAtPath:[self _filePathWithKey:key]];
 }
@@ -300,21 +300,20 @@
 	
 	dispatch_async(cache_queue,^{
 		
+		
 		UIImage *cacheImage = [self adjustImageRecieved:[self _imageFromDiskWithKey:key]];
-		if(cacheImage!=nil){
-			
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[self setObject:cacheImage forKey:key];
-				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:key,@"key",cacheImage,@"image",[NSNumber numberWithUnsignedInt:tag],@"tag",nil];
-				//[[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName object:dict];
-				
-				[[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName object:self userInfo:dict];
-
-			});
-			usleep(10000);
-
-			
-		}
+		
+		if(cacheImage==nil) return;
+		[self setObject:cacheImage forKey:key];
+		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:key,@"key",cacheImage,@"image",[NSNumber numberWithUnsignedInt:tag],@"tag",nil];
+		
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName object:self userInfo:dict];
+		});
+		
+		
+		
 	});
 	
 }
@@ -371,13 +370,12 @@
 	
 }
 - (NSString *) cacheDirectoryPath{
-	
-	if(_cacheDirectoryPath==nil){
-		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-		NSString *documentsDirectory = [paths objectAtIndex:0];
-		NSString *str = [documentsDirectory stringByAppendingPathComponent:_cacheDirectoryName];
-		_cacheDirectoryPath = [str copy];
-	}
+	if(_cacheDirectoryPath) return _cacheDirectoryPath;
+
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = paths[0];
+	NSString *str = [documentsDirectory stringByAppendingPathComponent:_cacheDirectoryName];
+	_cacheDirectoryPath = [str copy];
 	return _cacheDirectoryPath;
 }
 

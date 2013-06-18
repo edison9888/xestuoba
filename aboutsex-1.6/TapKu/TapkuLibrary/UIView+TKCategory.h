@@ -31,6 +31,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 /** Additional functionality for `UIView`.  */
 @interface UIView (TKCategory)
@@ -45,11 +46,4 @@
 - (void) roundOffFrame;
 
 
-// DRAW ROUNDED RECTANGLE
-+ (void) drawRoundRectangleInRect:(CGRect)rect withRadius:(CGFloat)radius;
-
-
 @end
-
-
-

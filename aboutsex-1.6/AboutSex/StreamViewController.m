@@ -11,6 +11,9 @@
 #import "HotStreamController.h"
 #import "MobClick.h"
 #import "SpotTimer.h"
+#import "SidebarViewController.h"
+#import "MLNavigationController.h"
+
 
 @interface StreamViewController ()
 {
@@ -37,20 +40,35 @@
 @synthesize mLoadingIndicatorBarButtonItem;
 @synthesize mContentView;
 
++ (UINavigationController*) shared
+{
+    static UINavigationController* S_NavOfStreamViewController = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        StreamViewController* sStreamViewController = [[self alloc] init];
+        S_NavOfStreamViewController = [[MLNavigationController alloc] initWithRootViewController:sStreamViewController];
+        [sStreamViewController release];
+        
+    });
+    return S_NavOfStreamViewController;
+
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
     }
     return self;
 }
 
-- (id) initWithTitle:(NSString*)aTitle
+- (id) init
 {
     self = [super init];
     if (self)
     {
-        self.title = aTitle;
+        self.title = NSLocalizedString(@"News", "new message type of which may be dictations");
     }
     return self;
 }
@@ -85,6 +103,16 @@
     self.mSegmentedControl = sSegmentedControl;
     [sSegmentedControl release];
     
+    
+//    UIButton* sSideBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [sSideBarButton addTarget:self action:@selector(presentSidebar) forControlEvents:UIControlEventTouchDown];
+//    sSideBarButton.frame = CGRectMake(0, 0, 40, 40);
+//    [sSideBarButton setImage:[UIImage imageNamed:@"menu20"] forState:UIControlStateNormal];
+//    
+//    UIBarButtonItem* sBarItem = [[UIBarButtonItem alloc] initWithCustomView:sSideBarButton];
+//    self.navigationItem.leftBarButtonItem = sBarItem;
+//    [sBarItem release];
+
     
     if (!self.mRefreshButtonBarButtonItem)
     {

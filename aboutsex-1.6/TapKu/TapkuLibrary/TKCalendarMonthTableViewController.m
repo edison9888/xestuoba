@@ -32,13 +32,7 @@
 #import "NSDate+TKCategory.h"
 
 @implementation TKCalendarMonthTableViewController
-@synthesize tableView = _tableView;
 
-- (void) viewDidUnload {
-	self.tableView.delegate = nil;
-	self.tableView.dataSource = nil;
-	self.tableView = nil;
-}
 
 - (void) loadView{
 	[super loadView];
@@ -59,7 +53,7 @@
 
 
 
-#pragma mark - TableView Delegate & Data Source
+#pragma mark TableView Delegate & Data Source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 0;	
 }
@@ -79,7 +73,7 @@
     return cell;
 }
 
-#pragma mark - Month View Delegate & Data Source
+#pragma mark Month View Delegate & Data Source
 - (void) calendarMonthView:(TKCalendarMonthView*)monthView didSelectDate:(NSDate*)d{
 }
 - (void) calendarMonthView:(TKCalendarMonthView*)monthView monthDidChange:(NSDate*)month animated:(BOOL)animated{

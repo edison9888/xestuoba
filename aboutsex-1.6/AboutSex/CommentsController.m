@@ -8,11 +8,11 @@
 
 #import "CommentsController.h"
 #import "CommentItem.h"
-#import "CommentItemView.h"
 #import "AFNetworking.h"
 #import "NSURL+WithChanelID.h"
 #import "SharedVariables.h"
 #import "UserConfiger.h"
+#import "InteractivityCountManager.h"
 
 
 #define PAGE_SIZE_COMMENTS  10
@@ -22,11 +22,13 @@
     NSInteger mPageIndex;
     BOOL mHasMoreData;
     BOOL mIsLoading;
+    UILabel* mAnimatedLabel;
 }
 
 @property (nonatomic, assign) NSInteger mPageIndex;
 @property (nonatomic, assign) BOOL mHasMoreData;
 @property (nonatomic, assign) BOOL mIsLoading;
+@property (nonatomic, retain) UILabel* mAnimatedLabel;
 @end
 
 @implementation CommentsController
@@ -37,6 +39,7 @@
 @synthesize mPageIndex;
 @synthesize mHasMoreData;
 @synthesize mIsLoading;
+@synthesize mAnimatedLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -78,6 +81,7 @@
     self.mTableView = nil;
     self.mPageLoadingIndicator = nil;
     self.mComments = nil;
+    self.mAnimatedLabel = nil;
     
     [super dealloc];
 }
@@ -129,13 +133,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self fetchComments];
-
 }
 
 - (void) viewDidUnload
 {
     [super viewDidUnload];
-    
     self.mTableView = nil;
 }
 
@@ -176,9 +178,12 @@
         CommentItem* sCommentItem = [[CommentItem alloc] init];
         
         sCommentItem.mItem = self.mItem;
+        sCommentItem.mID = ((NSNumber*)[sItemDict objectForKey:@"commentID"]).integerValue;
         sCommentItem.mName = (NSString*) [sItemDict objectForKey:@"user"];
         sCommentItem.mContent = (NSString*) [sItemDict objectForKey:@"content"];
         sCommentItem.mDate = [NSDate dateWithTimeIntervalSince1970:[(NSString*) [sItemDict objectForKey:@"time"] integerValue]];
+        sCommentItem.mDings = ((NSNumber*)[sItemDict objectForKey:@"numDings"]).integerValue;
+        sCommentItem.mCais = ((NSNumber*)[sItemDict objectForKey:@"numCais"]).integerValue;
         
         [self.mComments addObject:sCommentItem];
         [sCommentItem release];
@@ -288,17 +293,18 @@
     else
     {
         static NSString* sIdentifier = @"cell";
-        CommentItemView* sCell = [tableView dequeueReusableCellWithIdentifier:sIdentifier];
+        CommentItemCell* sCell = [tableView dequeueReusableCellWithIdentifier:sIdentifier];
         if (!sCell)
         {
-            sCell =  [[[CommentItemView alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:sIdentifier withFrame:CGRectMake(0, 0, tableView.bounds.size.width, tableView.rowHeight)] autorelease];
+            sCell =  [[[CommentItemCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:sIdentifier withFrame:CGRectMake(0, 0, tableView.bounds.size.width, tableView.rowHeight)] autorelease];
             
             sCell.selectionStyle = UITableViewCellSelectionStyleNone;
             sCell.backgroundView = nil;
+            sCell.mDelegate = self;
         }
         
         CommentItem* sCommentItem = [self.mComments objectAtIndex:sRow];
-        [sCell fillValueByCommentor:sCommentItem.mName Date:sCommentItem.mDate Content:sCommentItem.mContent];
+        [sCell fillValueByComment:sCommentItem];
         
         if (sRow%2 == 0)
         {
@@ -333,6 +339,101 @@
     sNoDataNoticeLabel.font = [UIFont systemFontOfSize:15];
     
     return sNoDataNoticeLabel;
+}
+
+#pragma mark - CommentItemViewDelegate
+- (void) dingAt:(CommentItemCell*)aCommentItemView
+{
+    NSIndexPath* sClickedIndexPath = [self.mTableView indexPathForCell:aCommentItemView];
+    if (sClickedIndexPath.row < self.mComments.count)
+    {
+        CommentItem* sCommentItem = [self.mComments objectAtIndex:sClickedIndexPath.row];
+        if (!sCommentItem.mDidDing)
+        {
+            sCommentItem.mDings++;
+            [[InteractivityCountManager shared] dingComment:sCommentItem];
+            sCommentItem.mDidDing = YES;
+            
+            
+            CGPoint sPosInTableView = [aCommentItemView convertPoint:CGPointMake(aCommentItemView.bounds.size.width/2, aCommentItemView.bounds.size.height/2) toView:self.view];
+            
+            [self doAnnimation:YES atPosInTableView:sPosInTableView];
+            
+            [self.mTableView reloadRowsAtIndexPaths:@[sClickedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+
+        }
+    }
+}
+
+- (void) caiAt:(CommentItemCell*)aCommentItemView
+{
+    NSIndexPath* sClickedIndexPath = [self.mTableView indexPathForCell:aCommentItemView];
+    if (sClickedIndexPath.row < self.mComments.count)
+    {
+        CommentItem* sCommentItem = [self.mComments objectAtIndex:sClickedIndexPath.row];
+        if (!sCommentItem.mDidCai)
+        {
+            sCommentItem.mCais++;
+            [[InteractivityCountManager shared] caiComment:sCommentItem];
+            sCommentItem.mDidCai = YES;
+            
+            
+            CGPoint sPosInTableView = [aCommentItemView convertPoint:CGPointMake(aCommentItemView.bounds.size.width/2, aCommentItemView.bounds.size.height/2) toView:self.view];
+            [self doAnnimation:NO atPosInTableView:sPosInTableView];
+            
+            [self.mTableView reloadRowsAtIndexPaths:@[sClickedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+
+        }
+    }
+}
+
+- (void) doAnnimation:(BOOL)aDing atPosInTableView:(CGPoint)aPoint
+{
+    if (!self.mAnimatedLabel)
+    {
+        UILabel* sLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        sLabel.text = @"+1";
+        sLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+        sLabel.backgroundColor = [UIColor clearColor];
+        sLabel.textAlignment = UITextAlignmentCenter;
+        sLabel.alpha = 0;
+        [self.view addSubview:sLabel];
+        self.mAnimatedLabel = sLabel;
+        [sLabel release];
+    }
+    
+    if (aDing)
+    {
+        self.mAnimatedLabel.textColor = [UIColor redColor];
+    }
+    else
+    {
+        self.mAnimatedLabel.textColor = [UIColor greenColor];
+    }
+    
+    self.mAnimatedLabel.center = aPoint;
+    [self.view bringSubviewToFront:self.mAnimatedLabel];
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.mAnimatedLabel.alpha = 1;
+        self.mAnimatedLabel.transform = CGAffineTransformMakeScale(1.5,1.5);
+
+    }completion:^(BOOL finished) {
+        self.mAnimatedLabel.alpha = 0;
+    }];
+    
+}
+
+- (CommentItem*) getCommentItemByCell:(UITableViewCell*)aCommentItemView
+{
+    NSIndexPath* sClickedIndexPath = [self.mTableView indexPathForCell:aCommentItemView];
+    if (sClickedIndexPath.row < self.mComments.count)
+    {
+        CommentItem* sCommentItem = [self.mComments objectAtIndex:sClickedIndexPath.row];
+        return sCommentItem;
+    }
+
+    return nil;
 }
 
 

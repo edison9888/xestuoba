@@ -16,9 +16,12 @@
 + (NSString*) standardyyyyMMddHHmmFormatedString: (NSDate*)aDate;
 + (NSString*) standardyyyyMMddFormatedString: (NSDate*)aDate;
 + (NSString*) standardYMDFormatedStringLeadigZero: (NSDate*)aDate;
+
+
 + (NSString*) standardMDFormatedStringCN: (NSDate*)aDate;
++ (NSString*) standardYMDFormatedStringLeadigZeroCN: (NSDate*)aDate;
 
-
++ (NSString*) weekDay:(NSDate*)aDate;
 
 + (NSString*) mmssFromSeconds:(NSTimeInterval)aSeconds;
 @end

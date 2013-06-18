@@ -1,5 +1,5 @@
 //
-//  ODCalendarDayViewController.h
+//  TKCalendarDayViewController.h
 //  Created by Devin Ross on 7/28/09.
 /*
  
@@ -30,13 +30,13 @@
 
 
 #import <UIKit/UIKit.h>
-#import "TKCalendarDayTimelineView.h"
+#import "TKCalendarDayView.h"
 
+#pragma mark - TKCalendarDayViewController
+/** The `TKCalendarDayViewController` class creates a controller object that manages a calendar day view. */
+@interface TKCalendarDayViewController : UIViewController <TKCalendarDayViewDelegate,TKCalendarDayViewDataSource>
 
-@interface TKCalendarDayViewController : UIViewController <TKCalendarDayTimelineViewDelegate>{
-	TKCalendarDayTimelineView *_calendarDayTimelineView;
-}
-
-@property (nonatomic, unsafe_unretained) TKCalendarDayTimelineView *calendarDayTimelineView;
+/** Returns the day view managed by the controller object. */
+@property (nonatomic,strong) TKCalendarDayView *dayView;
 
 @end

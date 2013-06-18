@@ -30,15 +30,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <TapkuLibrary/TapkuLibrary.h>
+
+@class TKNetworkQueue,TKHTTPRequest;
 
 /** An `TKImageCache` object provides a way to manage images between the network, disk and `NSCache`. */
-@interface TKImageCache : NSCache {
-	NSString *_cacheDirectoryPath;
-	NSMutableDictionary *_diskKeys;
-	NSMutableDictionary *_requestKeys;
-	dispatch_queue_t cache_queue;
-}
+@interface TKImageCache : NSCache 
 
 ///-------------------------
 /// @name Initializing An Image Cache Object
@@ -60,17 +56,21 @@
 /// @name Properties
 ///-------------------------
 
+/** Shows network activity monitor in status bar when network requests are created. */
+@property BOOL shouldNetworkActivity;
+
+
 /** The queue that manages all network requests for images */
-@property (strong,nonatomic) TKNetworkQueue *imagesQueue;
+@property (nonatomic,strong) TKNetworkQueue *imagesQueue;
 
 /** The directory where images are stored on disk */
-@property (copy,nonatomic) NSString *cacheDirectoryName;
+@property (nonatomic,copy) NSString *cacheDirectoryName;
 
 /** The notification name posted to `NSNotificationCenter` */
-@property (copy,nonatomic) NSString *notificationName;
+@property (nonatomic,copy) NSString *notificationName;
 
 /** The threshold of time images on disk need to be created before to be read from disk. Otherwise the images will be requested from the network again. The time needs to be greater than zero to for the creation date to be check. Default is -1. */
-@property (assign,nonatomic) NSTimeInterval timeTillRefreshCache;
+@property (nonatomic,assign) NSTimeInterval timeTillRefreshCache;
 
 
 ///-------------------------
@@ -104,7 +104,7 @@
 
 /** Checks to see if an image exists in cache or on disk for the given key.
  @param key The key corresponding to a specific image.
- @return Returns YES is the image corresponding to the key exists on disk or in NSCache, otherwise NO. 
+ @return Returns YES is the image corresponding to the key exists on disk or in NSCache, otherwise NO.
  */
 - (BOOL) imageExistsWithKey:(NSString *)key;
 
@@ -120,11 +120,11 @@
 /** Clears local cache and remove all images from disk */
 - (void) clearCachedImages;
 
-/** Remove all images from disk that we're create earlier than a certain time 
+/** Remove all images from disk that we're create earlier than a certain time
  @param time The time for which all images files must be created before to remain on disk.
  */
 - (void) removeCachedImagesFromDiskOlderThanTime:(NSTimeInterval)time;
-	
+
 
 ///-------------------------
 /// @name For subclassing
@@ -135,7 +135,7 @@
 - (NSString *) cacheDirectoryPath; // for subclassing
 
 
-/** Perform image adjustments before storing it in local cache. 
+/** Perform image adjustments before storing it in local cache.
  
  @param image The image received from disk or the network.
  @return The adjusted image.

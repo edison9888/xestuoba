@@ -15,17 +15,21 @@
     ASINetworkQueue* mNetQueue;
     NSString* mTargetDirPath;
     NSString* mCacheDirPath;
+    
+    NSMutableDictionary* mDelegates;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* mNetQueue;
+@property (nonatomic, retain) NSMutableDictionary* mDelegates;
 @end
 
 
 @implementation DownloadManager
-@synthesize mDelegate;
+//@synthesize mDelegate;
 @synthesize mNetQueue;
 @synthesize mTargetDirPath;
 @synthesize mCacheDirPath;
+@synthesize mDelegates;
 
 + (DownloadManager*) shared
 {
@@ -47,6 +51,8 @@
 //        [self.mNetQueue setShowAccurateProgress:YES];//高精度进度
         [self.mNetQueue setShouldCancelAllRequestsOnFailure:NO];//in default, if one request is failed, other requests are canceled.
         [self.mNetQueue go];
+        
+        self.mDelegates = [NSMutableDictionary dictionary];
 
     }
     return self;
@@ -57,11 +63,12 @@
     self.mNetQueue = nil;
     self.mTargetDirPath = nil;
     self.mCacheDirPath = nil;
+    self.mDelegates = nil;
     
     [super dealloc];
 }
 
-- (BOOL) startTaskForURL:(NSString*)aURLStr withFileName:(NSString*)aFileName withProgressDelegate:(id<ASIProgressDelegate>)aProgressDelegate withTaskID:(NSInteger)aTaskID
+- (BOOL) startTaskForURL:(NSString*)aURLStr withFileName:(NSString*)aFileName withProgressDelegate:(id<ASIProgressDelegate>)aProgressDelegate withTaskID:(NSInteger)aTaskID withDelegate:(id<DownloadManagerDelegate>)aDelegate
 {
     if (self.mTargetDirPath.length > 0
         && aFileName.length > 0)
@@ -81,6 +88,8 @@
         [sRequest setShowAccurateProgress:YES];
         [sRequest setShouldContinueWhenAppEntersBackground:YES];
         sRequest.tag = aTaskID;
+        
+        [self addDelegate:aDelegate forRequest:sRequest];
         
         [self.mNetQueue addOperation:sRequest];
         return YES;
@@ -107,22 +116,35 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    if ([self.mDelegate respondsToSelector:@selector(downloadDone:)])
+    id<DownloadManagerDelegate> sDelegate = [self getDelegateByRequest:request];
+    if ([sDelegate respondsToSelector:@selector(downloadDone:)])
     {
-        [self.mDelegate downloadDone:request.tag];
+        [sDelegate downloadDone:request.tag];
     }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Failed: %d", request.tag);
-    if ([self.mDelegate respondsToSelector:@selector(downloadFailed:)])
+    id<DownloadManagerDelegate> sDelegate = [self getDelegateByRequest:request];
+    if ([sDelegate respondsToSelector:@selector(downloadFailed:)])
     {
-        [self.mDelegate downloadFailed:request.tag];
+        [sDelegate downloadFailed:request.tag];
     }
 
 }
 
+//
+- (id<DownloadManagerDelegate>) getDelegateByRequest:(ASIHTTPRequest*)aRequest
+{
+    id<DownloadManagerDelegate> sDelegate = [self.mDelegates objectForKey:[NSNumber numberWithInteger:aRequest.tag]];
+    return sDelegate;
+}
+
+- (void) addDelegate:(id<DownloadManagerDelegate>)aDelegate forRequest:(ASIHTTPRequest*)aRequest
+{
+    [self.mDelegates setObject:aDelegate forKey: [NSNumber numberWithInteger:aRequest.tag]];
+}
 
 
 

@@ -24,16 +24,16 @@
 
 @interface DownloadManager : NSObject
 {
-    id<DownloadManagerDelegate> mDelegate;
+//    id<DownloadManagerDelegate> mDelegate;
 }
-@property (nonatomic, assign) id<DownloadManagerDelegate> mDelegate;
+//@property (nonatomic, assign) id<DownloadManagerDelegate> mDelegate;
 @property (nonatomic, copy) NSString* mTargetDirPath;
 @property (nonatomic, copy) NSString* mCacheDirPath;
 
 + (DownloadManager*) shared;
 
 
-- (BOOL) startTaskForURL:(NSString*)aURLStr withFileName:(NSString*)aFileName withProgressDelegate:(id<ASIProgressDelegate>)aProgressDelegate withTaskID:(NSInteger)aTaskID;
+- (BOOL) startTaskForURL:(NSString*)aURLStr withFileName:(NSString*)aFileName withProgressDelegate:(id<ASIProgressDelegate>)aProgressDelegate withTaskID:(NSInteger)aTaskID withDelegate:(id<DownloadManagerDelegate>)aDelegate;
 - (void) pause:(NSInteger)aTaskID;
 
 

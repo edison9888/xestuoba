@@ -26,9 +26,9 @@
         
         switch (sType)
         {
-            case E_SPOT_AD_TYPE_Waps:
-                sSpot = [[WapsSpotAdapter alloc] init];
-                break;
+//            case E_SPOT_AD_TYPE_Waps:
+//                sSpot = [[WapsSpotAdapter alloc] init];
+//                break;
             case E_SPOT_AD_TYPE_Youmi:
                 sSpot = [[YoumiSpotAdapter alloc] init];
                 break;
@@ -36,7 +36,7 @@
                 sSpot = [[GmSpotAdapter alloc] init];
                 break;
             default:
-                sSpot = [[WapsSpotAdapter alloc] init];
+                sSpot = [[YoumiSpotAdapter alloc] init];
                 break;
         }
     });
@@ -60,10 +60,10 @@
         {
             sADType = E_SPOT_AD_TYPE_Guomob;
         }
-        else if ([sAdName caseInsensitiveCompare:@"Waps"] == NSOrderedSame)
-        {
-            sADType = E_SPOT_AD_TYPE_Waps;
-        }
+//        else if ([sAdName caseInsensitiveCompare:@"Waps"] == NSOrderedSame)
+//        {
+//            sADType = E_SPOT_AD_TYPE_Waps;
+//        }
         else
         {
             sADType = E_SPOT_AD_TYPE_Youmi;

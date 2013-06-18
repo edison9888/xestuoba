@@ -33,26 +33,65 @@
 #import "TKWindow.h"
 
 @implementation TKAppDelegate
-@synthesize window=_window;
 
 
-- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-	
-	if(self.window==nil){
-		self.window = [[TKWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-		self.window.backgroundColor = [UIColor blackColor];
-		[self.window makeKeyAndVisible];
-	}
-	
-    [self applicationDidStartup:application];
-	
-	return YES;
+
+
+- (void) application:(UIApplication *)application commonInitializationLaunching:(NSDictionary *)launchOptions{
+
 }
+- (void) _application:(UIApplication *)application commonInitializationLaunching:(NSDictionary *)launchOptions{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+		
+		if(self.window==nil){
+			self.window = [[TKWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+			self.window.backgroundColor = [UIColor blackColor];
+			[self.window makeKeyAndVisible];
+		}
+		[self application:application commonInitializationLaunching:launchOptions];
+
+    });
+}
+
+
+- (BOOL) application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+	[self _application:application commonInitializationLaunching:launchOptions];
+    return YES;
+}
+- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    [self _application:application commonInitializationLaunching:launchOptions];
+	[self applicationDidStartup:application];
+    return YES;
+}
+
 - (void) applicationWillEnterForeground:(UIApplication *)application {
 	[self applicationDidStartup:application];
 }
 - (void) applicationDidStartup:(UIApplication *)application{
-	// Default Implmentaion Does Nothing
+	// Default Implementaion Does Nothing
+}
+
+
+
+
+- (void) applicationDidEnterBackground:(UIApplication *)application {
+	
+}
+- (void) applicationWillTerminate:(UIApplication *)application {
+	
+}
+
+- (void) applicationWillResignActive:(UIApplication *)application {
+	
+}
+- (void) applicationDidBecomeActive:(UIApplication *)application {
+	
+}
+
+#pragma mark Memory management
+- (void) applicationDidReceiveMemoryWarning:(UIApplication *)application {
+	
 }
 
 

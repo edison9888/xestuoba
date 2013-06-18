@@ -30,11 +30,12 @@
  */
 
 #import <UIKit/UIKit.h>
+@class TKTextView;
 
 /** A table view cell with a text view. */
 @interface TKTextViewCell : UITableViewCell
 
 /** The text view. */
-@property (nonatomic,strong) UITextView *textView;
+@property (nonatomic,strong) TKTextView *textView;
 
 @end

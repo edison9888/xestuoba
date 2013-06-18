@@ -12,8 +12,8 @@
 typedef enum _E_WALL_AD_TYPE
 {
     E_WALL_AD_TYPE_Youmi,
-    E_WALL_AD_TYPE_Miidi,
-    E_WALL_AD_TYPE_Dianru,
+//    E_WALL_AD_TYPE_Miidi,
+//    E_WALL_AD_TYPE_Dianru,
     
     
 }E_WALL_AD_TYPE;

@@ -48,7 +48,6 @@
     self.mCategory = nil;
     
     [super dealloc];
-
 }
 
 - (void) updateReadStatus
@@ -67,20 +66,14 @@
 
 - (void) updateLikedStatus:(BOOL)aLiked
 {
-    self.mIsLiked = aLiked;
-    //StoreManager
-    
+    self.mIsLiked = aLiked;    
     return;
 }
 
 - (void) updateComment:(NSString *)aComment
 {
-    self.mComment = aComment;
-    
-//    [StoreManager updateItemMarkedStatus:<#(BOOL)#> ItemID:<#(NSInteger)#>]
+    self.mComment = aComment;    
 }
-
-
 
 - (NSURL*) getURL
 {

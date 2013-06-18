@@ -28,16 +28,18 @@
 #import "TKGlobal.h"
 
 // ADDITIONS
+#import "NSObject+TKCategory.h"
 #import "NSString+TKCategory.h"
 #import "NSDate+TKCategory.h"
 #import "NSArray+TKCategory.h"
+#import "NSMutableArray+TKCategory.h"
 #import "UIView+TKCategory.h"
 #import "UIImage+TKCategory.h"
 #import "UIColor+TKCategory.h"
 #import "UIImageView+TKCategory.h"
 #import "UIScrollview+TKCategory.h"
 #import "UIButton+TKCategory.h"
-#import "UIViewController+TKCategory.h"
+#import "UIImagePickerController+TKCategory.h"
 
 
 #import "TKWindow.h"
@@ -48,10 +50,16 @@
 
 #import "TKAppDelegate.h"
 #import "TKGradientView.h"
+#import "TKShapeView.h"
+#import "TKTextView.h"
+#import "TKSlideToUnlockView.h"
+
 
 #import "TKNetworkQueue.h"
 #import "TKHTTPRequest.h"
 #import "TKImageCache.h"
+
+
 
 // CELLS
 #import "TKLabelCell.h"
@@ -60,9 +68,9 @@
 #import "TKLabelFieldCell.h"
 #import "TKLabelSwitchCell.h"
 #import "TKButtonCell.h"
+#import "TKTextFieldCell.h"
 #import "TKTextViewCell.h"
 #import "TKSwitchCell.h"
-#import "TKIndicatorCell.h"
 #import "TKTableViewCell.h"
 
 
@@ -71,7 +79,7 @@
 #import "TKProgressBarView.h"
 #import "TKProgressAlertView.h"
 #import "TKProgressCircleView.h"
-
+#import "TKLoadingView.h"
 
 
 
@@ -83,8 +91,3 @@
 
 // Coverflow
 #import "TKCoverflowView.h"
-#import "TKCoverflowCoverView.h"
-
-
-#import "TKMapView.h"
-#import "TKMapPlace.h"

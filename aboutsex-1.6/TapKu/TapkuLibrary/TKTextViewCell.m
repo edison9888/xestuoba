@@ -29,16 +29,15 @@
  
  */
 #import "TKTextViewCell.h"
-
+#import "TKTextView.h"
 
 @implementation TKTextViewCell
-@synthesize textView=_textView;
 
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	if(!(self=[super initWithStyle:style reuseIdentifier:reuseIdentifier])) return nil;
 	
-	_textView = [[UITextView alloc] initWithFrame:CGRectZero];
+	_textView = [[TKTextView alloc] initWithFrame:CGRectZero];
 	_textView.font = [UIFont boldSystemFontOfSize:14.0];
 	_textView.backgroundColor = [UIColor clearColor];
 	[self.contentView addSubview:_textView];
@@ -50,25 +49,22 @@
 	return [self initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:reuseIdentifier];
 }
 
-- (void)layoutSubviews {
+- (void) layoutSubviews {
     [super layoutSubviews];
-	CGRect r = CGRectInset(self.contentView.bounds, 4, 8);
-	_textView.frame = r;
+	_textView.frame = CGRectInset(self.contentView.bounds, 4, 4);
 }
 
+
+- (void) _colorText:(BOOL)active{
+	_textView.textColor = active ? [UIColor whiteColor] : [UIColor blackColor];
+}
 - (void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+	[self _colorText:selected];
 }
-
-- (void)setHighlighted:(BOOL)highlight animated:(BOOL)animated {
-	
+- (void) setHighlighted:(BOOL)highlight animated:(BOOL)animated {
     [super setHighlighted:highlight animated:animated];
-	
-	if(highlight)
-		_textView.textColor = [UIColor whiteColor];
-	else
-		_textView.textColor = [UIColor blackColor];
-	
+	[self _colorText:highlight];
 }
 
 

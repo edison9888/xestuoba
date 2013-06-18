@@ -2,6 +2,8 @@
 //  AboutSex.m
 //  AboutSex
 //
+
+
 //  Created by Shane Wen on 12-6-27.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
@@ -21,6 +23,8 @@
 #import "NSDate-Utilities.h"
 #import "NSURL+WithChanelID.h"
 #import "MLNavigationController.h"
+#import "NSDate+MyDate.h"
+#import "AffectionViewController.h"
 
 
 //
@@ -43,11 +47,16 @@
 #define DEFAULTS_LAST_DAILY_LUCK_LUCKS      @"LAST_DAILY_LUCK_LUCKS"
 #define DEFAULTS_FM_LAST_SELECTED_INDEX     @"FM_LAST_INDEX"
 #define DEFAULTS_FM_LAST_CURRENT_TIME       @"FM_LAST_CURRENT_TIME"
+#define DEFAULTS_PERIODS                    @"PERIODS"
+#define DEFAULTS_PERIOD_PERIOD_DAYS         @"PERIOD_DAYS"
+#define DEFAULTS_PERIOD_DURATION_DAYS       @"DURATION_DAYS"
 
 #define CACHE_KEY_RECOMMANDED_APPS_CACHE @"CACHE_KEY_RECOMMANDED_APPS_CACHE"
 
 #define ALPAH_FOR_NIGHT_MODE 0.2
 #define MAX_NUM_LUCKS  3
+
+
 
 
 static SharedStates* singleton = nil;
@@ -71,6 +80,7 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
 @synthesize mDate4NumUpdatesForRecAppsServer;
 @synthesize mIsFirstLaunch;
 @synthesize mCache;
+@synthesize mPeriods;
 
 +(SharedStates*)getInstance
 {
@@ -116,6 +126,7 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
 
     self.mDate4NumUpdatesForRecAppsServer = nil;
     self.mCache = nil;
+    self.mPeriods = nil;
     
     [super dealloc];
 }
@@ -130,22 +141,16 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
         UITabBarItem* sTabBarItem = nil;
         
        
- // message vc       
-        sTitle = NSLocalizedString(@"News", "new message type of which may be dictations");
-        MLNavigationController* sNaviContainerOfMessageViewController = [[MLNavigationController alloc]initWithRootViewController:[[[StreamViewController alloc] initWithTitle:sTitle] autorelease]];
-        
-//        sNaviContainerOfMessageViewController.navigationBar.barStyle = UIBarStyleBlack;
-//        sNaviContainerOfMessageViewController.navigationBar.tintColor = [UIColor colorWithRed:RGB_DIV_255(102) green:RGB_DIV_255(57) blue:RGB_DIV_255(26) alpha:1.0f];
-//        [sNaviContainerOfMessageViewController.navigationBar setBackgroundImage:[UIImage imageNamed:@"library32.png"] forBarMetrics:UIBarMetricsDefault];
-//        sNaviContainerOfMessageViewController.navigationBar.translucent = YES;
-
+ // affection vc       
+        MLNavigationController* sNaviContainerOfAffectionViewController = [[MLNavigationController alloc]initWithRootViewController:[AffectionViewController shared]];
+        sNaviContainerOfAffectionViewController.delegate = [AffectionViewController shared];
+        sTitle = NSLocalizedString(@"News", nil);
         sTabBarItem = [[UITabBarItem alloc]initWithTitle:sTitle image:nil tag:0];
 //        sTabBarItem.badgeValue = @"N";
         sTabBarItem.image = [UIImage imageNamed:@"news30"];
-        sNaviContainerOfMessageViewController.tabBarItem = sTabBarItem;
+        sNaviContainerOfAffectionViewController.tabBarItem = sTabBarItem;
         [sTabBarItem release];
 
-      
  //library vc       
         MLNavigationController* sNaviContainerOfLibraryViewController =  [[MLNavigationController alloc]initWithRootViewController:[[[LibraryViewController alloc] init] autorelease]];
         sNaviContainerOfLibraryViewController.navigationBar.barStyle = UIBarStyleBlack;
@@ -187,7 +192,7 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
         
         NSArray* sControllers;
         
-        sControllers = [NSArray arrayWithObjects:sNaviContainerOfMessageViewController, sNaviContainerOfLibraryViewController, sNaviContainerOfFMController, sNaviContainerOfSettingViewController, nil];
+        sControllers = [NSArray arrayWithObjects:sNaviContainerOfAffectionViewController, sNaviContainerOfLibraryViewController, sNaviContainerOfFMController, sNaviContainerOfSettingViewController, nil];
         
         MTabBarController.viewControllers = sControllers;
         MTabBarController.selectedIndex = 0;
@@ -196,7 +201,7 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
         [self configApperance:MTabBarController];
         
         
-        [sNaviContainerOfMessageViewController release];
+        [sNaviContainerOfAffectionViewController release];
         [sNaviContainerOfLibraryViewController release];
 //        [sNaviContainerOfFavoriteViewController release];
         [sNaviContainerOfSettingViewController release];
@@ -209,7 +214,8 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
 {
     for (UINavigationController* sChildViewController in aTabBarController.viewControllers)
     {
-        if ([sChildViewController.navigationBar respondsToSelector:@selector(setTintColor:)])
+        if ([sChildViewController respondsToSelector:@selector(navigationBar)]
+            && [sChildViewController.navigationBar respondsToSelector:@selector(setTintColor:)])
         {
             sChildViewController.navigationBar.tintColor = MAIN_BGCOLOR;
         }
@@ -576,6 +582,107 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
     return sCommentNotice;
 }
 
+- (NSArray*) getPeriods
+{
+    if (!self.mPeriods)
+    {
+        NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
+        self.mPeriods = [sDefaults objectForKey:DEFAULTS_PERIODS];
+    }
+    return self.mPeriods;
+}
+
+- (NSDate*) getLastPeriodStartDate
+{
+    if (self.mPeriods.count > 0)
+    {
+        return [[self.mPeriods lastObject] objectForKey:@"StartDate"];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (NSDate*) getLastPeriodEndDate
+{
+    if (self.mPeriods.count > 0)
+    {
+        return [[self.mPeriods lastObject] objectForKey:@"EndDate"];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (void) addPeriodStartDate:(NSDate*)aStartDate EndDate:(NSDate*)aEndDate
+{
+    //
+    
+    while (self.mPeriods.count > 0)
+    {
+        NSDictionary* sLastPeriod = [self.mPeriods lastObject];
+        
+        NSDate* sLastPeriodStartDate = [sLastPeriod objectForKey:@"StartDate"];
+        
+        if ([aStartDate compare:sLastPeriodStartDate] != NSOrderedDescending)
+        {
+            [self.mPeriods removeLastObject];
+        }
+    }
+
+    //remove the last object, if it is probably in the same period with the aStartDate
+    if (self.mPeriods.count >= 1)
+    {
+        NSDictionary* sLastPeriod = [self.mPeriods lastObject];
+        
+        NSDate* sLastPeriodStartDate = [sLastPeriod objectForKey:@"StartDate"];
+        if ([aStartDate timeIntervalSinceDate:sLastPeriodStartDate] < MIN_PERIOD*SECONDS_FOR_ONE_DAY)
+        {
+            [self.mPeriods removeLastObject];
+        }
+    }
+    
+    //add
+//    NSDictionary* sNewPeriod = @{@"StartDate": aStartDate, @"EndDate": aEndDate};
+    NSDictionary* sNewPeriod = [NSDictionary dictionaryWithObjectsAndKeys:aStartDate, @"StartDate", aEndDate, @"EndDate", nil];
+    
+    if (!self.mPeriods)
+    {
+        self.mPeriods = [NSMutableArray array];
+    }
+    [self.mPeriods addObject:sNewPeriod];
+    
+    //
+    NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
+    [sDefaults setObject:self.mPeriods forKey:DEFAULTS_PERIODS];
+}
+
+//overall days every cycle
+- (NSInteger) getPeriodDays
+{
+    NSInteger sPeriodDays;
+    NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
+    sPeriodDays = [sDefaults integerForKey:DEFAULTS_PERIOD_PERIOD_DAYS];
+    if (sPeriodDays == 0)
+    {
+        sPeriodDays = GENERAL_PERIOD;
+    }
+    return sPeriodDays;
+}
+
+- (NSInteger) getDuration
+{
+    NSInteger sDurationDays;
+    NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
+    sDurationDays = [sDefaults integerForKey:DEFAULTS_PERIOD_DURATION_DAYS];
+    if (sDurationDays == 0)
+    {
+        sDurationDays = GENERAL_DURATION;
+    }
+    return sDurationDays;
+}
 
 
 #pragma mark -
@@ -661,6 +768,20 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
     return YES;
 }
 
++ (BOOL) isCurLanguageChinese
+{
+    NSArray *languages = [NSLocale preferredLanguages];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    if ([currentLanguage isEqualToString:@"zh-Hans"]
+        || [currentLanguage isEqualToString:@"zh-Hant"])
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
 
 
 @end

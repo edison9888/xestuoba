@@ -33,32 +33,7 @@
 
 @implementation FoundationTests
 
-- (void) testStringCategory{
-    
-    NSString *string;
-    
-    
-    string = @"bob@sanders.com";
-    STAssertTrue([string isEmail], @"Expected '%@' to be a valid email", string);
-    
-    
-    string = @"ao123sda.b2132Ob@sAND123123dsadrs.c";
-    STAssertTrue([string isEmail], @"Expected '%@' to be a valid email", string);
-    
-    
-    string = @"ao,sda.bOb@sANDdsadrs.c";
-    STAssertFalse([string isEmail], @"Expected '%@' to be an invalid email", string);
-    
-	string = @"";
-    STAssertFalse([string isEmail], @"Expected '%@' to be an invalid email", string);
-    
-	
-	string = @"@b.d";
-    STAssertFalse([string isEmail], @"Expected '%@' to be an invalid email", string);
-    
-	
-    
-}
+
 - (void) testDateCategory{
 	
     NSDate *date,*date2;
@@ -79,27 +54,17 @@
     
     
     date = [NSDate date];
-    TKDateInformation info = [date dateInformation];
-    info.day = 1;
-    info.hour = info.minute = info.second = 0;
-    date2 = [NSDate dateFromDateInformation:info];
+	NSDateComponents *comp = [date dateComponentsWithTimeZone:[NSTimeZone defaultTimeZone]];
+    comp.day = 1;
+    comp.hour = comp.minute = comp.second = 0;
+    date2 = [NSDate dateWithDateComponents:comp];
 	
-    STAssertTrue([date2 isSameDay:[date monthDate]], @"Expected %@ is same day as %@.",date2,date);
+    STAssertTrue([date2 isSameDay:[date monthDate] timeZone:[NSTimeZone defaultTimeZone]], @"Expected %@ is same day as %@.",date2,date);
     
     date = [NSDate date];
     date2 = [NSDate yesterday];
     STAssertEquals([date daysBetweenDate:date2], 1, @"Expected difference between %@ and %@ is zero.",date,date2);
 	
-	
-}
-- (void) testArrayCategory{
-	
-	
-	STAssertThrows([[NSArray array] firstObject],@"Throws exception because empty arrays don't have objects");
-	
-	NSArray *ar = [NSArray arrayWithObjects:@"BOB",nil];
-	STAssertNoThrow([ar firstObject],@"Doesn't throw exception.");
-
 	
 }
 

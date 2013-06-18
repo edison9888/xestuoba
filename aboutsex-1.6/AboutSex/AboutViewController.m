@@ -311,7 +311,9 @@
         //1. intro
         UILabel* sIntroLabel = [[UILabel alloc] initWithFrame:CGRectMake(sPosX, sPosY, 270, 400)];
         sIntroLabel.numberOfLines = 0;
-        NSString* sBundleDisplayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+        NSString* sBundleDisplayName = nil;
+        
+//        sBundleDisplayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
         
         sBundleDisplayName = NSLocalizedString(@"Aboutsex", nil);
         sIntroLabel.text = sBundleDisplayName;

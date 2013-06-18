@@ -31,23 +31,35 @@
 
 #import "TKProgressAlertView.h"
 #import "UIView+TKCategory.h"
+#import "TKGlobal.h"
 
 @implementation TKProgressAlertView
-@synthesize progressBar=_progressBar,label=_label;
 
 
 - (id) initWithProgressTitle:(NSString*)txt{
 	if(!(self=[super initWithFrame:CGRectZero])) return nil;
-		
 	self.label.text = txt;
-	
 	return self;
 }
 
+- (void) _drawRoundRectangleInRect:(CGRect)rect withRadius:(CGFloat)radius{
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	CGRect rrect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height );
+	CGFloat minx = CGRectGetMinX(rrect), midx = CGRectGetMidX(rrect), maxx = CGRectGetMaxX(rrect);
+	CGFloat miny = CGRectGetMinY(rrect), midy = CGRectGetMidY(rrect), maxy = CGRectGetMaxY(rrect);
+	CGContextMoveToPoint(context, minx, midy);
+	CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);
+	CGContextAddArcToPoint(context, maxx, miny, maxx, midy, radius);
+	CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
+	CGContextAddArcToPoint(context, minx, maxy, minx, midy, radius);
+	CGContextClosePath(context);
+	CGContextDrawPath(context, kCGPathFill);
+}
 - (void) drawRect:(CGRect)rect{
 	CGRect r = CGRectInset(rect, 6, 0);
 	[[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8] set];
-	[UIView drawRoundRectangleInRect:r withRadius:10];
+	[self _drawRoundRectangleInRect:r withRadius:10];
 }
 
 
@@ -68,27 +80,21 @@
 
 
 - (TKProgressBarView *) progressBar{
-	if(_progressBar==nil){
-		_progressBar = [[TKProgressBarView alloc] initWithStyle:TKProgressBarViewStyleLong];
-		CGRect r = _progressBar.frame;
-		r.origin.x = 37;
-		r.origin.y = 42;
-		_progressBar.frame = r;
-	}
+	if(_progressBar) return _progressBar;
+
+	_progressBar = [[TKProgressBarView alloc] initWithStyle:TKProgressBarViewStyleLong];
+	_progressBar.frame = CGRectMakeWithSize(37, 42, _progressBar.frame.size);
 	return _progressBar;
 }
 - (UILabel*) label{
-	if(_label==nil){
-		_label = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 245, 25)];
-		_label.textAlignment = UITextAlignmentCenter;
-		_label.backgroundColor = [UIColor clearColor];
-		_label.textColor = [UIColor whiteColor];
-		_label.font = [UIFont boldSystemFontOfSize:16];		
-	}
+	if(_label) return _label;
+	
+	_label = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 245, 25)];
+	_label.textAlignment = NSTextAlignmentCenter;
+	_label.backgroundColor = [UIColor clearColor];
+	_label.textColor = [UIColor whiteColor];
+	_label.font = [UIFont boldSystemFontOfSize:16];		
 	return _label;
 }
-
-
-
 
 @end

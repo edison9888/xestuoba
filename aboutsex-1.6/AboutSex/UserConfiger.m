@@ -72,7 +72,7 @@ static UIView* sBackgroundView = nil;
         [UIView animateWithDuration:sAnimDuration   animations:^{
             sBackgroundView.alpha = 0.0;
         } completion:^(BOOL finished){
-            NSLog(@"done making it dark"); }];
+            NSLog(@"done making it bright"); }];
     }
 //    [[UIApplication sharedApplication] setStatusBarHidden:aIsNightMode withAnimation:UIStatusBarAnimationFade];
 //    [[[[UIApplication sharedApplication] keyWindow] rootViewController]view] .frame= [[UIScreen mainScreen] applicationFrame];

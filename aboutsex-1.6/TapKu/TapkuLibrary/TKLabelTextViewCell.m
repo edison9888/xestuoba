@@ -32,7 +32,6 @@
 #import "TKLabelTextViewCell.h"
 
 @implementation TKLabelTextViewCell
-@synthesize textView=_textView;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
 	if(!(self=[super initWithStyle:style reuseIdentifier:reuseIdentifier])) return nil;
@@ -62,15 +61,20 @@
 
 }
 
-
+- (void) _colorText:(BOOL)active animated:(BOOL)animated{
+	if(animated)
+		[UIView beginAnimations:nil context:nil];
+	_textView.textColor = active ? [UIColor whiteColor] : [UIColor grayColor];
+	if(animated)
+		[UIView commitAnimations];
+}
 - (void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-	_textView.textColor = selected ? [UIColor whiteColor] : [UIColor grayColor];
-
+	[self _colorText:selected animated:animated];
 }
 - (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
 	[super setHighlighted:highlighted animated:animated];
-	_textView.textColor = highlighted ? [UIColor whiteColor] : [UIColor grayColor];
+	[self _colorText:highlighted animated:animated];
 }
 
 

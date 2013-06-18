@@ -128,16 +128,6 @@
 
 }
 
-//- (void) swipe2Left
-//{
-//    [self presentCommentsController];
-//}
-//
-//- (void) swipe2Right
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "KKPasscodeLock.h"
+#import "PPRevealSideViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, KKPasscodeViewControllerDelegate>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, PPRevealSideViewControllerDelegate, KKPasscodeViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

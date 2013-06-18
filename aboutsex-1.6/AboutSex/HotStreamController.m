@@ -15,6 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
+#import "MLNavigationController.h"
 
 @interface HotStreamController ()
 {
@@ -34,6 +35,19 @@
 @synthesize mDelegate;
 @synthesize mImages;
 
+
++ (HotStreamController*) shared
+{
+    static HotStreamController* S_HotStreamController = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        S_HotStreamController = [[HotStreamController alloc] init];
+    });
+    
+    return S_HotStreamController;
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,6 +55,7 @@
         self.mImageItems = [NSMutableArray array];
         self.mTextItems = [NSMutableArray array];
         self.mImages = [NSMutableDictionary dictionary];
+        self.title = NSLocalizedString(@"Top Articles", nil);
     }
     return self;
 }

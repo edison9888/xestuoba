@@ -24,7 +24,6 @@
 @synthesize mHasAppearedBefore;
 @synthesize mDelegate;
 
-
 - (id) initWithTitle:(NSString*)aTitle
 {
     self = [super init];
@@ -250,6 +249,7 @@
     {
         [self.mDelegate pushController:sContentViewController animated:YES];
     }
+    
     [sContentViewController release];
 
     

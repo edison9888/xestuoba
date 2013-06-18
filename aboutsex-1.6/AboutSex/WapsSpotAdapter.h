@@ -1,13 +1,13 @@
+////
+////  WapsSpotAdapter.h
+////  AboutSex
+////
+////  Created by Wen Shane on 13-5-11.
+////
+////
 //
-//  WapsSpotAdapter.h
-//  AboutSex
+//#import "SpotAdapter.h"
 //
-//  Created by Wen Shane on 13-5-11.
+//@interface WapsSpotAdapter : SpotAdapter
 //
-//
-
-#import "SpotAdapter.h"
-
-@interface WapsSpotAdapter : SpotAdapter
-
-@end
+//@end

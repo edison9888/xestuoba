@@ -18,7 +18,7 @@
         return nil;
     }
     
-    NSString* sURLStr = [URLString stringByAppendingString:@"?channed_id=%@", CHANNEL_ID];
+    NSString* sURLStr = [URLString stringByAppendingFormat:@"?channed_id=%@", CHANNEL_ID];
     NSURL* sURL = [NSURL URLWithString:sURLStr];
     return sURL;
 }

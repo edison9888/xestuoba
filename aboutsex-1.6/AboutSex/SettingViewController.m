@@ -150,14 +150,14 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[SpotTimer shared] startWithDelay:30];
+//    [[SpotTimer shared] startWithDelay:30];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [[SpotTimer shared] cancel];
+//    [[SpotTimer shared] cancel];
 }
 
 - (void) dealloc

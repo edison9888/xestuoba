@@ -10,13 +10,15 @@
 #import "StreamViewController.h"
 #import "SGFocusImageFrame.h"
 #import "SimplePageViewController.h"
+#import "AffectionViewController.h"
 
 @interface HotStreamController : SimplePageViewController<SGFocusImageFrameDelegate>
 {
-    id<StreamViewControllerDelegate> mDelegate;
+    id<AffectionViewControllerDelegate> mDelegate;
 
 }
-@property (nonatomic, assign) id<StreamViewControllerDelegate> mDelegate;
+@property (nonatomic, assign) id<AffectionViewControllerDelegate> mDelegate;
 
++ (HotStreamController*) shared;
 
 @end

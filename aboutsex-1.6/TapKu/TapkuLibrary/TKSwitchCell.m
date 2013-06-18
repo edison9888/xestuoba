@@ -31,7 +31,6 @@
 #import "TKSwitchCell.h"
 
 @implementation TKSwitchCell
-@synthesize switcher=_switcher;
 
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -39,10 +38,9 @@
 
 	self.textLabel.backgroundColor = [UIColor clearColor];
 	
-	_switcher = [[UISwitch alloc] initWithFrame:CGRectMake(0,0,94,27)];
-	[self.contentView addSubview:_switcher];
+	self.switcher = [[UISwitch alloc] initWithFrame:CGRectMake(0,0,94,27)];
+	[self.contentView addSubview:self.switcher];
 		
-
     return self;
 }
 - (id) initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {

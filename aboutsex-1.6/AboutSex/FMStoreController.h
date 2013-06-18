@@ -1,15 +1,15 @@
 //
-//  FMStoreController.h
+//  FMStoreTabController.h
 //  AboutSex
 //
-//  Created by Wen Shane on 13-4-27.
+//  Created by Wen Shane on 13-6-14.
 //
 //
 
-#import <UIKit/UIKit.h>
-#import "DownloadManager.h"
+#import "SimpleTabController.h"
 
+@interface FMStoreController : SimpleTabController
 
-@interface FMStoreController : UITableViewController<DownloadManagerDelegate>
++ (UIViewController*) shared;
 
 @end

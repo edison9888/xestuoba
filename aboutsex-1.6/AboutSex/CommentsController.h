@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Item.h"
+#import "CommentItemCell.h"
 
-@interface CommentsController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
+
+@interface CommentsController : UIViewController<UITableViewDataSource, UITableViewDelegate, CommentItemCellDelegate>
 {
     Item* mItem;
     UITableView* mTableView;

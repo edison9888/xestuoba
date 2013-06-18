@@ -15,6 +15,8 @@
 #import "TaggedButton.h"
 #import "FMStoreController.h"
 #import "SpotTimer.h"
+//#import "MLPAccessoryBadgeArrow.h"
+#import "UIColor+MLPFlatColors.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
@@ -50,7 +52,7 @@
     NSInteger mIndexToDelete;
     
     //
-    FMStoreController* mStoreController;
+//    FMStoreController* mStoreController;
 
 }
 @property (nonatomic, retain)     UITableView* mTableView;
@@ -66,7 +68,7 @@
 
 @property (nonatomic, retain)     NSTimer* mRefreshTimer;
 @property (nonatomic, assign)     NSInteger mIndexToDelete;
-@property (nonatomic, retain)     FMStoreController* mStoreController;
+//@property (nonatomic, retain)     FMStoreController* mStoreController;
 @end
 
 @implementation FMViewController
@@ -82,7 +84,7 @@
 @synthesize mDurationLabel;
 @synthesize mRefreshTimer;
 @synthesize mIndexToDelete;
-@synthesize mStoreController;
+//@synthesize mStoreController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -148,7 +150,7 @@
     self.mCurrentTimeLabel = nil;
     self.mDurationLabel = nil;
     self.mRefreshTimer = nil;
-    self.mStoreController = nil;
+//    self.mStoreController = nil;
     
     [super dealloc];
 }
@@ -242,6 +244,7 @@
     
     TaggedButton* sFMStoreButton = [TaggedButton buttonWithType:UIButtonTypeCustom];
     [sFMStoreButton setImage:[UIImage imageNamed:@"add24"] forState:UIControlStateNormal];
+
     sFMStoreButton.frame = CGRectMake(0, 0, 24, 24);
     sFMStoreButton.mMarginInsets = UIEdgeInsetsMake(20, 20, 20, 20);
     [sFMStoreButton setCenter:CGPointMake(300, navBar.bounds.size.height/2)];
@@ -292,7 +295,9 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[SpotTimer shared] startWithDelay:30];
+//    [self.navigationController setNavigationBarHidden:YES];
+
+//    [[SpotTimer shared] startWithDelay:30];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -300,7 +305,7 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO];
     
-    [[SpotTimer shared] cancel];
+//    [[SpotTimer shared] cancel];
 }
 
 - (void) newFMDownloaded
@@ -400,7 +405,7 @@
         [self.mPlayButton setSelected:self.mPlayer.playing];
     }
     //
-    [[SpotTimer shared] startWithDelay:30];
+//    [[SpotTimer shared] startWithDelay:30];
 
 }
 
@@ -471,12 +476,12 @@
         self.mTitleLabel.text = NSLocalizedString(@"No item played", nil);
         self.mCurrentTimeLabel.text = @"--:--";
         self.mDurationLabel.text = @"--:--";
-        self.mArtworkImageView.image = [UIImage imageNamed:@"music"];
+        self.mArtworkImageView.image = [UIImage imageNamed:@"music32"];
     }
     
     if (!self.mArtworkImageView.image)
     {
-        self.mArtworkImageView.image = [UIImage imageNamed:@"music"];
+        self.mArtworkImageView.image = [UIImage imageNamed:@"music32"];
     }
     
     if (self.mFMItems.count == 0)
@@ -507,14 +512,15 @@
 
 - (void) presentFMStore
 {
-    if (!self.mStoreController)
-    {
-        self.mStoreController = [[[FMStoreController alloc] init] autorelease];
-        [self.mStoreController setHidesBottomBarWhenPushed:YES];
-    }
+//    if (!self.mStoreController)
+//    {
+//        self.mStoreController = [FMStoreTabController shared];
+//        [self.mStoreController setHidesBottomBarWhenPushed:YES];
+//    }
     
-//    [self presentViewController:sFMStoreController animated:YES completion:nil];
-    [self.navigationController pushViewController:self.mStoreController animated:YES];
+//    [self presentViewController:[FMStoreController shared] animated:YES completion:nil];
+    [[FMStoreController shared] setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:[FMStoreController shared] animated:YES];
     
     
     return;
@@ -547,7 +553,7 @@
     
     [self goToItemAtIndex:aIndex AtTime:0 playImmediately:YES];
     
-    [[SpotTimer shared] startWithDelay:30];
+//    [[SpotTimer shared] startWithDelay:30];
 }
 
 - (void) goToItemAtIndex:(NSInteger)aIndex AtTime:(NSTimeInterval)aTime playImmediately:(BOOL)aPlayImmediately
