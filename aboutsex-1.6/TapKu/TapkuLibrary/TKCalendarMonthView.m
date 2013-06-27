@@ -392,8 +392,8 @@ static UIImage *tileImage;
 	}
     
     CGRect sRect = r;
-    sRect.size.height = 10;
-    sRect.origin.y += 29;
+    sRect.size.height = 3;
+    sRect.origin.y += 35;
 
     switch (aStyle)
     {
@@ -404,13 +404,17 @@ static UIImage *tileImage;
             break;
         case ENUM_DAY_STYLE_FIRST:
         {
-            [[UIImage imageNamed:@"heart_active24"] drawInRect:sRect];
+            [[UIImage imageNamed:@"red1"] drawInRect:sRect];
         }
             break;
         case ENUM_DAY_STYLE_SECOND:
         {
-            [[UIImage imageNamed:@"love"] drawInRect:sRect];
-
+            [[UIImage imageNamed:@"red3"] drawInRect:sRect];
+        }
+            break;
+        case ENUM_DAY_STYLE_THIRD:
+        {
+            [[UIImage imageNamed:@"red7"] drawInRect:sRect];
         }
             break;
         default:
@@ -565,7 +569,7 @@ static UIImage *tileImage;
 	}
 
 	self.selectedImageView.frame = CGRectMakeWithSize((column*46)-1, (row*44)-1, self.selectedImageView.frame.size);
-//	[self addSubview:self.selectedImageView];
+	[self addSubview:self.selectedImageView];
 	
 	
 	return hasDot;
@@ -649,7 +653,7 @@ static UIImage *tileImage;
 		markWasOnToday = NO;
 	}
 	
-//	[self addSubview:self.selectedImageView];
+	[self addSubview:self.selectedImageView];
 	self.currentDay.text = [NSString stringWithFormat:@"%d",day];
 	
 	if (self.marks.count > 0) {

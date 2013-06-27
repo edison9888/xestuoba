@@ -47,9 +47,7 @@
 #define DEFAULTS_LAST_DAILY_LUCK_LUCKS      @"LAST_DAILY_LUCK_LUCKS"
 #define DEFAULTS_FM_LAST_SELECTED_INDEX     @"FM_LAST_INDEX"
 #define DEFAULTS_FM_LAST_CURRENT_TIME       @"FM_LAST_CURRENT_TIME"
-#define DEFAULTS_PERIODS                    @"PERIODS"
-#define DEFAULTS_PERIOD_PERIOD_DAYS         @"PERIOD_DAYS"
-#define DEFAULTS_PERIOD_DURATION_DAYS       @"DURATION_DAYS"
+#define DEFAULTS_PERIOD                    @"PERIOD"
 
 #define CACHE_KEY_RECOMMANDED_APPS_CACHE @"CACHE_KEY_RECOMMANDED_APPS_CACHE"
 
@@ -582,21 +580,14 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
     return sCommentNotice;
 }
 
-- (NSArray*) getPeriods
+- (Period*) getPeriod
 {
-    if (!self.mPeriods)
+    NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *sEncodedPeriod = [sDefaults objectForKey:DEFAULTS_PERIOD];
+    if (sEncodedPeriod)
     {
-        NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
-        self.mPeriods = [sDefaults objectForKey:DEFAULTS_PERIODS];
-    }
-    return self.mPeriods;
-}
-
-- (NSDate*) getLastPeriodStartDate
-{
-    if (self.mPeriods.count > 0)
-    {
-        return [[self.mPeriods lastObject] objectForKey:@"StartDate"];
+        Period* sPeriod = (Period *)[NSKeyedUnarchiver unarchiveObjectWithData: sEncodedPeriod];
+        return sPeriod;
     }
     else
     {
@@ -604,86 +595,13 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
     }
 }
 
-- (NSDate*) getLastPeriodEndDate
+- (void) savePeriod:(Period*)aPeriod
 {
-    if (self.mPeriods.count > 0)
-    {
-        return [[self.mPeriods lastObject] objectForKey:@"EndDate"];
-    }
-    else
-    {
-        return nil;
-    }
-}
-
-- (void) addPeriodStartDate:(NSDate*)aStartDate EndDate:(NSDate*)aEndDate
-{
-    //
-    
-    while (self.mPeriods.count > 0)
-    {
-        NSDictionary* sLastPeriod = [self.mPeriods lastObject];
-        
-        NSDate* sLastPeriodStartDate = [sLastPeriod objectForKey:@"StartDate"];
-        
-        if ([aStartDate compare:sLastPeriodStartDate] != NSOrderedDescending)
-        {
-            [self.mPeriods removeLastObject];
-        }
-    }
-
-    //remove the last object, if it is probably in the same period with the aStartDate
-    if (self.mPeriods.count >= 1)
-    {
-        NSDictionary* sLastPeriod = [self.mPeriods lastObject];
-        
-        NSDate* sLastPeriodStartDate = [sLastPeriod objectForKey:@"StartDate"];
-        if ([aStartDate timeIntervalSinceDate:sLastPeriodStartDate] < MIN_PERIOD*SECONDS_FOR_ONE_DAY)
-        {
-            [self.mPeriods removeLastObject];
-        }
-    }
-    
-    //add
-//    NSDictionary* sNewPeriod = @{@"StartDate": aStartDate, @"EndDate": aEndDate};
-    NSDictionary* sNewPeriod = [NSDictionary dictionaryWithObjectsAndKeys:aStartDate, @"StartDate", aEndDate, @"EndDate", nil];
-    
-    if (!self.mPeriods)
-    {
-        self.mPeriods = [NSMutableArray array];
-    }
-    [self.mPeriods addObject:sNewPeriod];
-    
-    //
     NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
-    [sDefaults setObject:self.mPeriods forKey:DEFAULTS_PERIODS];
+    NSData* sEncodedPeriod = [NSKeyedArchiver archivedDataWithRootObject:aPeriod];
+    [sDefaults setObject:sEncodedPeriod forKey:DEFAULTS_PERIOD];
+    [sDefaults synchronize];
 }
-
-//overall days every cycle
-- (NSInteger) getPeriodDays
-{
-    NSInteger sPeriodDays;
-    NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
-    sPeriodDays = [sDefaults integerForKey:DEFAULTS_PERIOD_PERIOD_DAYS];
-    if (sPeriodDays == 0)
-    {
-        sPeriodDays = GENERAL_PERIOD;
-    }
-    return sPeriodDays;
-}
-
-- (NSInteger) getDuration
-{
-    NSInteger sDurationDays;
-    NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
-    sDurationDays = [sDefaults integerForKey:DEFAULTS_PERIOD_DURATION_DAYS];
-    if (sDurationDays == 0)
-    {
-        sDurationDays = GENERAL_DURATION;
-    }
-    return sDurationDays;
-}
-
 
 #pragma mark -
 #pragma mark delegate methods for MyURLConnectionDelegate

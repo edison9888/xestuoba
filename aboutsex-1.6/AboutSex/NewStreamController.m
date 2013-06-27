@@ -33,12 +33,13 @@
 #import "TaggedButton.h"
 
 #import "MyURLConnection.h"
-
+#import "StoreManagerEx.h"
 #import "SharedStates.h"
 #import "AFNetworking.h"
 #import "NSURL+WithChanelID.h"
 #import "InteractivityCountManager.h"
 #import "MLNavigationController.h"
+#import "MobClick.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -106,16 +107,14 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         S_NewStreamController = [[NewStreamController alloc] initWithTitle:NSLocalizedString(@"Latest Articles", nil)];
-//        S_NavOfNewStreamController = [[MLNavigationController alloc] initWithRootViewController:sNewStreamController];
-        
-        
     });
     
     return S_NewStreamController;
 }
 
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
     if (self != nil) {
         [self setup];
@@ -123,7 +122,8 @@
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self != nil) {
         [self setup];
@@ -171,7 +171,7 @@
     if ([self appearFirstTime])
     {
         [self refresh:YES];
-        [self startNewStreamSnifferTimer];
+//        [self startNewStreamSnifferTimer];
         [self cleanStreamItemsInDatabaseIfNecessary];
     }
 }
@@ -199,6 +199,16 @@
     [super dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"NewStream"];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"NewStream"];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -221,7 +231,6 @@
 - (void) configTableView
 {   
     [super configTableView];    
-//    self.mTableView.rowHeight = 85;
     return;
 }
 
@@ -241,7 +250,7 @@
 
 - (NSMutableArray*) loadStreamItems:(NSInteger)aNum WithOffset:(NSInteger)aOffset
 {
-    NSMutableArray* sMoreItems = [StoreManager getLatestStreamItems:aNum+1 Offset:aOffset];
+    NSMutableArray* sMoreItems = [[StoreManagerEx shared] getLatestStreamItems:aNum+1 Offset:aOffset];
     if (sMoreItems.count > aNum
         && (self.mStreamItems.count+sMoreItems.count) <= MAX_DISPALY_ITEMS)
     {
@@ -487,7 +496,7 @@
             [sStreamItem release];
         }
         
-        sNumOfNewStreamReallyLoaded = [StoreManager addOrUpdateStreamItems:sStreamItemsArray];
+        sNumOfNewStreamReallyLoaded = [[StoreManagerEx shared] addOrUpdateStreamItems:sStreamItemsArray];
     }
     return sNumOfNewStreamReallyLoaded;
 }
@@ -633,7 +642,7 @@
 
 - (void) cleanStreamItemsInDatabaseIfNecessary
 {
-    [StoreManager removeUncollectedStreamItemsIfExceeds:MAX_NUMBER_OF_STREAM_STORED aMinCount:MAX_NUMBER_OF_STREAM_DISPLAYED_PER_FETCH+5];
+    [[StoreManagerEx shared] removeUncollectedStreamItemsIfExceeds:MAX_NUMBER_OF_STREAM_STORED aMinCount:MAX_NUMBER_OF_STREAM_DISPLAYED_PER_FETCH+5];
 }
 
 - (void) setMLastUpdateTime:(NSDate *)aLastUpdateTime
@@ -883,7 +892,6 @@
 
 #pragma mark -
 #pragma mark delegate methods for NewStreamSnifferDelegate
-
 - (void) newStreamFound:(NSInteger) aNumOfNewStream
 {
     UIViewController* sParentVCForStream = [[[[SharedStates getInstance] getMainTabController] viewControllers] objectAtIndex:0];

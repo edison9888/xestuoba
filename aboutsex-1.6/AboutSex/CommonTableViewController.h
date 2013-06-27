@@ -10,7 +10,7 @@
 
 #import "Item.h"
 #import "SharedVariables.h"
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 
 @interface CommonTableViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {

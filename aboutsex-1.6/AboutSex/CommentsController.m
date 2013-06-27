@@ -253,10 +253,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* sCell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-    if (sCell)
+    NSInteger sRow = [indexPath row];
+    if (sRow < self.mComments.count)
     {
-        return sCell.bounds.size.height;
+        CommentItem* sCommentItem = [self.mComments objectAtIndex:sRow];
+        return [CommentItemCell getCellHeightByComment:sCommentItem];
     }
     else
     {

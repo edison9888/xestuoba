@@ -16,6 +16,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CustomCellBackgroundView.h"
 #import "CopyrightView.h"
+#import "UMFeedbackViewController.h"
+#import "SharedStates.h"
 
 #define MAX_TIME_OF_UPDATE_CHECK    7
 #define TIME_OF_CHECK_RESULTS_BEFORE_DISAPPEAR  1.7
@@ -23,7 +25,7 @@
 #define AboutViewController_TAG_FOR_RIGHT_VERSION_NUMBER_LABEL 1111
 
 #define HEIGHT_HEADER_VIEW   110
-#define HEIGHT_FOOTER_VIEW   160
+#define HEIGHT_FOOTER_VIEW   100
 
 @interface AboutViewController ()
 {
@@ -105,6 +107,55 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)showFeedbackViewController
+{
+    UMFeedbackViewController *feedbackViewController = [[UMFeedbackViewController alloc] initWithNibName:@"UMFeedbackViewController" bundle:nil];
+    feedbackViewController.appkey = APP_KEY_UMENG;
+    [self.navigationController pushViewController:feedbackViewController animated:YES];
+    [feedbackViewController release];
+
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
+//    navigationController.navigationBar.tintColor = MAIN_BGCOLOR;
+//    [self presentModalViewController:navigationController animated:YES];
+//    [navigationController release];
+    
+//    UIViewController* sViewController = [[UIViewController alloc]init];
+//    [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
+//    [sViewController release];
+    
+
+}
+
+- (void) presentCommentsController
+{
+    //    Class sClass = NSClassFromString(@"SKStoreProductViewController");
+    //    if (sClass)
+    //    {
+    //        SKStoreProductViewController *storeProductViewController = [[SKStoreProductViewController alloc] init];
+    //        // Configure View Controller
+    //        [storeProductViewController setDelegate:self];
+    //        [storeProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier: APP_ID}     completionBlock:^(BOOL result, NSError *error) {
+    //                                                  if (error)
+    //                                                  {
+    //                                                      NSLog(@"Error %@ with User Info %@.", error, [error userInfo]);
+    //                                                  }
+    //                                                  else
+    //                                                  {
+    //                                                  }
+    //        }];
+    //        // Present Store Product View Controller
+    //        [self presentViewController:storeProductViewController animated:YES completion:nil];
+    //    }
+    //    else
+    {
+        NSString* sCommentsURL = [[SharedStates getInstance] getCommentURL];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: sCommentsURL]];
+        
+        [MobClick event:@"UEID_ACTIVE_COMMENT"];
+    }
+}
+
+
 
 #pragma mark -
 #pragma mark methods for datasource interface
@@ -121,25 +172,11 @@
         case 0:
             return 2;
         case 1:
-            return 1;
+            return 2;
         default:
             return 0;
     }
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    switch (section)
-//    {
-//        case 0:
-//            return @"产品改进讨论区";
-//        case 1:
-//            return nil;
-//        default:
-//            return nil;
-//    }
-//
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -197,8 +234,16 @@
         }
         else if (1 == sSection)
         {
-            sCell.textLabel.text = NSLocalizedString(@"Feedback", nil);
-            sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            if (0 == sRow)
+            {
+                sCell.textLabel.text = [[SharedStates getInstance] getCommentNotice];
+                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            else
+            {
+                sCell.textLabel.text = NSLocalizedString(@"User Feedback", nil);
+                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
         }
         else
         {
@@ -259,9 +304,11 @@
     {
         if (sRow == 0)
         {
-            UIViewController* sViewController = [[UIViewController alloc]init];
-            [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
-            [sViewController release];
+            [self presentCommentsController];
+        }
+        else if (sRow == 1)
+        {
+            [self showFeedbackViewController];
         }
     }
     else 

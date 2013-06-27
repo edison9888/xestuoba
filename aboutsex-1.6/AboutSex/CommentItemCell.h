@@ -40,5 +40,5 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withFrame:(CGRect)aFrame;
 
 - (void) fillValueByComment:(CommentItem*)aComment;
-
++ (CGFloat) getCellHeightByComment:(CommentItem*)aComment;
 @end

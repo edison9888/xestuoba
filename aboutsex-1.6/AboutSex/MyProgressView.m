@@ -8,24 +8,47 @@
 
 #import "MyProgressView.h"
 
-@implementation MyProgressView
+@interface MyProgressView()
+{
+    UILabel* mProgressLabel;
+}
 
-- (id)initWithFrame:(CGRect)frame
+@property (nonatomic, retain)  UILabel* mProgressLabel;
+@end
+
+@implementation MyProgressView
+@synthesize mProgressLabel;
+
+- (id)initWithFrame:(CGRect)frame andTrackColor:(UIColor*)aTrackColor ProgressColor:(UIColor*)aProgressColor
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        UILabel* sTrackLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        sTrackLabel.backgroundColor = aTrackColor;
+        [self addSubview:sTrackLabel];
+        [sTrackLabel release];
+        
+        UILabel* sProgressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        sProgressLabel.backgroundColor = aProgressColor;
+        [self addSubview:sProgressLabel];
+        self.mProgressLabel = sProgressLabel;
+        [sProgressLabel release];
+
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void) dealloc
 {
-    // Drawing code
+    self.mProgressLabel = nil;
+    [super dealloc];
 }
-*/
+
+- (void)setProgress:(CGFloat)precent
+{
+    CGFloat sWidth = self.frame.size.width * precent;
+    [self.mProgressLabel setFrame:CGRectMake(0, 0, sWidth,self.frame.size.height)];
+}
 
 @end

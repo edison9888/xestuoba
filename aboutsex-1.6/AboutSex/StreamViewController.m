@@ -267,7 +267,6 @@
     {
         self.navigationItem.rightBarButtonItem.customView.hidden = YES;
         
-        [MobClick event:@"UEID_HOT_VIEW"];
     }
     
     return;

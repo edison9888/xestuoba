@@ -1146,6 +1146,10 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
     BOOL hasExceptionTouch = NO;
     if ([touch.view isKindOfClass:[UIControl class]] && [gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
         if (![touch.view isKindOfClass:NSClassFromString(@"UINavigationButton")]) hasExceptionTouch = YES;
+//        if (_wasClosed)
+//        {
+//            hasExceptionTouch = YES;
+//        }
     }
     
     BOOL hasExceptionDelegate = NO;

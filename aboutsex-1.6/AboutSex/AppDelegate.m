@@ -53,6 +53,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+
     //ad config.
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 //        [YouMiConfig launchWithAppID: SECRET_ID_YOUMI appSecret: SECRET_KEY_YOUMI];
@@ -64,7 +67,7 @@
 //    });
     
     [YouMiConfig launchWithAppID: SECRET_ID_YOUMI appSecret: SECRET_KEY_YOUMI];
-    [YouMiConfig setUseInAppStore:NO];
+    [YouMiConfig setUseInAppStore:YES];
     [YouMiConfig setIsTesting:NO];
 //    [AppConnect getConnect:AD_WAPS_ID pid:CHANNEL_ID];
 //    [AppConnect initPopAd];
@@ -75,7 +78,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
-    [StoreManager openIfNecessary];
+//    [StoreManager openIfNecessary];
     
     PPRevealSideViewController* sRootViewController = [[PPRevealSideViewController alloc] initWithRootViewController:[[SharedStates getInstance] getMainTabController]];
     sRootViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView;
@@ -280,7 +283,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    [StoreManager close];
+//    [StoreManager close];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
@@ -289,18 +292,47 @@
     [MobClick checkUpdate:NSLocalizedString(@"New Version Found", nil) cancelButtonTitle:NSLocalizedString(@"Skip", nil) otherButtonTitles:NSLocalizedString(@"Update now", nil)];
 }
 
+- (void) handleOpenClosedEventsAndEnableSubviews:(BOOL)enable
+{
+//    UINavigationController *nav = (UINavigationController*)revealSideViewController.rootViewController;
+    UITabBarController* sTabController = [[SharedStates getInstance] getMainTabController];
+    for (UIView *vi in [sTabController.selectedViewController.view subviews])
+    {
+        [vi setUserInteractionEnabled:enable];// this is the best way to keep functional the gestures
+    }
+}
 
 //#pragma mark - PPRevealSideViewControllerDelegate
-- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPushController:(UIViewController *)pushedController
+//- (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPushController:(UIViewController *)pushedController
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller willPushController:(UIViewController *)pushedController
 {
     [[SharedStates getInstance] getMainTabController].tabBar.userInteractionEnabled = NO;
+    [self handleOpenClosedEventsAndEnableSubviews:NO];
+}
+
+- (void)pprevealSideViewController:(PPRevealSideViewController *)controller willPopToController:(UIViewController *)centerController
+{
+    [self handleOpenClosedEventsAndEnableSubviews:YES]; // Just to be sure in case we reuse the view
 }
 
 - (void)pprevealSideViewController:(PPRevealSideViewController *)controller didPopToController:(UIViewController *)centerController
 {
     [[SharedStates getInstance] getMainTabController].tabBar.userInteractionEnabled = YES;
+    [self handleOpenClosedEventsAndEnableSubviews:YES];
 }
 
+- (BOOL)pprevealSideViewController:(PPRevealSideViewController *)controller shouldDeactivateGesture:(UIGestureRecognizer *)gesture forView:(UIView *)view;
+{
+    NSString* sStr = NSStringFromClass([view.superview class]);
+    if ([sStr isEqualToString:@"UIScrollView"])
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
 
 
 @end

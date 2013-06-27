@@ -7,7 +7,7 @@
 //
 
 #import "StreamItem.h"
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 #import "NSString+MyString.h"
 #import "NSURL+WithChanelID.h"
 
@@ -57,7 +57,7 @@
 
 - (void) bindUserInfo
 {
-    UserInfo* sUserInfo = [StoreManager getUserInfoForStreamItem:self.mItemID];
+    UserInfo* sUserInfo = [[StoreManagerEx shared] getUserInfoForStreamItem:self.mItemID];
     if (sUserInfo)
     {
         self.mIsRead = sUserInfo.mIsRead;
@@ -76,7 +76,7 @@
     
     self.mIsRead = YES;
     self.mNumVisits += 1;
-    [StoreManager updateStreamItemReadStatus:YES ItemID:self.mItemID];
+    [[StoreManagerEx shared] updateStreamItemReadStatus:YES ItemID:self.mItemID];
     return;
 }
 
@@ -116,7 +116,7 @@
     }
     else 
     {
-        [StoreManager updateStreamItemMarkedStatus:aNewMarkedStatus ItemID:self.mItemID];
+        [[StoreManagerEx shared] updateStreamItemMarkedStatus:aNewMarkedStatus ItemID:self.mItemID];
         if (aNewMarkedStatus)
         {
             self.mNumCollects += 1;
@@ -141,7 +141,7 @@
     self.mNumLikes += 1;
     
     //storemanager
-    [StoreManager updateStreamItemLikedStatus:aLiked ItemID:self.mItemID];
+    [[StoreManagerEx shared] updateStreamItemLikedStatus:aLiked ItemID:self.mItemID];
 
     return;
 }
@@ -154,7 +154,7 @@
     }
     self.mComment = aComment;
 
-    [StoreManager updateStreamItemComment:self.mComment ItemID:self.mItemID];    
+    [[StoreManagerEx shared] updateStreamItemComment:self.mComment ItemID:self.mItemID];
 }
 
 #pragma mark -
@@ -205,9 +205,9 @@
             NSString* sFullFileName = [sStreamDataDirName stringByAppendingPathComponent:sFileName];
             NSString* sNewFileNameCompoments = [NSString stringWithFormat:@"%@%@", @"StreamData/", sFileName];
             if([sFileContent writeToFile:sFullFileName atomically:YES]
-               && [StoreManager updateStreamItemLocation:sNewFileNameCompoments ItemID:self.mItemID])
+               && [[StoreManagerEx shared] updateStreamItemLocation:sNewFileNameCompoments ItemID:self.mItemID])
             {
-                [StoreManager updateStreamItemMarkedStatus:YES ItemID:self.mItemID];
+                [[StoreManagerEx shared] updateStreamItemMarkedStatus:YES ItemID:self.mItemID];
                 self.mLocation = sNewFileNameCompoments;
                 self.mNumCollects += 1;
             }

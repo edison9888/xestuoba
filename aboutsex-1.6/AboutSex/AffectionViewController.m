@@ -11,8 +11,10 @@
 #import "HotStreamController.h"
 #import "HotCommentsViewController.h"
 #import "SidebarViewController.h"
+#import "MobClick.h"
 
-#define SIDEBAR_OFFSET 150
+
+#define SIDEBAR_OFFSET 160
 
 @interface AffectionViewController ()
 {
@@ -175,6 +177,8 @@
                         [sRefreshButton addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchDown];
                         
                         UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithCustomView:sRefreshButton];
+//                        UIBarButtonItem* sRefershBarButtonItem =  [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+
                         sRefershBarButtonItem.style = UIBarButtonItemStylePlain;
                         
                         self.mRefreshButtonBarButtonItem = sRefershBarButtonItem;
@@ -228,10 +232,12 @@
         case ENUM_AFFECTION_TYPE_TOP_ARTICLES:
             [HotStreamController shared].mDelegate = self;
             sViewController = [HotStreamController shared];
+            [MobClick event:@"UEID_HOT_VIEW"];
             break;
         case ENUM_AFFECTION_TYPE_HOTCOMMENTS:
             [HotCommentsViewController shared].mDelegate = self;
             sViewController = [HotCommentsViewController shared];
+            [MobClick event:@"UEID_HOT_COMMENTS_VIEW"];
             break;
         default:
             break;

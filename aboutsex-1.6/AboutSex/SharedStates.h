@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MyURLConnection.h"
-
+#import "Period.h"
 //
 
 #define GENERAL_DURATION 5
@@ -114,13 +114,7 @@ typedef enum  {
 
 + (BOOL) isCurLanguageChinese;
 
-
-- (NSArray*) getPeriods;
-- (NSDate*) getLastPeriodStartDate;
-- (NSDate*) getLastPeriodEndDate;
-
-- (void) addPeriodStartDate:(NSDate*)aStartDate EndDate:(NSDate*)aEndDate;
-- (NSInteger) getPeriodDays;
-- (NSInteger) getDuration;
+- (Period*) getPeriod;
+- (void) savePeriod:(Period*)aPeriod;
 
 @end

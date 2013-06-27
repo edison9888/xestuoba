@@ -7,7 +7,7 @@
 //
 
 #import "Item.h"
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 #import "NSURL+WithChanelID.h"
 
 @implementation UserInfo
@@ -53,14 +53,14 @@
 - (void) updateReadStatus
 {
     self.mIsRead = YES;
-    [StoreManager updateItemReadStatus:YES ItemID:self.mItemID];
+    [[StoreManagerEx shared] updateItemReadStatus:YES ItemID:self.mItemID];
     return;
 }
 
 - (void) updateMarkedStaus: (BOOL)aNewMarkedStatus
 {
     self.mIsMarked = aNewMarkedStatus;
-    [StoreManager updateItemMarkedStatus:aNewMarkedStatus ItemID:self.mItemID];
+    [[StoreManagerEx shared] updateItemMarkedStatus:aNewMarkedStatus ItemID:self.mItemID];
     return;
 }
 

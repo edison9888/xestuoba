@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
 #import "MLNavigationController.h"
+#import "StoreManagerEx.h"
 
 @interface HotStreamController ()
 {
@@ -92,7 +93,16 @@
         [sItem bindUserInfo];
     }
     [self.tableView reloadData];
+    
+    [MobClick beginLogPageView:@"HotStream"];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"HotStream"];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -218,8 +228,7 @@
         [self.mData addObjectsFromArray:self.mImageItems];
         
         //
-        [StoreManager addOrUpdateStreamItems:self.mData];
-
+        [[StoreManagerEx shared] addOrUpdateStreamItems:self.mData];
     }
     
     return;

@@ -16,7 +16,7 @@
 #import "SectionViewController.h"
 #import "BaiduWrapperViewController.h"
 
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 #import "UserConfiger.h"
 
 #import "XLCycleScrollView.h"
@@ -111,6 +111,13 @@
     [super viewWillAppear:animated];
     
     [self refreshIconInfo];
+    [MobClick beginLogPageView:@"Library"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Library"];
 }
 
 - (void) dealloc
@@ -140,7 +147,7 @@
         {
             for (IconData* sIconData in sIconArray)
             {
-                sIconData.mReadCount = [StoreManager getReadCountInSection:sIconData.mSectionNameOrURL];
+                sIconData.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIconData.mSectionNameOrURL];
             }
         }
         
@@ -298,8 +305,8 @@
     sIcon1.mImage = [UIImage imageNamed:@"physiology140*100.png"];
     //    sIcon1.mJSONFilePath = nil;
     sIcon1.mSectionNameOrURL = SECTION_NAME_PHYSILOGY;
-    sIcon1.mTotal = [StoreManager getTotalOfItemsInsection:sIcon1.mSectionNameOrURL];
-    sIcon1.mReadCount = [StoreManager getReadCountInSection:sIcon1.mSectionNameOrURL];
+    sIcon1.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon1.mSectionNameOrURL];
+    sIcon1.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon1.mSectionNameOrURL];
     [sDataOnPage0 addObject: sIcon1];
     [sIcon1 release];
     
@@ -307,8 +314,8 @@
     sIcon2.mTitle = NSLocalizedString(@"Health", nil);
     sIcon2.mImage = [UIImage imageNamed:@"health140*100.png"];
     sIcon2.mSectionNameOrURL = SECTION_NAME_HEALTH;
-    sIcon2.mTotal = [StoreManager getTotalOfItemsInsection:sIcon2.mSectionNameOrURL];
-    sIcon2.mReadCount = [StoreManager getReadCountInSection:sIcon2.mSectionNameOrURL];
+    sIcon2.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon2.mSectionNameOrURL];
+    sIcon2.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon2.mSectionNameOrURL];
     
     [sDataOnPage0 addObject: sIcon2];
     [sIcon2 release];
@@ -317,8 +324,8 @@
     sIcon3.mTitle = NSLocalizedString(@"Diet", nil);
     sIcon3.mImage = [UIImage imageNamed:@"diet140*100.png"];
     sIcon3.mSectionNameOrURL = SECTION_NAME_DIET;
-    sIcon3.mTotal = [StoreManager getTotalOfItemsInsection:sIcon3.mSectionNameOrURL];
-    sIcon3.mReadCount = [StoreManager getReadCountInSection:sIcon3.mSectionNameOrURL];
+    sIcon3.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon3.mSectionNameOrURL];
+    sIcon3.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon3.mSectionNameOrURL];
     [sDataOnPage0 addObject: sIcon3];
     [sIcon3 release];
     
@@ -326,8 +333,8 @@
     sIcon4.mTitle = NSLocalizedString(@"Life", nil);
     sIcon4.mImage = [UIImage imageNamed:@"life140*100.png"];
     sIcon4.mSectionNameOrURL = SECTION_NAME_LIFE;
-    sIcon4.mTotal = [StoreManager getTotalOfItemsInsection:sIcon4.mSectionNameOrURL];
-    sIcon4.mReadCount = [StoreManager getReadCountInSection:sIcon4.mSectionNameOrURL];
+    sIcon4.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon4.mSectionNameOrURL];
+    sIcon4.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon4.mSectionNameOrURL];
     [sDataOnPage0 addObject: sIcon4];
     [sIcon4 release];
     
@@ -338,8 +345,8 @@
     sIcon5.mTitle = NSLocalizedString(@"Contraception", nil);
     sIcon5.mImage = [UIImage imageNamed:@"contraception140*100.png"];
     sIcon5.mSectionNameOrURL = SECTION_NAME_CONTRACEPTION;
-    sIcon5.mTotal = [StoreManager getTotalOfItemsInsection:sIcon5.mSectionNameOrURL];
-    sIcon5.mReadCount = [StoreManager getReadCountInSection:sIcon5.mSectionNameOrURL];
+    sIcon5.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon5.mSectionNameOrURL];
+    sIcon5.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon5.mSectionNameOrURL];
     [sDataOnPage1 addObject: sIcon5];
     [sIcon5 release];
     
@@ -347,8 +354,8 @@
     sIcon6.mTitle = NSLocalizedString(@"Pregnancy", nil);
     sIcon6.mImage = [UIImage imageNamed:@"pregancy140*100.png"];
     sIcon6.mSectionNameOrURL = SECTION_NAME_PREGNANCY;
-    sIcon6.mTotal = [StoreManager getTotalOfItemsInsection:sIcon6.mSectionNameOrURL];
-    sIcon6.mReadCount = [StoreManager getReadCountInSection:sIcon6.mSectionNameOrURL];
+    sIcon6.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon6.mSectionNameOrURL];
+    sIcon6.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon6.mSectionNameOrURL];
     [sDataOnPage1 addObject: sIcon6];
     [sIcon6 release];
     
@@ -356,8 +363,8 @@
     sIcon7.mTitle = NSLocalizedString(@"Culture", nil);
     sIcon7.mImage = [UIImage imageNamed:@"culture140*100.png"];
     sIcon7.mSectionNameOrURL = SECIION_NAME_CULTURE;
-    sIcon7.mTotal = [StoreManager getTotalOfItemsInsection:sIcon7.mSectionNameOrURL];
-    sIcon7.mReadCount = [StoreManager getReadCountInSection:sIcon7.mSectionNameOrURL];
+    sIcon7.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon7.mSectionNameOrURL];
+    sIcon7.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon7.mSectionNameOrURL];
     [sDataOnPage1 addObject: sIcon7];
     [sIcon7 release];
     
@@ -365,8 +372,8 @@
     sIcon8.mTitle = NSLocalizedString(@"Terms", nil);
     sIcon8.mImage = [UIImage imageNamed:@"terms140*100.png"];
     sIcon8.mSectionNameOrURL = SECTION_NAME_TERMS;
-    sIcon8.mTotal = [StoreManager getTotalOfItemsInsection:sIcon8.mSectionNameOrURL];
-    sIcon8.mReadCount = [StoreManager getReadCountInSection:sIcon8.mSectionNameOrURL];
+    sIcon8.mTotal = [[StoreManagerEx shared] getTotalOfItemsInsection:sIcon8.mSectionNameOrURL];
+    sIcon8.mReadCount = [[StoreManagerEx shared] getReadCountInSection:sIcon8.mSectionNameOrURL];
     [sDataOnPage1 addObject: sIcon8];
     [sIcon8 release];
     

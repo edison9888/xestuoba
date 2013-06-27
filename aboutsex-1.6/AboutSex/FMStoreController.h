@@ -7,8 +7,10 @@
 //
 
 #import "SimpleTabController.h"
+#import "FMListController.h"
 
-@interface FMStoreController : SimpleTabController
+
+@interface FMStoreController : SimpleTabController<UINavigationBarDelegate, FMListControllerDelegate>
 
 + (UIViewController*) shared;
 

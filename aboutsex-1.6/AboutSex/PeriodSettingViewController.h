@@ -7,7 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Period.h"
+#import "DateSelectionView.h"
+#import "NumberSelectionView.h"
 
-@interface PeriodSettingViewController : UITableViewController
 
+@protocol PeriodSettingDelegate <NSObject>
+
+- (void) cancel;
+- (void) confirmWith:(Period*)aPeriod;
+
+@end
+
+
+@interface PeriodSettingViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, DateSelectionDelegate, NumberSelectionDelegate>
+{
+    id<PeriodSettingDelegate> mDelegate;
+}
+@property (nonatomic, assign) id<PeriodSettingDelegate> mDelegate;
+
+- (id) initWithInitPeriod:(Period*)aPeriod;
+
+- (void) resetPeriod:(Period*)aPeriod;
 @end

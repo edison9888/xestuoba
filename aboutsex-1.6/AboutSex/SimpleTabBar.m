@@ -170,11 +170,10 @@
         
         SimpleTabBarItem* sNewSelectedTabBarItem = [self.mBarItems objectAtIndex:aIndex];
         [sNewSelectedTabBarItem setMSelected:YES];
-    }completion:^(BOOL finished) {
         self.mSelectedIndex = aIndex;
+    }completion:^(BOOL finished) {
+        //        self.mSelectedIndex = aIndex;
     }];
-    
-   
 }
 
 - (void) configureBarItem:(SimpleTabBarItem*)aBarItem

@@ -10,7 +10,7 @@
 #import "IndexViewController.h"
 #import "FPPopover/FPPopoverController.h"
 
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 #import "TaggedButton.h"
 
 #import "SharedStates.h"
@@ -179,7 +179,7 @@
 {
     self.mSection.mOffset = self.mTableView.contentOffset.y;
     
-    [StoreManager updateSectionOffset:self.mSection.mOffset ForSection:self.mSection.mSectionID];
+    [[StoreManagerEx shared] updateSectionOffset:self.mSection.mOffset ForSection:self.mSection.mSectionID];
     
 }
 
@@ -192,7 +192,7 @@
 #pragma mark overide methods in parent class CommonTableViewController
 - (void) loadData
 {
-    self.mSection = [StoreManager getSectionByName: self.mSectionName];
+    self.mSection = [[StoreManagerEx shared] getSectionByName: self.mSectionName];
     
     return;
 }

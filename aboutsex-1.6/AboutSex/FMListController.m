@@ -13,12 +13,13 @@
 #import "SharedVariables.h"
 #import "UIGlossyButton.h"
 #import "PointsManager.h"
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 #import "NSURL+WithChanelID.h"
 #import "SharedVariables.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
+#import "UILabel+VerticalAlign.h"
 
 
 #define TAG_IMAGEVIEW 101
@@ -61,6 +62,7 @@
 @synthesize mPageLoadingIndicator;
 @synthesize mIsLoading;
 @synthesize mType;
+@synthesize mDelegate;
 
 
 - (UIImage*) getIconImageForCurrentType
@@ -108,8 +110,8 @@
         
         self.mFMInfos = [NSMutableArray array];
 //        [[DownloadManager shared] setMDelegate:self];
-        [[DownloadManager shared] setMTargetDirPath:[StoreManager getPathForDocumentsFMItemsDir]];
-        [[DownloadManager shared] setMCacheDirPath:[StoreManager getPathForFMCacheDir]];
+        [[DownloadManager shared] setMTargetDirPath:[[StoreManagerEx shared] getPathForDocumentsFMItemsDir]];
+        [[DownloadManager shared] setMCacheDirPath:[[StoreManagerEx shared] getPathForFMCacheDir]];
     }
     return self;
 }
@@ -154,9 +156,32 @@
     [self refresh];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    [self notifyUpdateDate];
+}
+
+- (void) notifyUpdateDate
+{
+    if (!self.mIsLoading)
+    {
+        if (self.mFMInfos.count > 0)
+        {
+            NSDate* sDate = ((FMInfo*)[self.mFMInfos objectAtIndex:0]).mDate;
+            [self.mDelegate notifyUpdateDate:sDate];
+        }
+        else
+        {
+            [self.mDelegate notifyUpdateDate:nil];
+        }
+    }
+}
+
 - (void) refresh
 {
-    self.mDowndoadedFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[StoreManager getPathForDocumentsFMItemsDir] error:nil];
+    self.mDowndoadedFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[StoreManagerEx shared] getPathForDocumentsFMItemsDir] error:nil];
     if ( (!self.mFMInfos || self.mFMInfos.count <=0)
         && !self.mIsLoading)
     {
@@ -221,13 +246,19 @@
     {
         [self.tableView reloadData];
     }
-    
+  
+    self.mIsLoading = NO;
     if (self.mFMInfos.count <= 0)
     {
         self.tableView.tableHeaderView = [self headerViewWithNotice:NSLocalizedString(@"No fms yet", nil)];
     }
-        
-    self.mIsLoading = NO;
+    else
+    {
+        self.tableView.tableHeaderView = nil;
+    }
+    
+    [self notifyUpdateDate];
+
 }
 
 - (void) loadFailed:(NSError*)aError
@@ -238,6 +269,13 @@
         [self.mPageLoadingIndicator stopAnimating];
     }
     self.mIsLoading = NO;
+    
+    if (self.mFMInfos.count <= 0)
+    {
+        self.tableView.tableHeaderView = [self headerViewWithNotice:NSLocalizedString(@"No fms yet", nil)];
+    }
+
+    [self notifyUpdateDate];
     return;
 }
 
@@ -279,6 +317,12 @@
     {
         return;
     }
+    
+    NSDictionary *sDict = @{
+                           @"name" : sFMInfo.mName,
+                           @"price" : [NSString stringWithFormat:@"%d", sFMInfo.mPrice],
+                           };
+    [MobClick event:@"UEID_BUY_FM" attributes: sDict];
     
     //free
     if (sFMInfo.mPrice <= 0)
@@ -327,7 +371,7 @@
     
     NSDictionary* sDict = [NSDictionary dictionaryWithObjectsAndKeys:
                            [NSNumber numberWithBool:sIsGet], @"IsGet", nil];
-    [MobClick event:@"UEID_GET_MORE_POINTS" attributes: sDict];
+    [MobClick event:@"UEID_BUY_FM_GET_POINTS" attributes: sDict];
 
 }
 
@@ -395,7 +439,7 @@
             [sIconImageView release];
             
             sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 7, 190, 40)];
-            sTitleLabel.font = [UIFont systemFontOfSize:16];
+            sTitleLabel.font = [UIFont systemFontOfSize:15];
             sTitleLabel.numberOfLines = 2;
             sTitleLabel.tag = TAG_TITLE_LABEL;
             sTitleLabel.backgroundColor = [UIColor clearColor];
@@ -445,12 +489,15 @@
         {
             sTitle = [sTitle substringToIndex:sTitle.length-@".mp3".length];
         }
-        sTitleLabel.text = sTitle;
+        sTitleLabel.text = [NSString stringWithFormat:@"%d. %@", indexPath.row+1, sTitle];
+        [sTitleLabel alignTop];
         
         sPropertyLabel.text = [NSString stringWithFormat:@"%@: %@\t\t\t\t\t\t%@: %.1f MB", NSLocalizedString(@"Duration", nil), [NSDateFormatter mmssFromSeconds:sFMInfo.mDuration], NSLocalizedString(@"Size", nil), sFMInfo.mSize];
         
+        
+        
 //        [sIconImageView setImage:[self getIconImageForCurrentType]];
-//        [sIconImageView setImageWithURL:[NSURL URLWithString:sFMInfo.mIconURLStr] placeholderImage:[self getIconImageForCurrentType]];
+        [sIconImageView setImageWithURL:[NSURL URLWithString:sFMInfo.mIconURLStr] placeholderImage:[self getIconImageForCurrentType]];
         
         //if is downloaded
         if ([self isFMDownloaded:sFMInfo])
@@ -535,6 +582,12 @@
         [[PointsManager shared] consume:sFMInfo.mPrice];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEW_FM_DOWNLOADED object:self];
     }
+    
+    NSDictionary *sDict = @{
+                            @"success" : @"1",
+                            };
+    [MobClick event:@"UEID_BUY_FM_DONE" attributes: sDict];
+
 }
 
 - (void) downloadFailed:(NSInteger)aTaskID
@@ -544,6 +597,11 @@
     UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"Download error", nil)  delegate:nil cancelButtonTitle:NSLocalizedString(@"Good", nil) otherButtonTitles:nil];
     [sAlertView show];
     [sAlertView release];
+    
+    NSDictionary *sDict = @{
+                            @"success" : @"0",
+                            };
+    [MobClick event:@"UEID_BUY_FM_DONE" attributes: sDict];
 
 }
 

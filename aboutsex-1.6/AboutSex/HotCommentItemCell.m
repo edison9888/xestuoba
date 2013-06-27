@@ -12,7 +12,7 @@
 #import "TaggedButton.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define WIDTH_CONTENT_LABEL 290
+#define WIDTH_CONTENT_LABEL 280
 #define HEIGHT_CONTENT_LABEL 300
 #define CONTENT_FONT    [UIFont systemFontOfSize:15]
 
@@ -64,7 +64,7 @@
 
 - (void) configSubviews;
 {
-    UIEdgeInsets sInsets = UIEdgeInsetsMake(0, 5, 0, 5);
+    UIEdgeInsets sInsets = UIEdgeInsetsMake(10, 10, 0, 10);
     CGFloat sX = 10;
     CGFloat sY = 10;
     CGFloat sWidth = WIDTH_CONTENT_LABEL+ sInsets.left+sInsets.right;
@@ -77,20 +77,19 @@
     sContentLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     sContentLabel.layer.shadowOffset = CGSizeMake(0, 5);
     sContentLabel.layer.borderColor = [UIColor blackColor].CGColor;
-    sContentLabel.backgroundColor = RGBA_COLOR(230, 228, 217, 1);
+    sContentLabel.backgroundColor = RGBA_COLOR(244, 242, 228, 1);
     [self addSubview:sContentLabel];
     self.mContentLabel = sContentLabel;
     [sContentLabel release];
     
+    sInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     sY += sHeight;
-    UILabel* sRefTitleLabel = [[InsetLabel alloc] initWithFrame:CGRectMake(sX, sY, sWidth, sHeight) andInsets:sInsets];
-    sRefTitleLabel.textAlignment = UITextAlignmentRight;
-    sRefTitleLabel.backgroundColor = RGBA_COLOR(230, 228, 217, 1);
-    sRefTitleLabel.textColor = [UIColor grayColor];
-    sRefTitleLabel.font = [UIFont systemFontOfSize:12];
-    [self addSubview:sRefTitleLabel];
-    self.mRefTitleLabel = sRefTitleLabel;
-    [sRefTitleLabel release];
+    InsetLabel* sUserLabel = [[InsetLabel alloc] initWithFrame:CGRectMake(sX, sY, sWidth, sHeight) andInsets:sInsets];
+    sUserLabel.textAlignment = UITextAlignmentRight;
+//    sUserLabel.backgroundColor = RGBA_COLOR(230, 228, 217, 1);
+    sUserLabel.backgroundColor = RGBA_COLOR(244, 242, 228, 1);
+    sUserLabel.font = [UIFont systemFontOfSize:12];
+    sUserLabel.textColor = [UIColor grayColor];
        
     sY += sHeight;
     CGFloat sWidthOfUpButton = 50;
@@ -108,10 +107,14 @@
     [self addSubview:sDingBtn];
     self.mDingBtn = sDingBtn;
 
-    InsetLabel* sUserLabel = [[InsetLabel alloc] initWithFrame:CGRectMake(sX+sWidthOfUpButton, sY, sWidth-sWidthOfUpButton, sHeight) andInsets:sInsets];
-    sUserLabel.textAlignment = UITextAlignmentRight;
-    sUserLabel.font = [UIFont systemFontOfSize:12];
-    sUserLabel.textColor = [UIColor grayColor];
+    UILabel* sRefTitleLabel = [[InsetLabel alloc] initWithFrame:CGRectMake(sX+sWidthOfUpButton, sY, sWidth-sWidthOfUpButton, sHeight) andInsets:sInsets];
+    sRefTitleLabel.textAlignment = UITextAlignmentRight;
+    sRefTitleLabel.textColor = [UIColor grayColor];
+    sRefTitleLabel.font = [UIFont systemFontOfSize:12];
+    [self addSubview:sRefTitleLabel];
+    self.mRefTitleLabel = sRefTitleLabel;
+    [sRefTitleLabel release];
+
     
     [self addSubview:sUserLabel];
     self.mUserLabel = sUserLabel;
@@ -129,7 +132,7 @@
     {
         CGSize sSize = CGSizeMake(WIDTH_CONTENT_LABEL, HEIGHT_CONTENT_LABEL);
         sContentSize = [aComment.mContent sizeWithFont:self.mContentLabel.font constrainedToSize:sSize lineBreakMode:UILineBreakModeTailTruncation];
-        sContentSize.height += 8;
+        sContentSize.height += 10;
     }
     
     self.mContentLabel.frame = CGRectMake(self.mContentLabel.frame.origin.x, self.mContentLabel.frame.origin.y, self.mContentLabel.frame.size.width, sContentSize.height);
@@ -138,21 +141,19 @@
     
     CGRect sFrame;
     
-    sFrame = self.mRefTitleLabel.frame;
+    sFrame = self.mUserLabel.frame;
     sFrame.origin.y = sY;
-    self.mRefTitleLabel.frame = sFrame;
+    self.mUserLabel.frame = sFrame;
 
-    
     sY += sFrame.size.height;
     
     sFrame = self.mDingBtn.frame;
     sFrame.origin.y = sY+5;
     self.mDingBtn.frame = sFrame;
 
-    
-    sFrame = self.mUserLabel.frame;
+    sFrame = self.mRefTitleLabel.frame;
     sFrame.origin.y = sY;
-    self.mUserLabel.frame = sFrame;
+    self.mRefTitleLabel.frame = sFrame;
 
     //
     self.mContentLabel.text = aComment.mContent;
@@ -184,7 +185,7 @@
         sContentSize.height += 8;
     }
 
-    return sContentSize.height+60;
+    return sContentSize.height+65;
 }
 
 - (void) buttonClicked:(UIButton*)aButton

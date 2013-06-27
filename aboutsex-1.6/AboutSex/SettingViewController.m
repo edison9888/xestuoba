@@ -7,7 +7,7 @@
 //
 
 #import "SettingViewController.h"
-#import "UMFeedback.h"
+//#import "UMFeedback.h"
 #import "SharedVariables.h"
 #import "SharedStates.h"
 #import "MobClick.h"
@@ -191,7 +191,7 @@
         case 1:
             return 3;
         case 2:
-            return 2;
+            return 1;
         default:
             return 0;
     }
@@ -259,6 +259,7 @@
                 sCell.textLabel.text = NSLocalizedString(@"My Favorites", nil);
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 [sCell.imageView setImage:[UIImage imageNamed:@"heart24"]];
+                sCell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [[StoreManagerEx shared] getFavoritesNumber]];
             }
             else if (1 == sRow)
             {
@@ -269,10 +270,27 @@
             }
             else if (2 == sRow)
             {
-                sCell.textLabel.text = NSLocalizedString(@"Menstrual Period", nil);
+                sCell.textLabel.text = NSLocalizedString(@"Period Prediction", nil);
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 [sCell.imageView setImage:[UIImage imageNamed:@"cal24"]];
-                sCell.detailTextLabel.text = @"安全";
+                
+                ENUM_DAY_PERIOD_STATUS sStatus = [PeriodViewController getStatusForDate:[NSDate date]];
+                if (sStatus == ENUM_DAY_PERIOD_STATUS_MENSTRUAL )
+                {
+                    sCell.detailTextLabel.text = NSLocalizedString(@"Forbidden", nil);
+                }
+                else if (sStatus == ENUM_DAY_PERIOD_STATUS_OVULATORY)
+                {
+                    sCell.detailTextLabel.text = NSLocalizedString(@"Not Safe", nil);
+                }
+                else if (sStatus == ENUM_DAY_PERIOD_STATUS_SAFE)
+                {
+                    sCell.detailTextLabel.text = NSLocalizedString(@"Safe", nil);
+                }
+                else
+                {
+                    sCell.detailTextLabel.text = nil;
+                }
             }
             else
             {
@@ -326,12 +344,6 @@
         else if (2 == sSection)
         {
             if (0 == sRow)
-            {
-                sCell.textLabel.text = [[SharedStates getInstance] getCommentNotice];
-                [sCell.imageView setImage:[UIImage imageNamed:@"smile24"]];
-                sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
-            else if (1 == sRow)
             {
                 sCell.textLabel.text = NSLocalizedString(@"About", nil);
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -414,10 +426,6 @@
     {
         if (sRow == 0)
         {
-            [self presentCommentsController];
-        }
-        else if (sRow == 1)
-        {
             [self presentAboutController];
         }
         else
@@ -452,6 +460,7 @@
 {
     KKPasscodeSettingsViewController* sPasswordController = [[KKPasscodeSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     sPasswordController.hidesBottomBarWhenPushed = YES;
+    sPasswordController.view.backgroundColor = [UIColor whiteColor];
     
     [self.navigationController pushViewController:sPasswordController animated:YES];
     [sPasswordController release];
@@ -490,43 +499,16 @@
     [sPeriodViewController setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:sPeriodViewController animated:YES];
     [sPeriodViewController release];
+    
+    [MobClick event:@"UEID_PERIOD_VIEW"];
 }
 
 
 - (void) presentFeedbackController
 {
     UIViewController* sViewController = [[UIViewController alloc]init];
-    [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
+//    [UMFeedback showFeedback:self withAppkey:APP_KEY_UMENG];
     [sViewController release];
-}
-
-- (void) presentCommentsController
-{
-    //    Class sClass = NSClassFromString(@"SKStoreProductViewController");
-    //    if (sClass)
-    //    {
-    //        SKStoreProductViewController *storeProductViewController = [[SKStoreProductViewController alloc] init];
-    //        // Configure View Controller
-    //        [storeProductViewController setDelegate:self];
-    //        [storeProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier: APP_ID}     completionBlock:^(BOOL result, NSError *error) {
-    //                                                  if (error)
-    //                                                  {
-    //                                                      NSLog(@"Error %@ with User Info %@.", error, [error userInfo]);
-    //                                                  }
-    //                                                  else
-    //                                                  {
-    //                                                  }
-    //        }];
-    //        // Present Store Product View Controller
-    //        [self presentViewController:storeProductViewController animated:YES completion:nil];
-    //    }
-    //    else
-    {
-        NSString* sCommentsURL = [[SharedStates getInstance] getCommentURL];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: sCommentsURL]];
-        
-        [MobClick event:@"UEID_ACTIVE_COMMENT"];
-    }
 }
 
 #pragma mark - SKStoreProductViewControllerDelegate

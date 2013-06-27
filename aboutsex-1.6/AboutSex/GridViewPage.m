@@ -251,7 +251,7 @@
 
         
         BOOL sNeedShowCategories = NO;
-        NSInteger sNumberOfCategoriesInSection = [StoreManager getTotalOfCategoriesInSection:sSectionName];
+        NSInteger sNumberOfCategoriesInSection = [[StoreManagerEx shared] getTotalOfCategoriesInSection:sSectionName];
         if (sNumberOfCategoriesInSection > 1)
         {
             sNeedShowCategories = YES;

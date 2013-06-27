@@ -148,9 +148,9 @@
         [self presentNoResultsNoticeView];
     }
     //
-    [self.mDataLock unlock];
     
     [self refreshDone:YES];
+    [self.mDataLock unlock];
 
 }
 
@@ -163,6 +163,8 @@
 
 - (void) dataLoadedLocally:(id)aJSONData
 {
+    [self.mDataLock lock];
+
     [self parseData:aJSONData];
     
     if (self.mData
@@ -171,18 +173,21 @@
 //        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         [self beforeDisplayTable];
         
-        [self.mDataLock lock];
-        [self.tableView reloadData];//do not worry; reload is synchronous.
-        [self.mDataLock unlock];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];//do not worry; reload is synchronous.
+        });
         
         
     }
-    
-    [self dataLoadedFailed];
+    [self.mDataLock unlock];
+
+//    [self dataLoadedFailed];
 }
 
 - (void) dataLoadedFailed
 {
+    [self.mDataLock unlock];
+
 //    if(!self.mIsAutoRefresh)
     {
         self.mNeedShowNetworkErrorStatus = YES;
@@ -196,6 +201,8 @@
     }
     
     [self refreshDone:NO];
+    [self.mDataLock unlock];
+
 }
 
 - (void) presentNoResultsNoticeView

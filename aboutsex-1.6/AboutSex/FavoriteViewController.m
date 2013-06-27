@@ -9,13 +9,14 @@
 #import "FavoriteViewController.h"
 #import "AboutViewController.h"
 
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 
 #import "SharedVariables.h"
 
 #import "NSDate+MyDate.h"
 
 #import "ContentViewController.h"
+#import "MobClick.h"
 
 
 @interface FavoriteViewController ()
@@ -84,7 +85,7 @@
 {
     self.mFavorites = [[[NSMutableArray alloc]init] autorelease];
     
-    NSMutableArray* sArray = [StoreManager getAllFavoriteItems];
+    NSMutableArray* sArray = [[StoreManagerEx shared] getAllFavoriteItems];
     
     NSDate* sDate = nil;
     NSMutableArray* sItemsForMonth = nil;
@@ -132,6 +133,7 @@
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     UILabel* sLabel = [[[UILabel alloc]initWithFrame:applicationFrame] autorelease];
     sLabel.text = @"噢，你还没有收藏过哦！";
+    sLabel.textColor = [UIColor grayColor];
     sLabel.backgroundColor = [UIColor clearColor];
 //    [sLabel sizeToFit];
     sLabel.textAlignment = UITextAlignmentCenter;
@@ -184,8 +186,18 @@
 {
     [super viewWillAppear:animated];
     [self toggleMainView];
+    [MobClick beginLogPageView:@"FavoritesViewController"];
     return;
 }
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"FavoritesViewController"];    
+}
+
+
+
 
 - (void)viewDidDisappear:(BOOL)animated
 {

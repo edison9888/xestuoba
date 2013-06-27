@@ -102,17 +102,7 @@
     }
     else
     {
-        CGFloat sHeightOfPossilbeNavBarAndTabBar = 0;
-//        if ([self ng_tabBarController])
-//        {
-//            sHeightOfPossilbeNavBarAndTabBar += [self ng_tabBarController].tabBar.bounds.size.height;
-//        }
-        
-//        if ([self.navigationController ng_tabBarController])
-//        {
-//            sHeightOfPossilbeNavBarAndTabBar += [self.navigationController ng_tabBarController].tabBar.bounds.size.height;
-//            }
-        
+        CGFloat sHeightOfPossilbeNavBarAndTabBar = 0;        
         if (self.navigationController
             && !self.navigationController.navigationBarHidden)
         {
@@ -128,8 +118,6 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sViewSize.width, sViewSize.height)];
     self.view = view;
     [view release];
-    
-    
     
     self.view.backgroundColor = [UIColor clearColor];
     

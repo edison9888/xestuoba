@@ -20,5 +20,6 @@
 - (BOOL) isInRecentDaysBefore: (NSDate*)sCurDate NumberOfDays:(NSInteger)aNumberOfDays;
 
 - (NSDate*) startDateOfTheDayinLocalTimezone;
+- (NSDate*) midDayOftheDayInLocalTimezone;
 - (NSInteger) ceilingDaysSinceStartingOfDate:(NSDate*)aDate;
 @end

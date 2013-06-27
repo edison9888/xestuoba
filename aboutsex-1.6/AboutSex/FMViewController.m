@@ -8,7 +8,7 @@
 
 #import "FMViewController.h"
 #import "SharedVariables.h"
-#import "StoreManager.h"
+#import "StoreManagerEx.h"
 #import "FMItem.h"
 #import "SharedStates.h"
 #import "NSDateFormatter+MyDateFormatter.h"
@@ -17,9 +17,10 @@
 #import "SpotTimer.h"
 //#import "MLPAccessoryBadgeArrow.h"
 #import "UIColor+MLPFlatColors.h"
-
+#import "MyProgressView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "MobClick.h"
 
 
 #define INVALID_INDEX  -1
@@ -40,7 +41,7 @@
     
     //
     UIButton* mPlayButton;
-    UIProgressView* mProgressView;
+    MyProgressView* mProgressView;
     UIImageView* mArtworkImageView;
     UILabel* mTitleLabel;
     UILabel* mCurrentTimeLabel;
@@ -60,7 +61,7 @@
 @property (nonatomic, assign)     NSInteger mSelectedIndex;
 @property (nonatomic, retain)     AVAudioPlayer*  mPlayer;
 @property (nonatomic, retain)     UIButton* mPlayButton;
-@property (nonatomic, retain)     UIProgressView* mProgressView;
+@property (nonatomic, retain)     MyProgressView* mProgressView;
 @property (nonatomic, retain)     UIImageView* mArtworkImageView;
 @property (nonatomic, retain)     UILabel* mTitleLabel;
 @property (nonatomic, retain)     UILabel* mCurrentTimeLabel;
@@ -213,7 +214,7 @@
     UILabel* sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, 230, 15)];
     sTitleLabel.backgroundColor = [UIColor clearColor];
     sTitleLabel.textColor = [UIColor whiteColor];
-    sTitleLabel.font = [UIFont systemFontOfSize:15];
+    sTitleLabel.font = [UIFont systemFontOfSize:13];
     [navBar addSubview:sTitleLabel];
     self.mTitleLabel = sTitleLabel;
     [sTitleLabel release];
@@ -232,12 +233,16 @@
     [sNextTrack setFrame:CGRectMake(190, 23, 32, 32)];
     [navBar addSubview:sNextTrack];
     
-    UIProgressView* sProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    [sProgressView setFrame:CGRectMake(50, 55, 230, 1)];
-    [sProgressView setTrackTintColor:MAIN_BGCOLOR];
-    [sProgressView setProgressTintColor:[UIColor grayColor]];
-    CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, .3f);
-    sProgressView.transform = transform;
+//    UIProgressView* sProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+//    [sProgressView setFrame:CGRectMake(50, 55, 230, 1)];
+//    [sProgressView setTrackTintColor:MAIN_BGCOLOR];
+//    [sProgressView setProgressTintColor:[UIColor grayColor]];
+//    CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, .3f);
+//    sProgressView.transform = transform;
+    MyProgressView* sProgressView= [[MyProgressView alloc] initWithFrame:CGRectMake(50, 57, 230, 1) andTrackColor:RGBA_COLOR(119, 79, 52, 1) ProgressColor:[UIColor grayColor]];
+    //RGBA_COLOR(131, 98, 77, 1)
+    //RGBA_COLOR(54, 158, 227, 1)
+    //RGBA_COLOR(179, 157, 141, 1)
     [navBar addSubview:sProgressView];
     self.mProgressView = sProgressView;
     [sProgressView release];
@@ -262,6 +267,7 @@
     sTableView.delegate = self;
     [sTableView setBackgroundView:nil];
     [sTableView setBackgroundColor:[UIColor clearColor]];
+    sTableView.rowHeight = 60;
 //    sTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     sTableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
@@ -290,6 +296,7 @@
     [self.navigationController setNavigationBarHidden:YES];
 
     [self updatePlayingInfo];
+    [MobClick beginLogPageView:@"FMViewController"];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -303,7 +310,7 @@
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
+    [MobClick endLogPageView:@"FMViewController"];
     
 //    [[SpotTimer shared] cancel];
 }
@@ -330,7 +337,7 @@
     //
     NSMutableArray* sTempItems = [NSMutableArray array];
     
-    NSString* sFMItemsDir = [StoreManager getPathForDocumentsFMItemsDir];
+    NSString* sFMItemsDir = [[StoreManagerEx shared] getPathForDocumentsFMItemsDir];
     
     NSArray* sSampleStreamFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sFMItemsDir error:nil];
     
@@ -401,6 +408,8 @@
             
             [self.mPlayer play];
             [self startUpdatingProgress];
+            
+            [MobClick event:@"UEID_PLAY"];
         }
         [self.mPlayButton setSelected:self.mPlayer.playing];
     }
@@ -492,12 +501,16 @@
         sLabel.text = NSLocalizedString(@"You have no fms yet", nil);
         sLabel.textColor = [UIColor lightGrayColor];
         sLabel.textAlignment = UITextAlignmentCenter;
-        
+        sLabel.backgroundColor = [UIColor clearColor];
         [sView addSubview:sLabel];
         [sLabel release];
         
         self.mTableView.tableHeaderView = sView;
         [sView release];
+    }
+    else
+    {
+        self.mTableView.tableHeaderView = nil;
     }
     
     [self.mTableView reloadData];
@@ -512,16 +525,10 @@
 
 - (void) presentFMStore
 {
-//    if (!self.mStoreController)
-//    {
-//        self.mStoreController = [FMStoreTabController shared];
-//        [self.mStoreController setHidesBottomBarWhenPushed:YES];
-//    }
-    
-//    [self presentViewController:[FMStoreController shared] animated:YES completion:nil];
     [[FMStoreController shared] setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:[FMStoreController shared] animated:YES];
     
+    [MobClick event:@"UEID_FM_STORE_VIEW"];
     
     return;
 }
@@ -552,7 +559,8 @@
     }
     
     [self goToItemAtIndex:aIndex AtTime:0 playImmediately:YES];
-    
+    [MobClick event:@"UEID_PLAY"];
+
 //    [[SpotTimer shared] startWithDelay:30];
 }
 
@@ -724,8 +732,8 @@
         sCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
-        sEdgeStick = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 3, 25)];
-        [sEdgeStick setCenter:CGPointMake(sEdgeStick.center.x, sCell.bounds.size.height/2)];
+        sEdgeStick = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 3, 32)];
+        [sEdgeStick setCenter:CGPointMake(sEdgeStick.center.x, tableView.rowHeight/2+2)];
         sEdgeStick.backgroundColor = MAIN_BGCOLOR;
         sEdgeStick.tag = TAG_EDGE_STICK;
         sEdgeStick.hidden = YES;
@@ -734,15 +742,15 @@
         [sEdgeStick release];
         
         
-        sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 250, 25)];
+        sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 250, 25)];
         sTitleLabel.backgroundColor = [UIColor clearColor];
         sTitleLabel.tag = TAG_TITLE_LABEL;
-        sTitleLabel.font = [UIFont systemFontOfSize:17];
-        sTitleLabel.textColor = MAIN_BGCOLOR;
+        sTitleLabel.font = [UIFont systemFontOfSize:15];
+//        sTitleLabel.textColor = MAIN_BGCOLOR;
         [sCell.contentView addSubview:sTitleLabel];
         [sTitleLabel release];
         
-        sDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 25, 250, 15)];
+        sDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 35, 250, 15)];
         sDurationLabel.backgroundColor = [UIColor clearColor];
         sDurationLabel.tag = TAG_DURATION_LABEL;
         sDurationLabel.font = [UIFont systemFontOfSize:11];
@@ -762,7 +770,7 @@
         [sCell.contentView addSubview:sDelButton];
         
         
-        UIView* sSeperatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, sCell.bounds.size.height-1, sCell.bounds.size.width, 1)];
+        UIView* sSeperatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, tableView.rowHeight-1, sCell.bounds.size.width, 1)];
         sSeperatorLineView.backgroundColor = RGBA_COLOR(222, 222, 222, 1);
         sSeperatorLineView.layer.shadowColor = [RGBA_COLOR(224, 224, 224, 1) CGColor];
         sSeperatorLineView.layer.shadowOffset = CGSizeMake(0, -10);

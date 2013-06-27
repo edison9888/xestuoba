@@ -1,5 +1,5 @@
 //
-//  FMDatabasePool.m
+//  FMDatabaseQueue.m
 //  fmdb
 //
 //  Created by August Mueller on 6/22/11.
@@ -21,7 +21,7 @@
 
 @synthesize path = _path;
 
-+ (id)databaseQueueWithPath:(NSString*)aPath {
++ (instancetype)databaseQueueWithPath:(NSString*)aPath {
     
     FMDatabaseQueue *q = [[self alloc] initWithPath:aPath];
     
@@ -30,7 +30,7 @@
     return q;
 }
 
-- (id)initWithPath:(NSString*)aPath {
+- (instancetype)initWithPath:(NSString*)aPath {
     
     self = [super init];
     
@@ -59,7 +59,7 @@
     FMDBRelease(_path);
     
     if (_queue) {
-        dispatch_release(_queue);
+        FMDBDispatchQueueRelease(_queue);
         _queue = 0x00;
     }
 #if ! __has_feature(objc_arc)

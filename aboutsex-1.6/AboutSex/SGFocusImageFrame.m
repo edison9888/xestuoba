@@ -113,10 +113,11 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     _scrollView.delegate = self;
     
     // single tap gesture recognizer
-    UITapGestureRecognizer *tapGestureRecognize = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureRecognizer:)];
-    tapGestureRecognize.delegate = self;
-    tapGestureRecognize.numberOfTapsRequired = 1;
-    [_scrollView addGestureRecognizer:tapGestureRecognize];
+//    UITapGestureRecognizer *tapGestureRecognize = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureRecognizer:)];
+//    tapGestureRecognize.cancelsTouchesInView = YES;
+//    tapGestureRecognize.delegate = self;
+//    tapGestureRecognize.numberOfTapsRequired = 1;
+//    [_scrollView addGestureRecognizer:tapGestureRecognize];
     _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width * imageItems.count, _scrollView.frame.size.height);
     for (int i = 0; i < imageItems.count; i++) {
         SGFocusImageItem *item = [imageItems objectAtIndex:i];
@@ -133,7 +134,8 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
         }
         else
         {
-            [imageView setBackgroundImageWithURL:[NSURL URLWithString:item.mURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
+//            [imageView setBackgroundImageWithURL:[NSURL URLWithString:item.mURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
+            [imageView setBackgroundImageWithURL:[NSURL URLWithString:item.mURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"loading.png"]];
         }
         
         
@@ -163,7 +165,7 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
         [_scrollView addSubview:sBottomView];
         [sBottomView release];
     }
-    [tapGestureRecognize release];
+//    [tapGestureRecognize release];
     
     [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:SWITCH_FOCUS_PICTURE_INTERVAL];
     //objc_setAssociatedObject(self, (const void *)SG_FOCUS_ITEM_ASS_KEY, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -200,8 +202,7 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    _pageControl.currentPage = (int)(scrollView.contentOffset.x / scrollView.frame.size.width);
-    
+    _pageControl.currentPage = (int)(scrollView.contentOffset.x / scrollView.frame.size.width);    
 }
 #pragma mark - UIButtonTouchEvent
 -(void)clickPageImage:(UIButton *)sender{

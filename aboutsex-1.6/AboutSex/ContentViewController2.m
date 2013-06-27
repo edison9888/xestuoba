@@ -158,6 +158,7 @@
     self.mBodyView = nil;
     self.mWebView = nil;
     self.containerView = nil;
+    self.mTextView.delegate = nil;
     self.mTextView = nil;
     self.mPageLoadingIndicator = nil;
     
@@ -206,6 +207,7 @@
 
     UIBarButtonItem* sBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:b];    
     self.navigationItem.rightBarButtonItem = sBarButtonItem;
+    self.navigationItem.rightBarButtonItem.customView.hidden = YES;
     [sBarButtonItem release];
     
     return;
@@ -480,6 +482,8 @@
     self.mTextView.editable = YES;
     self.mCollectionButton.enabled = YES;
     
+    self.navigationItem.rightBarButtonItem.customView.hidden = NO;
+    
     if (self.mJSExecutationTimer)
     {
         [self.mJSExecutationTimer invalidate];
@@ -638,7 +642,7 @@
             
             [sRequest setHTTPBody:sData];
             [sRequest setValue:[NSString stringWithFormat:@"%d", [sData length]] forHTTPHeaderField:@"Content-length"];
-            
+
             self.mRequest = sRequest;
             [sRequest release];
             

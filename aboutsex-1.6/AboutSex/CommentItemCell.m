@@ -18,6 +18,8 @@
 #define TAG_DING_BUTTON 202
 #define TAG_CAI_BUTTON  203
 
+#define CONTENT_FONT [UIFont systemFontOfSize:15]
+
 @implementation CommentItemCell
 @synthesize mCommentorLabel;
 @synthesize mContentLabel;
@@ -108,7 +110,7 @@
     self.mContentLabel = [[[UILabel alloc] initWithFrame:CGRectMake(sX, sY, sWidth, sHeight)] autorelease];
     self.mContentLabel.backgroundColor = [UIColor clearColor];
     self.mContentLabel.numberOfLines = 0;
-    self.mContentLabel.font = [UIFont systemFontOfSize:15];
+    self.mContentLabel.font = CONTENT_FONT;
     [self addSubview:self.mContentLabel];
     
     sY += sHeight;
@@ -189,8 +191,27 @@
     sFrame.origin.y = sY;
     self.mSeperatorLineView.frame = sFrame;    
     
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, sY+self.mSeperatorLineView.bounds.size.height);
+//    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, sY+self.mSeperatorLineView.bounds.size.height);
 }
+
+
++ (CGFloat) getCellHeightByComment:(CommentItem*)aComment
+{
+    CGSize sContentSize;
+    if (!aComment.mContent)
+    {
+        sContentSize = CGSizeZero;
+    }
+    else
+    {
+        CGSize sSize = CGSizeMake(WIDTH_CONTENT_LABEL, HEIGHT_CONTENT_LABEL);
+        sContentSize = [aComment.mContent sizeWithFont:CONTENT_FONT constrainedToSize:sSize];
+        sContentSize.height += 8;
+    }
+    
+    return sContentSize.height+40;
+}
+
 
 
 - (void) buttonClicked:(UIButton*)aButton

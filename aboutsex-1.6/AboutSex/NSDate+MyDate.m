@@ -79,6 +79,13 @@
     return sDate;
 }
 
+- (NSDate*) midDayOftheDayInLocalTimezone
+{
+    NSDate* sDateForStartDay = [self startDateOfTheDayinLocalTimezone];
+    NSDate* sDateForMidDay = [sDateForStartDay dateByAddingTimeInterval:SECONDS_FOR_ONE_DAY/2];
+    return sDateForMidDay;
+}
+
 - (NSDate*) endDateOfTheDayinLocalTimezone
 {
     NSDate* sStartDateofTheDayInLocalTimeZone = [self startDateOfTheDayinLocalTimezone];

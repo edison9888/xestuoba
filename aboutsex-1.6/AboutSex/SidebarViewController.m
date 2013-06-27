@@ -68,8 +68,8 @@
     
     self.tableView.backgroundColor = RGBA_COLOR(72, 38, 8, 1);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.tableView.separatorColor = MAIN_BGCOLOR_SHALLOW;
-    self.tableView.rowHeight = 70;
+    self.tableView.bounces = NO;
+    self.tableView.rowHeight = 60;
 }
 
 - (void) viewWillAppear:(BOOL)animated

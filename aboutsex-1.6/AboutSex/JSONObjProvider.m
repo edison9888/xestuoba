@@ -40,6 +40,18 @@
 
 - (void) start
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        if (self.mUseCacheIfNeeded)
+        {
+            id sJSONObj = [self restoreBackup];
+            if (sJSONObj)
+            {
+                [self.mDelegate dataLoadedLocally:sJSONObj];
+                return;
+            }
+        }
+    });
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:self.mURLRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         [self loadSucessfully:JSON];
     } failure:^( NSURLRequest *request , NSHTTPURLResponse *response , NSError *error , id JSON ){
@@ -56,15 +68,15 @@
 
 - (void) loadFailed:(NSError*)aError
 {
-    if (self.mUseCacheIfNeeded)
-    {
-        id sJSONObj = [self restoreBackup];
-        if (sJSONObj)
-        {
-            [self.mDelegate dataLoadedLocally:sJSONObj];
-            return;
-        }
-    }
+//    if (self.mUseCacheIfNeeded)
+//    {
+//        id sJSONObj = [self restoreBackup];
+//        if (sJSONObj)
+//        {
+//            [self.mDelegate dataLoadedLocally:sJSONObj];
+//            return;
+//        }
+//    }
     
     if ([self.mDelegate respondsToSelector:@selector(dataLoadedFailed)])
     {

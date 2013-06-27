@@ -4,144 +4,258 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- */ 
+ */
 
 #import "SDWebImageManager.h"
-#import "SDImageCache.h"
-#import "SDWebImageDownloader.h"
+#import "UIImage+GIF.h"
+#import <objc/message.h>
 
-static SDWebImageManager *instance;
+@interface SDWebImageCombinedOperation : NSObject <SDWebImageOperation>
+
+@property (assign, nonatomic, getter = isCancelled) BOOL cancelled;
+@property (copy, nonatomic) void (^cancelBlock)();
+
+@end
+
+@interface SDWebImageManager ()
+
+@property (strong, nonatomic, readwrite) SDImageCache *imageCache;
+@property (strong, nonatomic, readwrite) SDWebImageDownloader *imageDownloader;
+@property (strong, nonatomic) NSMutableArray *failedURLs;
+@property (strong, nonatomic) NSMutableArray *runningOperations;
+
+@end
 
 @implementation SDWebImageManager
+
++ (id)sharedManager
+{
+    static dispatch_once_t once;
+    static id instance;
+    dispatch_once(&once, ^{instance = self.new;});
+    return instance;
+}
 
 - (id)init
 {
     if ((self = [super init]))
     {
-        delegates = [[NSMutableArray alloc] init];
-        downloaders = [[NSMutableArray alloc] init];
-        downloaderForURL = [[NSMutableDictionary alloc] init];
-        failedURLs = [[NSMutableArray alloc] init];
+        _imageCache = [self createCache];
+        _imageDownloader = SDWebImageDownloader.new;
+        _failedURLs = NSMutableArray.new;
+        _runningOperations = NSMutableArray.new;
     }
     return self;
 }
 
-- (void) dealloc
+- (SDImageCache *)createCache
 {
-    [delegates release];
-    [downloaders release];
-    [downloaderForURL release];
-    [failedURLs release];
-    [super dealloc];
+    return [SDImageCache sharedImageCache];
 }
 
-
-+ (id)sharedManager
+- (NSString *)cacheKeyForURL:(NSURL *)url
 {
-    if (instance == nil)
+    if (self.cacheKeyFilter)
     {
-        instance = [[SDWebImageManager alloc] init];
-    }
-
-    return instance;
-}
-
-- (UIImage *)imageWithURL:(NSURL *)url
-{
-    return [[SDImageCache sharedImageCache] imageFromKey:[url absoluteString]];
-}
-
-- (void)downloadWithURL:(NSURL *)url delegate:(id<SDWebImageManagerDelegate>)delegate
-{
-    if (url == nil || [failedURLs containsObject:url])
-    {
-        return;
-    }
-
-    // Share the same downloader for identical URLs so we don't download the same URL several times
-    SDWebImageDownloader *downloader = [downloaderForURL objectForKey:url];
-
-    if (!downloader)
-    {
-        downloader = [SDWebImageDownloader downloaderWithURL:url delegate:self];
-        [downloaderForURL setObject:downloader forKey:url];
-    }
-
-    @synchronized(self)
-    {
-        [delegates addObject:delegate];
-        [downloaders addObject:downloader];
-    }
-}
-
-- (void)cancelForDelegate:(id<SDWebImageManagerDelegate>)delegate
-{
-    @synchronized(self)
-    {
-        NSUInteger idx = [delegates indexOfObjectIdenticalTo:delegate];
-
-        if (idx == NSNotFound)
-        {
-            return;
-        }
-
-        SDWebImageDownloader *downloader = [[downloaders objectAtIndex:idx] retain];
-    
-        [delegates removeObjectAtIndex:idx];
-        [downloaders removeObjectAtIndex:idx];
-
-        if (![downloaders containsObject:downloader])
-        {
-            // No more delegate are waiting for this download, cancel it
-            [downloader cancel];
-            [downloaderForURL removeObjectForKey:downloader.url];
-        }
-
-        [downloader release];
-    }
-}
-
-- (void)imageDownloader:(SDWebImageDownloader *)downloader didFinishWithImage:(UIImage *)image
-{
-    [downloader retain];
-
-    @synchronized(self)
-    {
-        // Notify all the delegates with this downloader
-        for (NSInteger idx = [downloaders count] - 1; idx >= 0; idx--)
-        {
-            SDWebImageDownloader *aDownloader = [downloaders objectAtIndex:idx];
-            if (aDownloader == downloader)
-            {
-                id<SDWebImageManagerDelegate> delegate = [delegates objectAtIndex:idx];
-
-                if (image && [delegate respondsToSelector:@selector(webImageManager:didFinishWithImage:)])
-                {
-                    [delegate performSelector:@selector(webImageManager:didFinishWithImage:) withObject:self withObject:image];
-                }
-
-                [downloaders removeObjectAtIndex:idx];
-                [delegates removeObjectAtIndex:idx];
-            }
-        }
-    }
-
-    if (image)
-    {
-        // Store the image in the cache
-        [[SDImageCache sharedImageCache] storeImage:image forKey:[downloader.url absoluteString]];
+        return self.cacheKeyFilter(url);
     }
     else
     {
-        // The image can't be downloaded from this URL, mark the URL as failed so we won't try and fail again and again
-        [failedURLs addObject:downloader.url];
+        return [url absoluteString];
     }
-
-
-    // Release the downloader
-    [downloaderForURL removeObjectForKey:downloader.url];
-    [downloader release];
 }
 
+- (id<SDWebImageOperation>)downloadWithURL:(NSURL *)url options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletedWithFinishedBlock)completedBlock
+{    
+    // Very common mistake is to send the URL using NSString object instead of NSURL. For some strange reason, XCode won't
+    // throw any warning for this type mismatch. Here we failsafe this error by allowing URLs to be passed as NSString.
+    if ([url isKindOfClass:NSString.class])
+    {
+        url = [NSURL URLWithString:(NSString *)url];
+    }
+
+    // Prevents app crashing on argument type error like sending NSNull instead of NSURL
+    if (![url isKindOfClass:NSURL.class])
+    {
+        url = nil;
+    }
+
+    __block SDWebImageCombinedOperation *operation = SDWebImageCombinedOperation.new;
+    __weak SDWebImageCombinedOperation *weakOperation = operation;
+    
+    BOOL isFailedUrl = NO;
+    @synchronized(self.failedURLs)
+    {
+        isFailedUrl = [self.failedURLs containsObject:url];
+    }
+
+    if (!url || !completedBlock || (!(options & SDWebImageRetryFailed) && isFailedUrl))
+    {
+        if (completedBlock)
+        {
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:nil];
+            completedBlock(nil, error, SDImageCacheTypeNone, YES);
+        }
+        return operation;
+    }
+
+    @synchronized(self.runningOperations)
+    {
+        [self.runningOperations addObject:operation];
+    }
+    NSString *key = [self cacheKeyForURL:url];
+
+    [self.imageCache queryDiskCacheForKey:key done:^(UIImage *image, SDImageCacheType cacheType)
+    {
+        if (operation.isCancelled) return;
+
+        if ((!image || options & SDWebImageRefreshCached) && (![self.delegate respondsToSelector:@selector(imageManager:shouldDownloadImageForURL:)] || [self.delegate imageManager:self shouldDownloadImageForURL:url]))
+        {
+            if (image && options & SDWebImageRefreshCached)
+            {
+                // If image was found in the cache bug SDWebImageRefreshCached is provided, notify about the cached image
+                // AND try to re-download it in order to let a chance to NSURLCache to refresh it from server.
+                completedBlock(image, nil, cacheType, YES);
+            }
+
+            // download if no image or requested to refresh anyway, and download allowed by delegate
+            SDWebImageDownloaderOptions downloaderOptions = 0;
+            if (options & SDWebImageLowPriority) downloaderOptions |= SDWebImageDownloaderLowPriority;
+            if (options & SDWebImageProgressiveDownload) downloaderOptions |= SDWebImageDownloaderProgressiveDownload;
+            if (options & SDWebImageRefreshCached) downloaderOptions |= SDWebImageDownloaderUseNSURLCache;
+            if (image && options & SDWebImageRefreshCached)
+            {
+                // force progressive off if image already cached but forced refreshing
+                downloaderOptions &= ~SDWebImageDownloaderProgressiveDownload;
+                // ignore image read from NSURLCache if image if cached but force refreshing
+                downloaderOptions |= SDWebImageDownloaderIgnoreCachedResponse;
+            }
+            __block id<SDWebImageOperation> subOperation = [self.imageDownloader downloadImageWithURL:url options:downloaderOptions progress:progressBlock completed:^(UIImage *downloadedImage, NSData *data, NSError *error, BOOL finished)
+            {                
+                if (weakOperation.cancelled)
+                {
+                    completedBlock(nil, nil, SDImageCacheTypeNone, finished);
+                }
+                else if (error)
+                {
+                    completedBlock(nil, error, SDImageCacheTypeNone, finished);
+
+                    if (error.code != NSURLErrorNotConnectedToInternet)
+                    {
+                        @synchronized(self.failedURLs)
+                        {
+                            [self.failedURLs addObject:url];
+                        }
+                    }
+                }
+                else
+                {
+                    BOOL cacheOnDisk = !(options & SDWebImageCacheMemoryOnly);
+
+                    if (options & SDWebImageRefreshCached && image && !downloadedImage)
+                    {
+                        // Image refresh hit the NSURLCache cache, do not call the completion block
+                    }
+                    // NOTE: We don't call transformDownloadedImage delegate method on animated images as most transformation code would mangle it
+                    else if (downloadedImage && !downloadedImage.images && [self.delegate respondsToSelector:@selector(imageManager:transformDownloadedImage:withURL:)])
+                    {
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
+                        {
+                            UIImage *transformedImage = [self.delegate imageManager:self transformDownloadedImage:downloadedImage withURL:url];
+
+                            dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                completedBlock(transformedImage, nil, SDImageCacheTypeNone, finished);
+                            });
+
+                            if (transformedImage && finished)
+                            {
+                                NSData *dataToStore = [transformedImage isEqual:downloadedImage] ? data : nil;
+                                [self.imageCache storeImage:transformedImage imageData:dataToStore forKey:key toDisk:cacheOnDisk];
+                            }
+                        });
+                    }
+                    else
+                    {
+                        completedBlock(downloadedImage, nil, SDImageCacheTypeNone, finished);
+
+                        if (downloadedImage && finished)
+                        {
+                            [self.imageCache storeImage:downloadedImage imageData:data forKey:key toDisk:cacheOnDisk];
+                        }
+                    }
+                }
+
+                if (finished)
+                {
+                    @synchronized(self.runningOperations)
+                    {
+                        [self.runningOperations removeObject:operation];
+                    }
+                }
+            }];
+            operation.cancelBlock = ^{[subOperation cancel];};
+        }
+        else if (image)
+        {
+            completedBlock(image, nil, cacheType, YES);
+            @synchronized(self.runningOperations)
+            {
+                [self.runningOperations removeObject:operation];
+            }
+        }
+        else
+        {
+            // Image not in cache and download disallowed by delegate
+            completedBlock(nil, nil, SDImageCacheTypeNone, YES);
+            @synchronized(self.runningOperations)
+            {
+                [self.runningOperations removeObject:operation];
+            }
+        }
+    }];
+
+    return operation;
+}
+
+- (void)cancelAll
+{
+    @synchronized(self.runningOperations)
+    {
+        [self.runningOperations makeObjectsPerformSelector:@selector(cancel)];
+        [self.runningOperations removeAllObjects];
+    }
+}
+
+- (BOOL)isRunning
+{
+    return self.runningOperations.count > 0;
+}
+
+@end
+
+@implementation SDWebImageCombinedOperation
+
+- (void)setCancelBlock:(void (^)())cancelBlock
+{
+    if (self.isCancelled)
+    {
+        if (cancelBlock) cancelBlock();
+    }
+    else
+    {
+        _cancelBlock = [cancelBlock copy];
+    }
+}
+
+- (void)cancel
+{
+    self.cancelled = YES;
+    if (self.cancelBlock)
+    {
+        self.cancelBlock();
+        self.cancelBlock = nil;
+    }
+}
 
 @end

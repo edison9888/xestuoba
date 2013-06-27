@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AffectionViewController.h"
 
 @protocol StreamViewControllerDelegate <NSObject>
 
@@ -17,8 +18,7 @@
 
 @end
 
-
-@interface StreamViewController : UIViewController<StreamViewControllerDelegate>
+@interface StreamViewController : UIViewController<StreamViewControllerDelegate, AffectionViewControllerDelegate>
 
 + (UINavigationController*) shared;
 - (void) refreshFromOutside;//just goto the newstream viewcontroller and the refresh for new streams if any.

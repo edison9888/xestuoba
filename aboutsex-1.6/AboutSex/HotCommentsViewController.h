@@ -12,7 +12,7 @@
 #import "CommentItemCellDelegate.h"
 
 
-@interface HotCommentsViewController : SimplePageViewController
+@interface HotCommentsViewController : SimplePageViewController<CommentItemCellDelegate>
 {
     id<AffectionViewControllerDelegate> mDelegate;
 }
