@@ -1,13 +1,13 @@
 //
-//  FontSizeSettingController.h
+//  FontSizeSettingController2.h
 //  AboutSex
 //
-//  Created by Wen Shane on 12-11-28.
+//  Created by Wen Shane on 13-6-28.
 //
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FontSizeSettingController : UIViewController
+@interface FontSizeSettingController2 : UITableViewController
 
 @end
