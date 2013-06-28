@@ -201,7 +201,7 @@
         Period* sPeriod = [[SharedStates getInstance] getPeriod];
         PeriodSettingViewController* sPeriodSettingViewController = [[PeriodSettingViewController alloc] initWithInitPeriod:sPeriod];
         sPeriodSettingViewController.mDelegate = self;
-        CGFloat sHeightOfSettingView = 280;
+        CGFloat sHeightOfSettingView = 250;
         CGRect sFrame = CGRectMake(0, [self containerView].bounds.size.height-sHeightOfSettingView, [self containerView].bounds.size.width, sHeightOfSettingView);
         sPeriodSettingViewController.view.frame = sFrame;
         
@@ -213,8 +213,6 @@
     {
         UIView* sView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
         sView.backgroundColor = [UIColor blackColor];
-        sView.alpha = 0.8;
-
         self.mBlackBackgroundView = sView;
     }
     
@@ -260,7 +258,7 @@
         self.mBlackBackgroundView.alpha = 0;
         [[self containerView] addSubview:self.mBlackBackgroundView];
         [UIView animateWithDuration:0.3 animations:^{
-            self.mBlackBackgroundView.alpha = 0.7;
+            self.mBlackBackgroundView.alpha = 0.4;
             [[self containerView] addSubview:self.mPeriodSettingController.view];
         }completion:^(BOOL finished){
         }];

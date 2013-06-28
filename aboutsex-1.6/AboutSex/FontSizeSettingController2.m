@@ -31,7 +31,10 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    UIView* sBGView = [[UIView alloc] init];
+    sBGView.backgroundColor = [UIColor whiteColor];
+    [self.tableView setBackgroundView:sBGView];
+    [sBGView release];
 }
 
 - (NSDictionary*)fontMap

@@ -6,17 +6,17 @@
 //
 //
 
-#import "FontSizeSettingController2.h"
+#import "FontSizeSettingController.h"
 #import "UserConfiger.h"
 
 
-@interface FontSizeSettingController2 ()
+@interface FontSizeSettingController ()
 {
 }
 
 @end
 
-@implementation FontSizeSettingController2
+@implementation FontSizeSettingController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,7 +31,10 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    UIView* sBGView = [[UIView alloc] init];
+    sBGView.backgroundColor = [UIColor whiteColor];
+    [self.tableView setBackgroundView:sBGView];
+    [sBGView release];
 }
 
 - (NSDictionary*)fontMap

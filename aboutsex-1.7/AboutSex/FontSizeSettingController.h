@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FontSizeSettingController2 : UITableViewController
+@interface FontSizeSettingController : UITableViewController
 
 @end

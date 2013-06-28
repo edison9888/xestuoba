@@ -17,7 +17,7 @@
 
 #import "UserConfiger.h"
 
-#import "FontSizeSettingController2.h"
+#import "FontSizeSettingController.h"
 #import "RecommandedAppsController.h"
 #import "FavoriteViewController.h"
 #import "CustomCellBackgroundView.h"
@@ -444,7 +444,7 @@
 - (void) presentFontSizeSettingViewController
 {
     
-    FontSizeSettingController2* sFontSizeSettingViewController = [[FontSizeSettingController2 alloc] initWithStyle:UITableViewStyleGrouped];
+    FontSizeSettingController* sFontSizeSettingViewController = [[FontSizeSettingController alloc] initWithStyle:UITableViewStyleGrouped];
     sFontSizeSettingViewController.hidesBottomBarWhenPushed = YES;
     sFontSizeSettingViewController.title = NSLocalizedString(@"contentsfontsize", nil);
     

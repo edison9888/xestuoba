@@ -183,7 +183,7 @@
 		143FF3E1177D1CF70039B65F /* play16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3DF177D1CF70039B65F /* play16@2x.png */; };
 		143FF3E9177D1E430039B65F /* pause16.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3E7177D1E430039B65F /* pause16.png */; };
 		143FF3EA177D1E430039B65F /* pause16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3E8177D1E430039B65F /* pause16@2x.png */; };
-		143FF3F0177D23B50039B65F /* FontSizeSettingController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 143FF3EF177D23B50039B65F /* FontSizeSettingController2.m */; };
+		143FF3F0177D23B50039B65F /* FontSizeSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143FF3EF177D23B50039B65F /* FontSizeSettingController.m */; };
 		1441938A17793643000B6D52 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441938917793643000B6D52 /* SettingViewController.m */; };
 		1441938C17793EE8000B6D52 /* red7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1441938B17793EE8000B6D52 /* red7.png */; };
 		1441938F177951F6000B6D52 /* MyProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441938E177951F6000B6D52 /* MyProgressView.m */; };
@@ -460,7 +460,6 @@
 		14ECB1EE1666110800796187 /* font24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1EC1666110800796187 /* font24.png */; };
 		14ECB1EF1666110800796187 /* font24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14ECB1ED1666110800796187 /* font24@2x.png */; };
 		14ECB1F21666199B00796187 /* UserConfiger.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1F11666199A00796187 /* UserConfiger.m */; };
-		14ECB1F51666216100796187 /* FontSizeSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1F41666216100796187 /* FontSizeSettingController.m */; };
 		14ECB1F81666237200796187 /* CustomCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1F71666237200796187 /* CustomCellBackgroundView.m */; };
 		14ECB1FB16665F5700796187 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ECB1FA16665F5700796187 /* CommonViewController.m */; };
 		14F9239A16855EA700A49CD1 /* pregancy140*100.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F9239816855EA700A49CD1 /* pregancy140*100.png */; };
@@ -821,8 +820,8 @@
 		143FF3DF177D1CF70039B65F /* play16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play16@2x.png"; path = "resources/play16@2x.png"; sourceTree = "<group>"; };
 		143FF3E7177D1E430039B65F /* pause16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause16.png; path = resources/pause16.png; sourceTree = "<group>"; };
 		143FF3E8177D1E430039B65F /* pause16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause16@2x.png"; path = "resources/pause16@2x.png"; sourceTree = "<group>"; };
-		143FF3EE177D23B50039B65F /* FontSizeSettingController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontSizeSettingController2.h; sourceTree = "<group>"; };
-		143FF3EF177D23B50039B65F /* FontSizeSettingController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontSizeSettingController2.m; sourceTree = "<group>"; };
+		143FF3EE177D23B50039B65F /* FontSizeSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontSizeSettingController.h; sourceTree = "<group>"; };
+		143FF3EF177D23B50039B65F /* FontSizeSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontSizeSettingController.m; sourceTree = "<group>"; };
 		1441938917793643000B6D52 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		1441938B17793EE8000B6D52 /* red7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red7.png; sourceTree = "<group>"; };
 		1441938D177951F6000B6D52 /* MyProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProgressView.h; sourceTree = "<group>"; };
@@ -1249,8 +1248,6 @@
 		14ECB1ED1666110800796187 /* font24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "font24@2x.png"; path = "resources/font24@2x.png"; sourceTree = "<group>"; };
 		14ECB1F01666199A00796187 /* UserConfiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserConfiger.h; sourceTree = "<group>"; };
 		14ECB1F11666199A00796187 /* UserConfiger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserConfiger.m; sourceTree = "<group>"; };
-		14ECB1F31666216100796187 /* FontSizeSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontSizeSettingController.h; sourceTree = "<group>"; };
-		14ECB1F41666216100796187 /* FontSizeSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontSizeSettingController.m; sourceTree = "<group>"; };
 		14ECB1F61666237200796187 /* CustomCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackgroundView.h; sourceTree = "<group>"; };
 		14ECB1F71666237200796187 /* CustomCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackgroundView.m; sourceTree = "<group>"; };
 		14ECB1F916665F5700796187 /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
@@ -2675,10 +2672,8 @@
 			children = (
 				14FCE4741665EB9900CD668A /* SettingViewController.h */,
 				1441938917793643000B6D52 /* SettingViewController.m */,
-				14ECB1F31666216100796187 /* FontSizeSettingController.h */,
-				14ECB1F41666216100796187 /* FontSizeSettingController.m */,
-				143FF3EE177D23B50039B65F /* FontSizeSettingController2.h */,
-				143FF3EF177D23B50039B65F /* FontSizeSettingController2.m */,
+				143FF3EE177D23B50039B65F /* FontSizeSettingController.h */,
+				143FF3EF177D23B50039B65F /* FontSizeSettingController.m */,
 				1441E98116F6F1E300C9E09E /* YoumiAppsController.h */,
 				1441E98216F6F1E300C9E09E /* YoumiAppsController.m */,
 				14189E8916D0CB54009B3D87 /* YoumiAppsController2.h */,
@@ -3110,7 +3105,6 @@
 				141317EC16652F17003A615B /* SVSegmentedControl.m in Sources */,
 				141317ED16652F17003A615B /* SVSegmentedThumb.m in Sources */,
 				14ECB1F21666199B00796187 /* UserConfiger.m in Sources */,
-				14ECB1F51666216100796187 /* FontSizeSettingController.m in Sources */,
 				14ECB1F81666237200796187 /* CustomCellBackgroundView.m in Sources */,
 				14ECB1FB16665F5700796187 /* CommonViewController.m in Sources */,
 				1405C03F1678307500A1C1B5 /* JSONWrapper.m in Sources */,
@@ -3277,7 +3271,7 @@
 				14AEC53717788C4A006B88DE /* UMFeedbackViewController.m in Sources */,
 				1441938A17793643000B6D52 /* SettingViewController.m in Sources */,
 				1441938F177951F6000B6D52 /* MyProgressView.m in Sources */,
-				143FF3F0177D23B50039B65F /* FontSizeSettingController2.m in Sources */,
+				143FF3F0177D23B50039B65F /* FontSizeSettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
