@@ -89,17 +89,16 @@
         self.title =  NSLocalizedString(@"Library", nil);
 //        self.mIndexOfIconTouched = INVALID_INDEX;
         
-        UIButton* sPresentBaiduButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [sPresentBaiduButton setImage:[UIImage imageNamed:@"baidu 24.png"] forState:UIControlStateNormal];
-        sPresentBaiduButton.frame = CGRectMake(0, 0, 32, 32);
-        //    sRefreshButton.showsTouchWhenHighlighted = YES;
-        [sPresentBaiduButton addTarget:self action:@selector(presentBaiduViewController) forControlEvents:UIControlEventTouchDown];
+//        UIButton* sPresentBaiduButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [sPresentBaiduButton setImage:[UIImage imageNamed:@"baidu 24.png"] forState:UIControlStateNormal];
+//        sPresentBaiduButton.frame = CGRectMake(0, 0, 32, 32);
+//        //    sRefreshButton.showsTouchWhenHighlighted = YES;
+//        [sPresentBaiduButton addTarget:self action:@selector(presentBaiduViewController) forControlEvents:UIControlEventTouchDown];
         
         UIBarButtonItem* sAskBarButtonItem =  [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"AskandAnswer", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(presentBaiduViewController)];
         sAskBarButtonItem.style = UIBarButtonItemStylePlain;
         self.navigationItem.rightBarButtonItem = sAskBarButtonItem;
         [sAskBarButtonItem release];
-
         [self loadIconData];
     }
     

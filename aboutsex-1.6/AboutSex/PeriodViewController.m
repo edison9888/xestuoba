@@ -24,23 +24,27 @@
 #import "UIButtonLarge.h"
 #import "PeriodReferenceView.h"
 #import "MobClick.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PeriodViewController ()
 {
     PeriodSettingViewController* mPeriodSettingController;
     PeriodReferenceView* mPeriodReferenceView;
+    UIView* mBlackBackgroundView;
     
     UILabel* mDetailsLabel;
 }
 
 @property (nonatomic, retain) PeriodSettingViewController* mPeriodSettingController;
 @property (nonatomic, retain) PeriodReferenceView* mPeriodReferenceView;
+@property (nonatomic, retain) UIView* mBlackBackgroundView;
 @property (nonatomic, retain) UILabel* mDetailsLabel;
 @end
 
 @implementation PeriodViewController
 @synthesize mPeriodSettingController;
 @synthesize mPeriodReferenceView;
+@synthesize mBlackBackgroundView;
 @synthesize mDetailsLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -65,6 +69,7 @@
 {
     self.mPeriodSettingController =  nil;
     self.mPeriodReferenceView = nil;
+    self.mBlackBackgroundView = nil;
     self.mDetailsLabel = nil;
     [super dealloc];
 }
@@ -183,6 +188,11 @@
     
 }
 
+- (UIView*) containerView
+{
+//    return [UIApplication sharedApplication].keyWindow;
+    return self.navigationController.view;
+}
 
 - (void) setPeriods
 {
@@ -191,16 +201,25 @@
         Period* sPeriod = [[SharedStates getInstance] getPeriod];
         PeriodSettingViewController* sPeriodSettingViewController = [[PeriodSettingViewController alloc] initWithInitPeriod:sPeriod];
         sPeriodSettingViewController.mDelegate = self;
-        CGFloat sYOffset = 150;
-        CGRect sFrame = CGRectMake(0, sYOffset, self.view.bounds.size.width, self.view.bounds.size.height-sYOffset);
+        CGFloat sHeightOfSettingView = 280;
+        CGRect sFrame = CGRectMake(0, [self containerView].bounds.size.height-sHeightOfSettingView, [self containerView].bounds.size.width, sHeightOfSettingView);
         sPeriodSettingViewController.view.frame = sFrame;
         
         self.mPeriodSettingController = sPeriodSettingViewController;
         [sPeriodSettingViewController release];
     }
     
+    if (!self.mBlackBackgroundView)
+    {
+        UIView* sView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+        sView.backgroundColor = [UIColor blackColor];
+        sView.alpha = 0.8;
+
+        self.mBlackBackgroundView = sView;
+    }
+    
     //
-    if (self.mPeriodSettingController.view.superview == self.view)
+    if (self.mPeriodSettingController.view.superview == [self containerView])
     {
         CATransition *animation = [CATransition  animation];
         animation.delegate = self;
@@ -208,11 +227,21 @@
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         animation.type = kCATransitionPush;
         animation.subtype = kCATransitionFromBottom;
+        
+        
         [self.mPeriodSettingController.view setAlpha:0.0f];
         [self.mPeriodSettingController.view.layer addAnimation:animation forKey:@"pushOut"];
-        [self.mPeriodSettingController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.3];
-        self.monthView.userInteractionEnabled = YES;
-        [self.navigationItem setHidesBackButton:NO animated:YES];
+        
+//        [self.mPeriodSettingController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.3];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.mBlackBackgroundView.alpha = 0;
+        }completion:^(BOOL finished){
+            [self.mPeriodSettingController.view removeFromSuperview];
+            [self.mBlackBackgroundView removeFromSuperview];
+//            [self.mPeriodSettingController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.3];
+        }];
+//        self.monthView.userInteractionEnabled = YES;
     }
     else
     {
@@ -222,13 +251,21 @@
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         animation.type = kCATransitionMoveIn;
         animation.subtype = kCATransitionFromTop;
+        
+        
         [self.mPeriodSettingController.view setAlpha:1.0f];
         [self.mPeriodSettingController.view.layer addAnimation:animation forKey:@"pushIn"];
         [self.mPeriodSettingController resetPeriod: [[SharedStates getInstance] getPeriod]];
    
-        [self.view addSubview:self.mPeriodSettingController.view];
-        self.monthView.userInteractionEnabled = NO;
-        [self.navigationItem setHidesBackButton:YES animated:YES];
+        self.mBlackBackgroundView.alpha = 0;
+        [[self containerView] addSubview:self.mBlackBackgroundView];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.mBlackBackgroundView.alpha = 0.7;
+            [[self containerView] addSubview:self.mPeriodSettingController.view];
+        }completion:^(BOOL finished){
+        }];
+
+//        self.monthView.userInteractionEnabled = NO;
     }
     
     return;

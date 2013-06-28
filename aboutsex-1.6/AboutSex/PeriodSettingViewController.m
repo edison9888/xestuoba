@@ -97,7 +97,7 @@
     
     UINavigationItem* sNavItem = [[[UINavigationItem alloc] initWithTitle:NSLocalizedString(@"Set Period", nil) ] autorelease];
     
-    sNavItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Ok", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(confirmBtnPressed)] autorelease];
+    sNavItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(confirmBtnPressed)] autorelease];
     sNavItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelBtnPressed)] autorelease];
     
     [sBtnBar pushNavigationItem:sNavItem animated:NO];

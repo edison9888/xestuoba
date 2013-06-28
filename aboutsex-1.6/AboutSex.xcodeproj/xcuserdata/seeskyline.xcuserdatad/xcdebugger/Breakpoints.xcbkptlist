@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/PeriodViewController.m"
-         timestampString = "393852752.35222"
+         timestampString = "394089897.100757"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
+         startingLineNumber = "248"
+         endingLineNumber = "248"
          landmarkName = "-setPeriods"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/PeriodViewController.m"
-         timestampString = "393852752.35222"
+         timestampString = "394089897.100757"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "394"
-         endingLineNumber = "394"
+         startingLineNumber = "431"
+         endingLineNumber = "431"
          landmarkName = "-confirmWith:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/PeriodViewController.m"
-         timestampString = "393852752.35222"
+         timestampString = "394089897.100757"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "372"
-         endingLineNumber = "372"
+         startingLineNumber = "409"
+         endingLineNumber = "409"
          landmarkName = "+getStatusForDate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -391,6 +391,19 @@
          startingLineNumber = "692"
          endingLineNumber = "692"
          landmarkName = "-setTapInteractionsWhenOpened:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/FontSizeSettingController2.m"
+         timestampString = "394079384.350237"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "95"
+         endingLineNumber = "95"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

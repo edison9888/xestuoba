@@ -9,7 +9,7 @@
 #import "PointsManager.h"
 #import "AdWallManager.h"
 #import "SharedVariables.h"
-
+#import "SharedStates.h"
 
 
 @interface PointsManager()
@@ -111,8 +111,12 @@
     }
     
     self.mPresentintController = aPresentController;
+        
+    NSString* sInstruction = [[SharedStates getInstance] getAcuringPointsInstruction];
 
-    [self.mUsedWall showWall];
+    UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:sInstruction  delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"I know", nil), nil];
+    [sAlertView show];
+    [sAlertView release];
     
     return YES;
 }
@@ -147,6 +151,11 @@
     }
 
     return;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.mUsedWall showWall];
 }
 
 ////

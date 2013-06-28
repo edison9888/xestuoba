@@ -111,6 +111,9 @@ typedef enum  {
 
 - (ENUM_AD_BAR_SOURCE_TYPE) getADBarSourceType;
 - (NSString*) getCommentNotice;
+- (NSString*) getAcuirePointsNotice;
+- (NSString*) getAcuringPointsInstruction;
+
 
 + (BOOL) isCurLanguageChinese;
 

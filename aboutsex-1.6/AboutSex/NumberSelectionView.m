@@ -69,7 +69,7 @@
     self.mNavBar.barStyle = UIBarStyleDefault;
     
     UINavigationItem* sNavItem = [[[UINavigationItem alloc] initWithTitle:aTitle] autorelease];
-    sNavItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Ok", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cfmBtnPressed)] autorelease];
+    sNavItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cfmBtnPressed)] autorelease];
     sNavItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelBtnPressed)] autorelease];
     
     

@@ -267,7 +267,7 @@
     sTableView.delegate = self;
     [sTableView setBackgroundView:nil];
     [sTableView setBackgroundColor:[UIColor clearColor]];
-    sTableView.rowHeight = 60;
+    sTableView.rowHeight = 58;
 //    sTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     sTableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
@@ -721,7 +721,7 @@
     static NSString* sCellID = @"cell";
     
     
-    UILabel* sEdgeStick = nil;
+    UIButton* sSelectedTag = nil;
     UILabel* sTitleLabel = nil;
     UILabel* sDurationLabel = nil;
     TaggedButton* sDelButton = nil;
@@ -731,18 +731,18 @@
         sCell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: sCellID] autorelease];
         sCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        sSelectedTag = [UIButton buttonWithType:UIButtonTypeCustom];
+        sSelectedTag.frame = CGRectMake(0, 0, 14, 14);
+        [sSelectedTag setCenter:CGPointMake(sSelectedTag.center.x, tableView.rowHeight/2+2)];
+        [sSelectedTag setImage:[UIImage imageNamed:@"play16"] forState:UIControlStateNormal];
+//        [sEdgeStick setImage:[UIImage imageNamed:@"pause16"] forState:UIControlStateSelected];
+        sSelectedTag.tag = TAG_EDGE_STICK;
+        sSelectedTag.hidden = YES;
         
-        sEdgeStick = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 3, 32)];
-        [sEdgeStick setCenter:CGPointMake(sEdgeStick.center.x, tableView.rowHeight/2+2)];
-        sEdgeStick.backgroundColor = MAIN_BGCOLOR;
-        sEdgeStick.tag = TAG_EDGE_STICK;
-        sEdgeStick.hidden = YES;
-        
-        [sCell.contentView addSubview:sEdgeStick];
-        [sEdgeStick release];
+        [sCell.contentView addSubview:sSelectedTag];
         
         
-        sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 250, 25)];
+        sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 250, 25)];
         sTitleLabel.backgroundColor = [UIColor clearColor];
         sTitleLabel.tag = TAG_TITLE_LABEL;
         sTitleLabel.font = [UIFont systemFontOfSize:15];
@@ -750,7 +750,7 @@
         [sCell.contentView addSubview:sTitleLabel];
         [sTitleLabel release];
         
-        sDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 35, 250, 15)];
+        sDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(22, 35, 250, 15)];
         sDurationLabel.backgroundColor = [UIColor clearColor];
         sDurationLabel.tag = TAG_DURATION_LABEL;
         sDurationLabel.font = [UIFont systemFontOfSize:11];
@@ -784,7 +784,7 @@
     }
     else
     {
-        sEdgeStick = (UILabel*)[sCell.contentView viewWithTag:TAG_EDGE_STICK];
+        sSelectedTag = (UIButton*)[sCell.contentView viewWithTag:TAG_EDGE_STICK];
         sTitleLabel = (UILabel*)[sCell.contentView viewWithTag:TAG_TITLE_LABEL];
         sDurationLabel = (UILabel*)[sCell.contentView viewWithTag:TAG_DURATION_LABEL];
         sDelButton = (TaggedButton*)[sCell.contentView viewWithTag:TAG_DELETE_BUTTON];
@@ -799,11 +799,11 @@
     
     if (indexPath.row == self.mSelectedIndex)
     {
-        sEdgeStick.hidden = NO;
+        sSelectedTag.hidden = NO;
     }
     else
     {
-        sEdgeStick.hidden = YES;
+        sSelectedTag.hidden = YES;
     }
 
     return sCell;

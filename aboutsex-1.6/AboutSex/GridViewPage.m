@@ -167,7 +167,7 @@
     
     
     //label displaying the title for the corresponding category.
-    CGFloat sHeightOfTitle = 20;
+    CGFloat sHeightOfTitle = 18;
     UILabel *sTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, cell.contentView.bounds.size.height-sHeightOfTitle, cell.contentView.bounds.size.width, sHeightOfTitle)];
     sTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     sTitleLabel.text = sIconData.mTitle;

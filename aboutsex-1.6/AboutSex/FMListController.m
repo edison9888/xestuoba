@@ -20,6 +20,7 @@
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
 #import "UILabel+VerticalAlign.h"
+#import "SharedStates.h"
 
 
 #define TAG_IMAGEVIEW 101
@@ -338,7 +339,7 @@
         }
         else
         {
-            UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"Your points is not enough, please earn more via downloading and installing those interesting apps", nil)  delegate:self cancelButtonTitle:NSLocalizedString(@"Later", nil) otherButtonTitles:NSLocalizedString(@"Acquire now", nil), nil];
+            UIAlertView* sAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:[[SharedStates getInstance] getAcuirePointsNotice]  delegate:self cancelButtonTitle:NSLocalizedString(@"Later", nil) otherButtonTitles:NSLocalizedString(@"Acquire now", nil), nil];
             [sAlertView show];
             [sAlertView release];
         }

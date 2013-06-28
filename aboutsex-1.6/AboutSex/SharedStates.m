@@ -580,6 +580,31 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
     return sCommentNotice;
 }
 
+- (NSString*) getAcuirePointsNotice
+{
+    NSString* sAcuirePointsNotice = [MobClick getConfigParams:@"UPID_POINTS_SHORT_NOTICE"];
+    if (!sAcuirePointsNotice
+        || sAcuirePointsNotice.length <= 0)
+    {
+        sAcuirePointsNotice = NSLocalizedString(@"Your points is not enough, please earn more via downloading and installing those interesting apps", nil);
+    }
+    return sAcuirePointsNotice;
+
+}
+
+- (NSString*) getAcuringPointsInstruction
+{
+    NSString* sAcuringPointsInstruction = [MobClick getConfigParams:@"UPID_ACQUIRE_POINITS_INSTRUCTION"];
+    if (!sAcuringPointsInstruction
+        || sAcuringPointsInstruction.length <= 0)
+    {
+        sAcuringPointsInstruction = NSLocalizedString(@"Points Instruction", nil);
+    }
+    return sAcuringPointsInstruction;
+
+}
+
+
 - (Period*) getPeriod
 {
     NSUserDefaults* sDefaults = [NSUserDefaults standardUserDefaults];
