@@ -14,6 +14,7 @@
 
 #import "StreamItem.h"
 #import "MobClick.h"
+#import "NobackupManager.h"
 
 @interface StoreManagerEx()
 {
@@ -851,6 +852,11 @@
     BOOL sStatus = [[NSFileManager defaultManager] createDirectoryAtPath:aDocumentsDir withIntermediateDirectories:NO attributes:nil error:nil];
     if (sStatus)
     {
+        //1. add no-back-up attribute to directory
+        NSURL* sSubDocumentsURL = [NSURL fileURLWithPath:aDocumentsDir];
+        [NobackupManager addSkipBackupAttributeToItemAtURL:sSubDocumentsURL];
+        
+        //2. copy files from bundle to Documents
         NSArray* sBundleFileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:aBundleDirPath error:nil];
         for (NSString* sBundleFileName in sBundleFileNames)
         {

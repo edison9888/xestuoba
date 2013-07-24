@@ -69,6 +69,7 @@
     [YouMiConfig launchWithAppID: SECRET_ID_YOUMI appSecret: SECRET_KEY_YOUMI];
     [YouMiConfig setUseInAppStore:YES];
     [YouMiConfig setIsTesting:NO];
+    [YouMiConfig setShouldGetLocation:NO];//location-based service should be closed to pass Apple's review.
 //    [AppConnect getConnect:AD_WAPS_ID pid:CHANNEL_ID];
 //    [AppConnect initPopAd];
 

@@ -187,7 +187,14 @@
     switch (section)
     {
         case 0:
-            return 3;
+            if ([[SharedStates getInstance] wallEnabled])
+            {
+                return 3;
+            }
+            else
+            {
+                return 2;
+            }
         case 1:
             return 3;
         case 2:
@@ -261,14 +268,14 @@
                 [sCell.imageView setImage:[UIImage imageNamed:@"heart24"]];
                 sCell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [[StoreManagerEx shared] getFavoritesNumber]];
             }
-            else if (1 == sRow)
+            else if (2 == sRow)
             {
                 sCell.textLabel.text = NSLocalizedString(@"My Points", nil);
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 [sCell.imageView setImage:[UIImage imageNamed:@"basket24"]];
                 sCell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [[PointsManager shared] getPoints]];
             }
-            else if (2 == sRow)
+            else if (1 == sRow)
             {
                 sCell.textLabel.text = NSLocalizedString(@"Period Prediction", nil);
                 sCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -391,12 +398,12 @@
         {
             [self presentFavoritesController];
         }
-        else if (1 == sRow)
+        else if (2 == sRow)
         {
             [self presentPointsGetterController];
             return;
         }
-        else if (2 == sRow)
+        else if (1 == sRow)
         {
             [self presentPeriodViewController];
             return;

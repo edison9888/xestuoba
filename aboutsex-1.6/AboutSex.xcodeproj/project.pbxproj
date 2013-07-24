@@ -179,6 +179,7 @@
 		143DB33A17753B5700DF948F /* red3.png in Resources */ = {isa = PBXBuildFile; fileRef = 143DB33817753B5700DF948F /* red3.png */; };
 		143DB34117753C0500DF948F /* red2.png in Resources */ = {isa = PBXBuildFile; fileRef = 143DB34017753C0500DF948F /* red2.png */; };
 		143E356617564A6C003CB10E /* PeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143E356517564A6C003CB10E /* PeriodViewController.m */; };
+		143ECC771794D79B003980DF /* NobackupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 143ECC761794D79B003980DF /* NobackupManager.m */; };
 		143FF3E0177D1CF70039B65F /* play16.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3DE177D1CF70039B65F /* play16.png */; };
 		143FF3E1177D1CF70039B65F /* play16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3DF177D1CF70039B65F /* play16@2x.png */; };
 		143FF3E9177D1E430039B65F /* pause16.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3E7177D1E430039B65F /* pause16.png */; };
@@ -817,6 +818,8 @@
 		143DB34017753C0500DF948F /* red2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red2.png; path = resources/red2.png; sourceTree = "<group>"; };
 		143E356417564A6C003CB10E /* PeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodViewController.h; sourceTree = "<group>"; };
 		143E356517564A6C003CB10E /* PeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodViewController.m; sourceTree = "<group>"; };
+		143ECC751794D79B003980DF /* NobackupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NobackupManager.h; sourceTree = "<group>"; };
+		143ECC761794D79B003980DF /* NobackupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NobackupManager.m; sourceTree = "<group>"; };
 		143FF3DE177D1CF70039B65F /* play16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play16.png; path = resources/play16.png; sourceTree = "<group>"; };
 		143FF3DF177D1CF70039B65F /* play16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play16@2x.png"; path = "resources/play16@2x.png"; sourceTree = "<group>"; };
 		143FF3E7177D1E430039B65F /* pause16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause16.png; path = resources/pause16.png; sourceTree = "<group>"; };
@@ -1761,6 +1764,15 @@
 			name = FM;
 			sourceTree = "<group>";
 		};
+		143ECC7D1794D7A3003980DF /* NoBackup */ = {
+			isa = PBXGroup;
+			children = (
+				143ECC751794D79B003980DF /* NobackupManager.h */,
+				143ECC761794D79B003980DF /* NobackupManager.m */,
+			);
+			name = NoBackup;
+			sourceTree = "<group>";
+		};
 		14419390177951FD000B6D52 /* MyProgressView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2343,6 +2355,7 @@
 				14B97D7615BE7E3D008E6F76 /* SVProgressHUD */,
 				14673B7B174B086F0097E8FF /* Timer */,
 				14419390177951FD000B6D52 /* MyProgressView */,
+				143ECC7D1794D7A3003980DF /* NoBackup */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -3278,6 +3291,7 @@
 				1441938A17793643000B6D52 /* SettingViewController.m in Sources */,
 				1441938F177951F6000B6D52 /* MyProgressView.m in Sources */,
 				143FF3F0177D23B50039B65F /* FontSizeSettingController2.m in Sources */,
+				143ECC771794D79B003980DF /* NobackupManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3364,7 +3378,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3380,7 +3394,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "167C2CC5-BD73-495D-A6B8-2DDE3E3991C2";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -3409,7 +3423,7 @@
 					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3483,7 +3497,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3499,7 +3513,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "167C2CC5-BD73-495D-A6B8-2DDE3E3991C2";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -3528,7 +3542,7 @@
 					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3584,7 +3598,7 @@
 					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
