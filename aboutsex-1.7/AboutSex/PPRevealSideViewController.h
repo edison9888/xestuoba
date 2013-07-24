@@ -239,6 +239,8 @@ typedef NSUInteger   PPRevealSideOptions;
 
 @property (nonatomic, readonly) PPRevealSideDirection sideDirectionOpened;
 
+@property (nonatomic, assign) BOOL noUnloadingIfSidebarsShowing;
+
 /**---------------------------------------------------------------------------------------
  * @name Init method
  *  ---------------------------------------------------------------------------------------

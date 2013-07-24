@@ -326,7 +326,8 @@
     [MobClick event:@"UEID_BUY_FM" attributes: sDict];
     
     //free
-    if (sFMInfo.mPrice <= 0)
+    if (![[SharedStates getInstance] wallEnabled]
+        || sFMInfo.mPrice <= 0)
     {
         [self startDownloadFM:sFMInfo];
     }
@@ -519,7 +520,8 @@
             [sBuyButton setNavigationButtonWithColor:MAIN_BGCOLOR_SHALLOW];
             sBuyButton.enabled = YES;
             
-            if (sFMInfo.mPrice <= 0)
+            if (![[SharedStates getInstance] wallEnabled]
+                || sFMInfo.mPrice <= 0)
             {
                 [sBuyButton setTitle:NSLocalizedString(@"Free", nil) forState:UIControlStateNormal];
             }
@@ -580,7 +582,10 @@
     if (-1 != sID)
     {
         FMInfo* sFMInfo = [self.mFMInfos objectAtIndex:sID];
-        [[PointsManager shared] consume:sFMInfo.mPrice];
+        if ([[SharedStates getInstance] wallEnabled])
+        {
+            [[PointsManager shared] consume:sFMInfo.mPrice];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEW_FM_DOWNLOADED object:self];
     }
     

@@ -213,6 +213,7 @@
     {
         UIView* sView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
         sView.backgroundColor = [UIColor blackColor];
+
         self.mBlackBackgroundView = sView;
     }
     

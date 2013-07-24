@@ -76,6 +76,7 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
 @synthesize options = _options;
 @synthesize bouncingOffset = _bouncingOffset;
 @synthesize delegate = _delegate;
+@synthesize noUnloadingIfSidebarsShowing;
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController {
     self = [super init];
@@ -585,6 +586,16 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
 }
 
 - (void)unloadViewControllerForSide:(PPRevealSideDirection)direction {
+    
+    if (self.noUnloadingIfSidebarsShowing)
+    {
+        CGRect sFrameOfRootView = self.rootViewController.view.frame;
+        if (!CGPointEqualToPoint(sFrameOfRootView.origin, CGPointZero))
+        {
+            return;
+        }
+    }
+
     NSNumber *key = [NSNumber numberWithInt:direction];
     UIViewController *controller = [_viewControllers objectForKey:key];
     

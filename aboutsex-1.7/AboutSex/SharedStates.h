@@ -113,7 +113,7 @@ typedef enum  {
 - (NSString*) getCommentNotice;
 - (NSString*) getAcuirePointsNotice;
 - (NSString*) getAcuringPointsInstruction;
-
+- (BOOL) wallEnabled;
 
 + (BOOL) isCurLanguageChinese;
 

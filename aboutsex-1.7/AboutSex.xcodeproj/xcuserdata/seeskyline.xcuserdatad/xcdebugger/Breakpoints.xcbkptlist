@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/PeriodViewController.m"
-         timestampString = "394122138.095967"
+         timestampString = "394122926.641274"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "246"
-         endingLineNumber = "246"
+         startingLineNumber = "247"
+         endingLineNumber = "247"
          landmarkName = "-setPeriods"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/PeriodViewController.m"
-         timestampString = "394122138.095967"
+         timestampString = "394122926.641274"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "429"
-         endingLineNumber = "429"
+         startingLineNumber = "430"
+         endingLineNumber = "430"
          landmarkName = "-confirmWith:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/PeriodViewController.m"
-         timestampString = "394122138.095967"
+         timestampString = "394122926.641274"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "407"
-         endingLineNumber = "407"
+         startingLineNumber = "408"
+         endingLineNumber = "408"
          landmarkName = "+getStatusForDate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -333,11 +333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/AppDelegate.m"
-         timestampString = "393994872.337285"
+         timestampString = "394939427.916817"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "326"
-         endingLineNumber = "326"
+         startingLineNumber = "327"
+         endingLineNumber = "327"
          landmarkName = "-pprevealSideViewController:shouldDeactivateGesture:forView:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -398,12 +398,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AboutSex/FontSizeSettingController2.m"
-         timestampString = "394079384.350237"
+         timestampString = "394113345.386148"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "98"
+         endingLineNumber = "98"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/FMListController.m"
+         timestampString = "394940277.225375"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "585"
+         endingLineNumber = "585"
+         landmarkName = "-downloadDone:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/FMListController.m"
+         timestampString = "394940286.824677"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "580"
+         endingLineNumber = "580"
+         landmarkName = "-downloadDone:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AboutSex/StoreManagerEx.m"
+         timestampString = "395631852.492022"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "857"
+         endingLineNumber = "857"
+         landmarkName = "-copyBundleFilesFromDir:toDocumentsDir:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

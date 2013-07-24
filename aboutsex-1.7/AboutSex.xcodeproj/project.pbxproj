@@ -179,6 +179,7 @@
 		143DB33A17753B5700DF948F /* red3.png in Resources */ = {isa = PBXBuildFile; fileRef = 143DB33817753B5700DF948F /* red3.png */; };
 		143DB34117753C0500DF948F /* red2.png in Resources */ = {isa = PBXBuildFile; fileRef = 143DB34017753C0500DF948F /* red2.png */; };
 		143E356617564A6C003CB10E /* PeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143E356517564A6C003CB10E /* PeriodViewController.m */; };
+		143ECC771794D79B003980DF /* NobackupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 143ECC761794D79B003980DF /* NobackupManager.m */; };
 		143FF3E0177D1CF70039B65F /* play16.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3DE177D1CF70039B65F /* play16.png */; };
 		143FF3E1177D1CF70039B65F /* play16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3DF177D1CF70039B65F /* play16@2x.png */; };
 		143FF3E9177D1E430039B65F /* pause16.png in Resources */ = {isa = PBXBuildFile; fileRef = 143FF3E7177D1E430039B65F /* pause16.png */; };
@@ -201,8 +202,6 @@
 		1441ADA01771D45B00D5DF9D /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441AD941771D45B00D5DF9D /* UIImageView+WebCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1441ADA51771D46D00D5DF9D /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441ADA21771D46D00D5DF9D /* MKAnnotationView+WebCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1441ADA61771D46D00D5DF9D /* NSData+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441ADA41771D46D00D5DF9D /* NSData+GIF.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1441E98016F6F15600C9E09E /* YoumiAppsController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441E97F16F6F15600C9E09E /* YoumiAppsController2.m */; };
-		1441E98316F6F1E300C9E09E /* YoumiAppsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441E98216F6F1E300C9E09E /* YoumiAppsController.m */; };
 		1441E99616F6F47100C9E09E /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 1441E99516F6F47100C9E09E /* UILabel+VerticalAlign.m */; };
 		14427C20173E916600A6CEB1 /* AdSpotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14427C1F173E916600A6CEB1 /* AdSpotManager.m */; };
 		14427C23173E917400A6CEB1 /* SpotAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 14427C22173E917400A6CEB1 /* SpotAdapter.m */; };
@@ -675,7 +674,6 @@
 		141702801684ADB9000AF866 /* life140*100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "life140*100@2x.png"; path = "resources/life140*100@2x.png"; sourceTree = "<group>"; };
 		1418374E16C5350800823700 /* CommentItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentItemCell.h; sourceTree = "<group>"; };
 		1418374F16C5350800823700 /* CommentItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentItemCell.m; sourceTree = "<group>"; };
-		14189E8916D0CB54009B3D87 /* YoumiAppsController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoumiAppsController2.h; sourceTree = "<group>"; };
 		14189E8B16D0CCA4009B3D87 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		14189E8D16D0CCB1009B3D87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		14189E8F16D0CCBA009B3D87 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -816,6 +814,8 @@
 		143DB34017753C0500DF948F /* red2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red2.png; path = resources/red2.png; sourceTree = "<group>"; };
 		143E356417564A6C003CB10E /* PeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodViewController.h; sourceTree = "<group>"; };
 		143E356517564A6C003CB10E /* PeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodViewController.m; sourceTree = "<group>"; };
+		143ECC751794D79B003980DF /* NobackupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NobackupManager.h; sourceTree = "<group>"; };
+		143ECC761794D79B003980DF /* NobackupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NobackupManager.m; sourceTree = "<group>"; };
 		143FF3DE177D1CF70039B65F /* play16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play16.png; path = resources/play16.png; sourceTree = "<group>"; };
 		143FF3DF177D1CF70039B65F /* play16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play16@2x.png"; path = "resources/play16@2x.png"; sourceTree = "<group>"; };
 		143FF3E7177D1E430039B65F /* pause16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause16.png; path = resources/pause16.png; sourceTree = "<group>"; };
@@ -855,9 +855,6 @@
 		1441ADA21771D46D00D5DF9D /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		1441ADA31771D46D00D5DF9D /* NSData+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GIF.h"; sourceTree = "<group>"; };
 		1441ADA41771D46D00D5DF9D /* NSData+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+GIF.m"; sourceTree = "<group>"; };
-		1441E97F16F6F15600C9E09E /* YoumiAppsController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoumiAppsController2.m; sourceTree = "<group>"; };
-		1441E98116F6F1E300C9E09E /* YoumiAppsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoumiAppsController.h; sourceTree = "<group>"; };
-		1441E98216F6F1E300C9E09E /* YoumiAppsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoumiAppsController.m; sourceTree = "<group>"; };
 		1441E99416F6F47100C9E09E /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
 		1441E99516F6F47100C9E09E /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		14427C1E173E916600A6CEB1 /* AdSpotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdSpotManager.h; sourceTree = "<group>"; };
@@ -1758,6 +1755,15 @@
 			name = FM;
 			sourceTree = "<group>";
 		};
+		143ECC7D1794D7A3003980DF /* NoBackup */ = {
+			isa = PBXGroup;
+			children = (
+				143ECC751794D79B003980DF /* NobackupManager.h */,
+				143ECC761794D79B003980DF /* NobackupManager.m */,
+			);
+			name = NoBackup;
+			sourceTree = "<group>";
+		};
 		14419390177951FD000B6D52 /* MyProgressView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2340,6 +2346,7 @@
 				14B97D7615BE7E3D008E6F76 /* SVProgressHUD */,
 				14673B7B174B086F0097E8FF /* Timer */,
 				14419390177951FD000B6D52 /* MyProgressView */,
+				143ECC7D1794D7A3003980DF /* NoBackup */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -2674,10 +2681,6 @@
 				1441938917793643000B6D52 /* SettingViewController.m */,
 				143FF3EE177D23B50039B65F /* FontSizeSettingController.h */,
 				143FF3EF177D23B50039B65F /* FontSizeSettingController.m */,
-				1441E98116F6F1E300C9E09E /* YoumiAppsController.h */,
-				1441E98216F6F1E300C9E09E /* YoumiAppsController.m */,
-				14189E8916D0CB54009B3D87 /* YoumiAppsController2.h */,
-				1441E97F16F6F15600C9E09E /* YoumiAppsController2.m */,
 				1429D1F016A06A02001F2B8F /* RecommandedAppsController.h */,
 				1429D1F316A06A51001F2B8F /* RecommandedAppsController.m */,
 				140CD87316A0FE53002A0B4C /* AppInfo.h */,
@@ -3151,8 +3154,6 @@
 				142DD42216F4E1BD00B7BB31 /* UIImage+Resize.m in Sources */,
 				142DD42316F4E1BD00B7BB31 /* UIImage+Alpha.m in Sources */,
 				142DD42416F4E1BD00B7BB31 /* UIImage+RoundedCorner.m in Sources */,
-				1441E98016F6F15600C9E09E /* YoumiAppsController2.m in Sources */,
-				1441E98316F6F1E300C9E09E /* YoumiAppsController.m in Sources */,
 				1441E99616F6F47100C9E09E /* UILabel+VerticalAlign.m in Sources */,
 				14543CF616F8505300C38629 /* AFKReviewTroller.m in Sources */,
 				149C6DE116F860AE00C1D0E7 /* AFHTTPClient.m in Sources */,
@@ -3272,6 +3273,7 @@
 				1441938A17793643000B6D52 /* SettingViewController.m in Sources */,
 				1441938F177951F6000B6D52 /* MyProgressView.m in Sources */,
 				143FF3F0177D23B50039B65F /* FontSizeSettingController.m in Sources */,
+				143ECC771794D79B003980DF /* NobackupManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3358,7 +3360,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3374,7 +3376,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "167C2CC5-BD73-495D-A6B8-2DDE3E3991C2";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -3403,7 +3405,7 @@
 					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3477,7 +3479,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3493,7 +3495,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "167C2CC5-BD73-495D-A6B8-2DDE3E3991C2";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -3522,7 +3524,7 @@
 					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3578,7 +3580,7 @@
 					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "AboutSex/AboutSex-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",

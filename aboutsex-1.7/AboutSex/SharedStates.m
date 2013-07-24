@@ -604,6 +604,17 @@ static UITabBarController* MTabBarController = nil; //static variable will be re
 
 }
 
+- (BOOL) wallEnabled
+{
+    NSString* sAcuringPointsInstruction = [MobClick getConfigParams:@"UPID_ENABLE_WALL"];
+    if (!sAcuringPointsInstruction
+        || sAcuringPointsInstruction.length <= 0
+        || [sAcuringPointsInstruction caseInsensitiveCompare:@"no"] == NSOrderedSame)
+    {
+        return NO;
+    }
+    return YES;
+}
 
 - (Period*) getPeriod
 {
