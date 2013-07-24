@@ -214,10 +214,6 @@
 		144397E91761860300B00753 /* AffectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144397E81761860300B00753 /* AffectionViewController.m */; };
 		144397EC17618F1D00B00753 /* DMCustomModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144397EB17618F1D00B00753 /* DMCustomModalViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		144397F01761933E00B00753 /* PeriodSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144397EF1761933E00B00753 /* PeriodSettingViewController.m */; };
-		14476A41176237AD00583473 /* menu16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14476A3F176237AD00583473 /* menu16@2x.png */; };
-		14476A42176237AD00583473 /* menu16.png in Resources */ = {isa = PBXBuildFile; fileRef = 14476A40176237AD00583473 /* menu16.png */; };
-		14476A4A176237F500583473 /* menu24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14476A48176237F400583473 /* menu24.png */; };
-		14476A4B176237F500583473 /* menu24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14476A49176237F400583473 /* menu24@2x.png */; };
 		14478B83172AC30A00EBBC5D /* recyle24.png in Resources */ = {isa = PBXBuildFile; fileRef = 14478B81172AC30A00EBBC5D /* recyle24.png */; };
 		14478B84172AC30A00EBBC5D /* recyle24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14478B82172AC30A00EBBC5D /* recyle24@2x.png */; };
 		144ABA27171EBBB900D7BF95 /* leftside_shadow_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 144ABA26171EBBB900D7BF95 /* leftside_shadow_bg@2x.png */; };
@@ -879,10 +875,6 @@
 		144397EB17618F1D00B00753 /* DMCustomModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMCustomModalViewController.m; sourceTree = "<group>"; };
 		144397EE1761933E00B00753 /* PeriodSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodSettingViewController.h; sourceTree = "<group>"; };
 		144397EF1761933E00B00753 /* PeriodSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodSettingViewController.m; sourceTree = "<group>"; };
-		14476A3F176237AD00583473 /* menu16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu16@2x.png"; path = "resources/menu16@2x.png"; sourceTree = "<group>"; };
-		14476A40176237AD00583473 /* menu16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu16.png; path = resources/menu16.png; sourceTree = "<group>"; };
-		14476A48176237F400583473 /* menu24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu24.png; path = resources/menu24.png; sourceTree = "<group>"; };
-		14476A49176237F400583473 /* menu24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu24@2x.png"; path = "resources/menu24@2x.png"; sourceTree = "<group>"; };
 		14478B81172AC30A00EBBC5D /* recyle24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recyle24.png; path = resources/recyle24.png; sourceTree = "<group>"; };
 		14478B82172AC30A00EBBC5D /* recyle24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "recyle24@2x.png"; path = "resources/recyle24@2x.png"; sourceTree = "<group>"; };
 		144ABA26171EBBB900D7BF95 /* leftside_shadow_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "leftside_shadow_bg@2x.png"; path = "resources/leftside_shadow_bg@2x.png"; sourceTree = "<group>"; };
@@ -2494,10 +2486,6 @@
 				140FAFCE16F866C800A9C958 /* loading@2x.png */,
 				143AEA6317240F4B006931B6 /* menu20.png */,
 				143AEA6417240F4C006931B6 /* menu20@2x.png */,
-				14476A3F176237AD00583473 /* menu16@2x.png */,
-				14476A40176237AD00583473 /* menu16.png */,
-				14476A48176237F400583473 /* menu24.png */,
-				14476A49176237F400583473 /* menu24@2x.png */,
 				143AEA5B172406AD006931B6 /* play36@2x.png */,
 				143AEA5C172406AD006931B6 /* play36.png */,
 				143AEA5F1724075B006931B6 /* pause36.png */,
@@ -2999,10 +2987,6 @@
 				143B512E1747D3B600AF78E5 /* Default.png in Resources */,
 				143B512F1747D3B600AF78E5 /* Default@2x.png in Resources */,
 				14578E0F175A3D4400199420 /* TapkuLibrary.bundle in Resources */,
-				14476A41176237AD00583473 /* menu16@2x.png in Resources */,
-				14476A42176237AD00583473 /* menu16.png in Resources */,
-				14476A4A176237F500583473 /* menu24.png in Resources */,
-				14476A4B176237F500583473 /* menu24@2x.png in Resources */,
 				14330F3C176382A600025C85 /* talk24.png in Resources */,
 				14330F3D176382A600025C85 /* talk24@2x.png in Resources */,
 				14330F401763850F00025C85 /* time24@2x.png in Resources */,
@@ -3387,6 +3371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3435,6 +3420,7 @@
 					/usr/lib/libobjc.A.dylib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = AppStore;
@@ -3506,6 +3492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3554,6 +3541,7 @@
 					/usr/lib/libobjc.A.dylib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3562,6 +3550,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sheng Wen (QM833BVUC5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AboutSex\"",
@@ -3610,6 +3599,7 @@
 					/usr/lib/libobjc.A.dylib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
